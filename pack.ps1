@@ -10,7 +10,6 @@ function ZipCurrentModule
 }
 
 msbuild /p:Configuration=Release
-npm run build --prefix ./src/ui
 
 $fullVersion=[System.Reflection.Assembly]::LoadFrom("src\alloy\bin\EPiServer.Labs.BlockEnhancements.dll").GetName().Version
 $version="$($fullVersion.major).$($fullVersion.minor).$($fullVersion.build)"

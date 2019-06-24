@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <system.web>
+    <authentication mode="None" xdt:Transform="SetAttributes(mode)" />
+    <membership xdt:Transform="RemoveAttributes(defaultProvider,userIsOnlineTimeWindow,hashAlgorithmType)" >
+      <providers>
+        <add xdt:Transform="RemoveAll" />
+        <clear />
+      </providers>
+    </membership>
+    <roleManager xdt:Transform="RemoveAttributes(defaultProvider,enabled,cacheRolesInCookie)" >
+      <providers>
+        <add xdt:Transform="RemoveAll" />
+        <clear />
+      </providers>
+    </roleManager>
+  </system.web>
+</configuration>

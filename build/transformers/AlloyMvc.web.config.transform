@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <episerver>
+    <applicationSettings uiEditorCssPaths="~/Static/css/Editor.css" uiSafeHtmlTags="b,i,u,br,em,strong,p,a,img,ol,ul,li" />
+    <imageEditor windowWidth="900" windowHeight="600" enabled="true">
+      <sizePresets>
+        <preset name="320*240" width="320" height="240"/>
+        <preset name="640*480" width="640" height="480"/>
+      </sizePresets>
+    </imageEditor>
+  </episerver>
+
+  <appSettings>
+    <add key="GlobalNewsContainerID" value="" />
+  </appSettings>
+
+  <episerver.framework>
+    <localization fallbackBehavior="Echo, MissingMessage, FallbackCulture" fallbackCulture="en">
+      <providers>
+        <add virtualPath="~/Resources/LanguageFiles" name="languageFiles" type="EPiServer.Framework.Localization.XmlResources.FileXmlLocalizationProvider, EPiServer.Framework.AspNet" />
+      </providers>
+    </localization>
+  </episerver.framework>
+
+  <location path="Views/Plugins">
+    <system.web>
+      <authorization>
+        <allow roles="WebAdmins, WebEditors, Administrators" />
+        <deny users="*" />
+      </authorization>
+    </system.web>
+  </location>
+
+  <!-- 'Static' location added to configure for static files only -->
+  <location path="Static">
+    <system.webServer>
+      <handlers>
+        <clear />
+        <add name="StaticFile" path="*" verb="*" modules="StaticFileModule" resourceType="File" requireAccess="Read" />
+      </handlers>
+    </system.webServer>
+  </location>
+
+</configuration>

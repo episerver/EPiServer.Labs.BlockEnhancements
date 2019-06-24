@@ -1,0 +1,28 @@
+root = true
+
+[*]
+indent_style = space
+indent_size = 4
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{cs,svc,asax,aspx,cshtml,csproj,sln}]
+charset = utf-8-bom
+
+[*.{config,csproj,nuspec,xml}]
+indent_size = 2
+insert_final_newline = false
+
+[*.sln]
+indent_style = tab
+
+[*.md]
+trim_trailing_whitespace = false
+
+# Ignore these files
+[{LICENSE,build/database/*,src/alloy/App_Data/**,src/alloy/modulesbin/**,src/alloy/obj/**,src/alloy/Static/**}]
+indent_style = unset
+indent_size = unset
+trim_trailing_whitespace = unset
+insert_final_newline = unset

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+
+    <UsingTask AssemblyFile="tools\EPiServer.Build.Tasks.dll" TaskName="ReplaceInFile" />
+
+    <PropertyGroup>
+        <!-- Append our build customizations after the build tasks defined by Microsoft.Common.targets -->
+        <BuildDependsOn>CopyTemplatesSourceFiles;ReplaceNamespacesSourceFiles;$(BuildDependsOn)</BuildDependsOn>
+        <CoreCleanDependsOn>$(CoreCleanDependsOn);CleanTemplatesSourceFiles</CoreCleanDependsOn>
+    </PropertyGroup>
+
+    <Target Condition="$(BuildNugetPackage) == 'true'" Name="CleanTemplatesSourceFiles">
+        <RemoveDir Directories="$(OutDir)\NugetSources" />
+    </Target>
+
+    <Target Condition="$(BuildNugetPackage) == 'true'" Name="CopyTemplatesSourceFiles">
+        <ItemGroup>
+            <TemplateSourceFiles Include="**\*.cs;**\*.cshtml;**\*.ascx;**\*.aspx;**\*.master;module.config" />
+        </ItemGroup>
+        <Copy SourceFiles="@(TemplateSourceFiles)" DestinationFiles="@(TemplateSourceFiles->'$(OutDir)\NugetSources\%(RecursiveDir)%(Filename)%(Extension).pp')" />
+    </Target>
+
+    <Target Condition="$(BuildNugetPackage) == 'true'" Name="ReplaceNamespacesSourceFiles">
+        <ItemGroup>
+            <TemplateSourcePPFiles Include="$(OutDir)\NugetSources\**\*.pp" />
+        </ItemGroup>
+        <ReplaceInFile File="%(TemplateSourcePPFiles.Identity)" Replace="$(RootNamespace)=$rootnamespace$" />
+        <ReplaceInFile File="%(TemplateSourcePPFiles.Identity)" Replace="$(AssemblyName)=$assemblyname$" />
+    </Target>
+
+</Project>

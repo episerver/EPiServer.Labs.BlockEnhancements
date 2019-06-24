@@ -1,0 +1,20 @@
+﻿@model PageViewModel<AlloyTemplates.Models.Pages.TestPage>
+
+@{
+ Layout = null;
+}
+
+<div id="test1" style="margin: 200px 0 0 50px;">
+
+@Html.PropertyFor(x => x.CurrentPage.Text1)
+
+
+</div>
+
+<script>
+    function resizeDiv() {
+        document.getElementById("test1").style.marginTop = "400px";
+    }
+</script>
+
+<button onclick="resizeDiv">aaaa</button>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>EPiServer.Labs.BlockEnhancements</id>
+    <version>$version$</version>
+    <title>EPiServer.Labs.BlockEnhancements</title>
+    <authors>EPiServer Labs</authors>
+    <owners>EPiServer Labs</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Collection of useful enhancements around Block Publishing process.</description>
+    <releaseNotes/>
+    <copyright>Copyright 2019</copyright>
+    <tags>content block publishing publish local</tags>
+    <licenseUrl>https://raw.githubusercontent.com/episerver/episerver.labs.blockenhancements/master/LICENSE</licenseUrl>
+    <iconUrl>http://www.episerver.com/Framework/Styles/Images/Products/Content.png</iconUrl>
+    <projectUrl>https://github.com/episerver/episerver.labs.blockenhancements</projectUrl>
+    <dependencies>
+      <dependency id="EPiServer.CMS.Core" version="[11.9.2,12.0)" />
+      <dependency id="EPiServer.CMS.UI" version="[11.5.3,12.0)" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\EPiServer.Labs.BlockEnhancements.dll" target="lib\net45\" />
+    <file src="modules\_protected\episerver-labs-block-enhancements\episerver-labs-block-enhancements.zip" target="content\modules\_protected\episerver-labs-block-enhancements\" />
+    <file src="modules\_protected\episerver-labs-block-enhancements\web.config" target="content\modules\_protected\episerver-labs-block-enhancements\" />
+    <file src="web.config.transform" target="content" />
+  </files>
+</package>

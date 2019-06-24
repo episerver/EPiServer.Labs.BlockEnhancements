@@ -1,0 +1,30 @@
+## Repository specific files
+
+App_Code/
+App_Data/
+
+License.config
+
+## Ignore Visual Studio temporary files and build results.
+
+# User-specific files
+*.user
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# Visual Studio 2015 cache/options directory
+.vs/
+
+# NuGet Packages
+[Pp]ackages/
+
+.idea/
+.vscode
+
+node_modules/
+
+*.nupkg
+episerver-labs-block-enhancements.zip

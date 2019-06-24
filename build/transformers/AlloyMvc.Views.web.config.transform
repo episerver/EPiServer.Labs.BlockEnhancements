@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <system.web.webPages.razor>
+    <pages pageBaseType="System.Web.Mvc.WebViewPage">
+      <namespaces>
+        <add namespace="$rootnamespace$.Models.Pages"/>
+        <add namespace="$rootnamespace$.Models.Blocks"/>
+        <add namespace="$rootnamespace$.Models.ViewModels"/>
+        <add namespace="$rootnamespace$.Helpers"/>
+      </namespaces>
+    </pages>
+  </system.web.webPages.razor>
+</configuration>

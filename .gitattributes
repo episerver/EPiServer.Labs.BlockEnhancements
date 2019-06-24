@@ -1,0 +1,42 @@
+## Set default behavior to automatically normalize line endings.
+* text=auto
+
+## Visual Studio and .NET text files
+*.ascx      text
+*.aspx      text
+*.cmd       text
+*.config    text
+*.cs        text diff=csharp
+*.cshtml    text
+*.csproj    text eol=crlf
+*.master    text
+*.msbuild   text
+*.ps1       text
+*.psm1      text
+*.sln       text eol=crlf
+*.sql       text
+*.targets   text
+*.transform text
+*.xml       text
+
+## Common web text files
+*.css       text
+*.htm       text
+*.html      text
+*.js        text
+*.less      text
+*.md        text
+
+## Bash and Linux text files
+*.sh        text eol=lf
+
+## Visual Studio and .NET binary files
+*.dll   binary
+*.snk   binary
+
+## Common web binary files
+*.gif   binary
+*.ico   binary
+*.jpeg  binary
+*.jpg   binary
+*.png   binary

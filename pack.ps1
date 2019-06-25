@@ -1,4 +1,5 @@
 $defaultVersion="1.0.0"
+$workingDirectory = Get-Location
 function ZipCurrentModule
 {
     Param ([String]$moduleName)
@@ -15,8 +16,5 @@ Write-Host "Creating nuget with $version version"
 
 Set-Location src\alloy\modules\_protected\episerver-labs-block-enhancements
 ZipCurrentModule -moduleName episerver-labs-block-enhancements
-
-Set-Location ..\..\..\
-nuget pack EPiServer.Labs.BlockEnhancements.nuspec -Version $version
-Set-Location ..\..\
-Move-Item src\alloy\EPiServer.Labs.BlockEnhancements.$version.nupkg EPiServer.Labs.BlockEnhancements.$version.nupkg -Force
+Set-Location $workingDirectory
+build\tools\nuget.exe pack src\alloy\EPiServer.Labs.BlockEnhancements.nuspec -Version $version

@@ -2,6 +2,7 @@
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
+using EPiServer.Labs.BlockEnhancements.InlineBlocksEditing;
 
 namespace AlloyTemplates.Models.Blocks
 {
@@ -12,6 +13,7 @@ namespace AlloyTemplates.Models.Blocks
         GUID = "67F617A4-2175-4360-975E-75EDF2B924A7",
         GroupName = SystemTabNames.Content)]
     [SiteImageUrl]
+    [InlineBlockEditSettings(ShowNameProperty = false)]
     public class EditorialBlock : SiteBlockData
     {
         [Display(GroupName = SystemTabNames.Content)]

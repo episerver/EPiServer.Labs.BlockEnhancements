@@ -2,6 +2,7 @@
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
+using EPiServer.Labs.BlockEnhancements.InlineBlocksEditing;
 using EPiServer.Web;
 
 namespace AlloyTemplates.Models.Blocks
@@ -11,6 +12,7 @@ namespace AlloyTemplates.Models.Blocks
     /// </summary>
     [SiteContentType(GUID = "EB67A99A-E239-41B8-9C59-20EAA5936047")] // BEST PRACTICE TIP: Always assign a GUID explicitly when creating a new block type
     [SiteImageUrl] // Use site's default thumbnail
+    [InlineBlockEditSettings(ShowNameProperty = false)]
     public class TeaserBlock : SiteBlockData
     {
         [CultureSpecific]

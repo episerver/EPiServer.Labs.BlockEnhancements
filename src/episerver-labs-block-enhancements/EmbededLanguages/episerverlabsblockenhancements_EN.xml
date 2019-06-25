@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <languages>
   <language name="English" id="en">
-
+    <episerverlabs>
+      <blockenhancements>
+        <command>
+          <label>Publish with local content items</label>
+        </command>
+        <dialog>
+          <title>Confirm publishing the page with local items</title>
+          <confirmation>There are {0} unpublished local items tied to this content.&lt;br/&gt; Choose the ones that you would like to publish altogether.</confirmation>
+        </dialog>
+      </blockenhancements>
+    </episerverlabs>
   </language>
 </languages>

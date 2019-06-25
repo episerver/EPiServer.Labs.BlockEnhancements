@@ -392,6 +392,10 @@
     <Content Include="favicon.ico" />
     <Content Include="libman.json" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\initializer.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-with-local-content-items\command-provider.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-with-local-content-items\content-items-list.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-with-local-content-items\initializer.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-with-local-content-items\command.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\module.config" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\web.config" />
     <Content Include="Resources\LanguageFiles\PropertyNames_sv.xml">

@@ -1,0 +1,41 @@
+.epi-dialog-portrait.inline-edit-dialog {
+    width: auto;
+    transform: translateX(-50%);
+    left: 50% !important;
+}
+
+.epi-dialog-portrait.inline-edit-dialog .dijitDialogPaneContentArea {
+    min-height: 300px;
+    max-height: 600px;
+    height: auto;
+}
+
+.inline-edit-dialog .dijitButton.publish-button {
+    float: left;
+}
+
+.inline-edit-dialog .epi-statusIndicatorIcon {
+    vertical-align: top;
+    margin-right: 5px;
+}
+
+.inline-edit-dialog .epi-form-container__section {
+    margin: 0;
+}
+
+.inline-edit-dialog .epi-formsHeaderContainer {
+    margin-bottom: 0;
+}
+
+.inline-edit-dialog .epi-form-container .epi-formsHeaderContainer {
+    border: none;
+    border-bottom: 1px solid #c0c0c0;
+}
+
+.inline-edit-dialog .epi-form-container .epi-containerLayout {
+    padding-top: 0;
+}
+
+.inline-edit-dialog .epi-form-container__section__row--group>.epi-containerLayout {
+    padding-bottom: 0;
+}

@@ -10,6 +10,11 @@
           <title>Confirm publishing the page with local items</title>
           <confirmation>There are {0} unpublished local items tied to this content.&lt;br/&gt; Choose the ones that you would like to publish altogether.</confirmation>
         </dialog>
+        <ilineediting>
+          <dialog>
+            <save>Save</save>
+          </dialog>
+        </ilineediting>
       </blockenhancements>
     </episerverlabs>
   </language>

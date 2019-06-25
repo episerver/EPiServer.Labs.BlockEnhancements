@@ -2,7 +2,11 @@
 <languages>
   <language name="Swedish" id="sv">
     <episerverlabsblockenhancements>
-
+      <ilineediting>
+        <dialog>
+          <save>Spara</save>
+        </dialog>
+      </ilineediting>
     </episerverlabsblockenhancements>
   </language>
 </languages>

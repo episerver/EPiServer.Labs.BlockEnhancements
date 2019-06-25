@@ -3,12 +3,15 @@ define([
     "epi/_Module",
     "episerver-labs-block-enhancements/store-initializer",
     "episerver-labs-block-enhancements/status-indicator/initializer",
-    "episerver-labs-block-enhancements/publish-with-local-content-items/initializer"
+    "episerver-labs-block-enhancements/publish-with-local-content-items/initializer",
+    "episerver-labs-block-enhancements/inline-editing/initializer"
 ], function (
     declare,
     _Module,
     storeInitializer,
-    publishWithLocalContentItemsInitializer
+    statusIndicatorInitializer,
+    publishWithLocalContentItemsInitializer,
+    inlineEditingInitializer
 ) {
     return declare([_Module], {
         initialize: function () {
@@ -16,6 +19,7 @@ define([
             storeInitializer();
             statusIndicatorInitializer();
             publishWithLocalContentItemsInitializer();
+            inlineEditingInitializer();
         }
     });
 });

@@ -4,12 +4,10 @@ function ZipCurrentModule
     Param ([String]$moduleName)
     Robocopy.exe $defaultVersion\ $version\ /S
     ((Get-Content -Path module.config -Raw) -Replace $defaultVersion, $version ) | Set-Content -Path module.config
-    7z a "$moduleName.zip" $version Views module.config
+    "packages\7-Zip.CommandLine.18.1.0\tools\7za.exe a $moduleName.zip $version Views module.config"
     git checkout module.config
     Remove-Item $version -Force -Recurse
 }
-
-msbuild /p:Configuration=Release
 
 $fullVersion=[System.Reflection.Assembly]::LoadFrom("src\alloy\bin\EPiServer.Labs.BlockEnhancements.dll").GetName().Version
 $version="$($fullVersion.major).$($fullVersion.minor).$($fullVersion.build)"

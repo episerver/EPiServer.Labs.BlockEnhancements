@@ -97,7 +97,7 @@ define([
 
         _onModelChange: function () {
             // summary:
-            //		Updates canExecut and isAvailable after the model has been updated.
+            //		Updates canExecute and isAvailable after the model has been updated.
 
             var _arguments = arguments;
             return when(this._contentVersionStore

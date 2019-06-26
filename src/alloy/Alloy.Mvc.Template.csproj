@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -392,15 +392,17 @@
     <Content Include="favicon.ico" />
     <Content Include="libman.json" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\initializer.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\BlockEditFormContainer.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\BlockMenuInlineEdit.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\CustomBlockEdit.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\InlineEdit.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\InlinePublish.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\CreateContentGroupContainerWithNoHeader.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\FormDialog.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\block-edit-form-container.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\block-menu-inline-edit.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\custom-block-edit.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\inline-edit.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\inline-publish.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\create-content-group-container-with-no-header.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\form-dialog.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\initializer.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\inline-edit.css" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\inlineEditingInitializer.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-publish\commands\block-menu-inline-publish.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-publish\initializer.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-with-local-content-items\command-provider.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-with-local-content-items\content-items-list.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-with-local-content-items\initializer.js" />

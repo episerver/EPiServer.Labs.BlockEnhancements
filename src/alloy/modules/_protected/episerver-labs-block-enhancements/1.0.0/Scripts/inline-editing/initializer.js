@@ -14,11 +14,11 @@ define([
     BlockMenuInlineEditCommand
 ) {
     function updateCommands() {
-        let customBlockEditCommand = new CustomBlockEditCommand();
+        var customBlockEditCommand = new CustomBlockEditCommand();
         this.commands[0] = customBlockEditCommand;
         this.own(customBlockEditCommand);
 
-        let inilineEdit = new InlineEditCommand();
+        var inilineEdit = new InlineEditCommand();
         this.commands.splice(1, 0, inilineEdit);
         this.own(inilineEdit);
     }

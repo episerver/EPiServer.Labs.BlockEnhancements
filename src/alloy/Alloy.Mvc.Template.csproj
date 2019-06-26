@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -396,6 +396,12 @@
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-with-local-content-items\content-items-list.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-with-local-content-items\initializer.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-with-local-content-items\command.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\status-indicator\block-status-indicator.css" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\status-indicator\block-status-indicator.html" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\status-indicator\block-tree-node-with-status.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\status-indicator\initializer.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\status-indicator\latest-content-resolver.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\store-initializer.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\module.config" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\web.config" />
     <Content Include="Resources\LanguageFiles\PropertyNames_sv.xml">

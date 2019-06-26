@@ -5,6 +5,7 @@ using EPiServer.Cms.Shell.Service.Internal;
 using EPiServer.Cms.Shell.UI.Rest.Models.Internal;
 using EPiServer.Core;
 using EPiServer.Globalization;
+using EPiServer.Labs.BlockEnhancements.StatusIndicator;
 using EPiServer.Shell.Services.Rest;
 
 namespace EPiServer.Labs.BlockEnhancements
@@ -15,13 +16,15 @@ namespace EPiServer.Labs.BlockEnhancements
         private readonly IContentRepository _contentRepository;
         private readonly ContentLoaderService _contentLoaderService;
         private readonly LanguageResolver _languageResolver;
+        private readonly LatestContentResolver _latestContentResolver;
 
         public BlockEnhancementsStore(ContentLoaderService contentLoaderService, IContentRepository contentRepository,
-            LanguageResolver languageResolver)
+            LanguageResolver languageResolver, LatestContentResolver latestContentResolver)
         {
             _contentLoaderService = contentLoaderService;
             _contentRepository = contentRepository;
             _languageResolver = languageResolver;
+            _latestContentResolver = latestContentResolver;
         }
 
         public IEnumerable<ContentReference> GetLocalDescendants(ContentReference contentAssetFolderLink,
@@ -73,6 +76,12 @@ namespace EPiServer.Labs.BlockEnhancements
             }
 
             return list;
+        }
+
+        public RestResultBase GetLatestVersions(IEnumerable<ContentReference> ids)
+        {
+            var queryString = ControllerContext.HttpContext.Request.QueryString;
+            return Rest(_latestContentResolver.GetLatestVersions(ids, queryString));
         }
 
         [HttpGet]

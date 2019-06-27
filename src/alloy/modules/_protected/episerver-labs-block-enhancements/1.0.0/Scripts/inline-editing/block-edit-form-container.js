@@ -8,23 +8,33 @@ define([
     "epi/shell/widget/FormContainer"
 ], function (
     declare,
-
     dependency,
     UriParser,
     ContentViewModel,
     FormContainer) {
 
+    var InlineContentViewModel = declare([ContentViewModel], {
+        _contentLinkChanged: function (oldContentLink, newContentLink) {
+            // store the latest newContentLink, could have changed during sync, ie when first changing a property
+            this.set("contentLink", newContentLink);
+
+            this.syncService.set("contentLink", newContentLink);
+
+            // propagate new contentlink
+            this.validator.setContextId(newContentLink);
+        }
+    });
+
     return declare([FormContainer], {
         contentLink: null,
 
         SaveForm: function () {
-            console.log(this.value);
-
             var model = this._model,
                 value = this.value;
 
-            // we need to override _contentLinkChanged, to prevent from reloading the page
-            this._model._contentLinkChanged = function () { };
+            //TODO:PR TO CMS-UI - once we upgrade to EPiServer.CMS.UI 11.10.0 we can remove the custom InlineContentViewModel
+            // and uncomment this line below
+            //this._model.onContentLinkChange = function () { };
 
             Object.keys(this.value).forEach(function (propertyName) {
                 model.setProperty(propertyName, value[propertyName]);
@@ -36,14 +46,14 @@ define([
         _setContentLinkAttr: function (contentLink) {
             this._set("contentLink", contentLink);
             var self = this;
-            return this._getContextStore().query({ uri: "epi.cms.contentdata:///" + contentLink })
+            return this._getContextStore().query({uri: "epi.cms.contentdata:///" + contentLink})
                 .then(function (context) {
                     self._contenxt = context;
                     var uri = new UriParser(context.uri);
                     return uri.getId();
                 })
                 .then(function (contentLink) {
-                    self._model = new ContentViewModel({ contentLink: contentLink, local: true });
+                    self._model = new InlineContentViewModel({contentLink: contentLink});
                     return self._model.reload();
                 })
                 .then(function () {
@@ -59,8 +69,8 @@ define([
             }
         },
 
-        _hideProperty: function(metadata, propertyName) {
-            metadata.properties.some(function(property){
+        _hideProperty: function (metadata, propertyName) {
+            metadata.properties.some(function (property) {
                 if (property.name === propertyName) {
                     property.showForEdit = false;
                     return true;
@@ -79,7 +89,7 @@ define([
                 this._hideProperty(metadata, "icategorizable_category");
             }
 
-            var hiddenGroups = settings.hiddenGroups.map(function(x){
+            var hiddenGroups = settings.hiddenGroups.map(function (x) {
                 return x.toLowerCase();
             });
             let numberOfVisibleGroups = metadata.groups.filter(function (x) {
@@ -94,7 +104,7 @@ define([
                     group.title = null;
                     group.uiType = "episerver-labs-block-enhancements/inline-editing/create-content-group-container-with-no-header";
                 } else {
-                    group.uiType = numberOfVisibleGroups > 1 ? "epi-cms/layout/CreateContentGroupContainer" :"episerver-labs-block-enhancements/inline-editing/create-content-group-container-with-no-header";
+                    group.uiType = numberOfVisibleGroups > 1 ? "epi-cms/layout/CreateContentGroupContainer" : "episerver-labs-block-enhancements/inline-editing/create-content-group-container-with-no-header";
                 }
 
                 // by default Settings tab is not displayed

@@ -1,5 +1,6 @@
 define([
     "dojo/_base/declare",
+    "dojo/topic",
 
     "epi/dependency",
     "epi/UriParser",
@@ -8,6 +9,7 @@ define([
     "epi/shell/widget/FormContainer"
 ], function (
     declare,
+    topic,
     dependency,
     UriParser,
     ContentViewModel,
@@ -40,7 +42,12 @@ define([
                 model.setProperty(propertyName, value[propertyName]);
             });
 
-            return model.save();
+            return model.save().then(function (result) {
+                if (!result) {
+                    return;
+                }
+                topic.publish("/epi/cms/content/statuschange/", model.contentData.status, {id: model.contentLink});
+            });
         },
 
         _setContentLinkAttr: function (contentLink) {

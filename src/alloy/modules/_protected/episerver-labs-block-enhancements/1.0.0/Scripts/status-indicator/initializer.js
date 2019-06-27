@@ -1,5 +1,6 @@
 define([
     "dojo/aspect",
+    "dojo/topic",
     "epi-cms/core/ContentReference",
     "epi-cms/contentediting/editors/_ContentAreaTree",
     "epi-cms/contentediting/viewmodel/ContentBlockViewModel",
@@ -9,6 +10,7 @@ define([
     "episerver-labs-block-enhancements/status-indicator/block-tree-node-with-status"
 ], function(
     aspect,
+    topic,
     ContentReference,
     _ContentAreaTree,
     ContentBlockViewModel,
@@ -56,6 +58,27 @@ define([
                     });
                 }.bind(this));
             }.bind(this), true));
+
+            // listen content area item status changed and update item tree node
+            this.own(
+                topic.subscribe("/epi/cms/content/statuschange/", function(status, contentIdentity) {
+                    var updatedContentId = new ContentReference(contentIdentity.id).id;
+
+                    var children = this.model.getChildren();
+                    var filteredChildren = children.filter(function (c) {
+                        return new ContentReference(c.contentLink).id === updatedContentId;
+                    });
+                    if (filteredChildren.length === 0) {
+                        return;
+                    }
+                    latestContentResolver([{contentLink: updatedContentId.toString()}]).then(function(contents) {
+                        filteredChildren.forEach(function (c) {
+                            c.set("content", contents[updatedContentId]);
+                        });
+                    });
+
+                }.bind(this))
+            );
         };
 
         var originalTransformValueToModels = ContentAreaViewModel.prototype._transformValueToModels;

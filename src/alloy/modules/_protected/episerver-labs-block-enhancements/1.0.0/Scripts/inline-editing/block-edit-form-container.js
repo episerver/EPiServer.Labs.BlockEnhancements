@@ -28,7 +28,7 @@ define([
     return declare([FormContainer], {
         contentLink: null,
 
-        SaveForm: function () {
+        saveForm: function () {
             var model = this._model,
                 value = this.value;
 
@@ -92,7 +92,7 @@ define([
             var hiddenGroups = settings.hiddenGroups.map(function (x) {
                 return x.toLowerCase();
             });
-            let numberOfVisibleGroups = metadata.groups.filter(function (x) {
+            var numberOfVisibleGroups = metadata.groups.filter(function (x) {
                 return x.name !== "EPiServerCMS_SettingsPanel" && hiddenGroups.indexOf(x.name.toLowerCase()) === -1;
             }).length;
 

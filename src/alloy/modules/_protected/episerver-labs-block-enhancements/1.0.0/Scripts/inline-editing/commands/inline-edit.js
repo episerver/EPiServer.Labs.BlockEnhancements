@@ -91,7 +91,7 @@ define([
                 }.bind(this));
 
 
-                var executeHandle = on(dialog, "execute", form.SaveForm.bind(form));
+                var executeHandle = on(dialog, "execute", form.saveForm.bind(form));
 
                 var publishHandle = on(dialog, "Publish", function () {
                     inlinePublishCommand.execute().then(function () {

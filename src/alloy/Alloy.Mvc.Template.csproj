@@ -304,6 +304,7 @@
     <Compile Include="Business\Channels\MobileChannel.cs" />
     <Compile Include="Business\Channels\WebChannel.cs" />
     <Compile Include="Business\Initialization\BundleConfig.cs" />
+    <Compile Include="Business\Initialization\CustomBlockEnhancementsModule.cs" />
     <Compile Include="Business\Initialization\CustomizedRenderingInitialization.cs" />
     <Compile Include="Business\Initialization\DependencyResolverInitialization.cs" />
     <Compile Include="Business\Initialization\DisplayModesInitialization.cs" />

@@ -19,10 +19,19 @@ define([
         initialize: function () {
             this.inherited(arguments);
             storeInitializer();
-            statusIndicatorInitializer();
-            publishWithLocalContentItemsInitializer();
-            inlineEditingInitializer();
-            inlinePublishInitializer();
+            var options = this._settings.options;
+            if (options.statusIndicator) {
+                statusIndicatorInitializer();
+            }
+            if (options.publishWithLocalContentItems) {
+                publishWithLocalContentItemsInitializer();
+            }
+            if (options.inlineEditing) {
+                inlineEditingInitializer();
+            }
+            if (options.inlinePublish) {
+                inlinePublishInitializer();
+            }
         }
     });
 });

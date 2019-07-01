@@ -19,5 +19,7 @@ namespace AlloyTemplates.Models.Blocks
         [Display(GroupName = SystemTabNames.Content)]
         [CultureSpecific]
         public virtual XhtmlString MainBody { get; set; }
+
+        public virtual ContentArea NestedContentArea { get; set; }
     }
 }

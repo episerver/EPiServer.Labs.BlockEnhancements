@@ -124,7 +124,7 @@ define([
                 }
 
                 this.set("isAvailable", true);
-                this.set("canExecute", true);
+                this.set("canExecute", !this.model.readOnly);
             }
         });
     });

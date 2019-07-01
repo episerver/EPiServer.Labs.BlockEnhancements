@@ -5,7 +5,8 @@ define([
     "episerver-labs-block-enhancements/status-indicator/initializer",
     "episerver-labs-block-enhancements/publish-with-local-content-items/initializer",
     "episerver-labs-block-enhancements/inline-editing/initializer",
-    "episerver-labs-block-enhancements/inline-publish/initializer"
+    "episerver-labs-block-enhancements/inline-publish/initializer",
+    "episerver-labs-block-enhancements/content-draft-view/initializer"
 ], function (
     declare,
     _Module,
@@ -13,7 +14,8 @@ define([
     statusIndicatorInitializer,
     publishWithLocalContentItemsInitializer,
     inlineEditingInitializer,
-    inlinePublishInitializer
+    inlinePublishInitializer,
+    contentDraftViewInitializer
 ) {
     return declare([_Module], {
         initialize: function () {
@@ -31,6 +33,9 @@ define([
             }
             if (options.inlinePublish) {
                 inlinePublishInitializer();
+            }
+            if (options.contentDraftView) {
+                contentDraftViewInitializer();
             }
         }
     });

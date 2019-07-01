@@ -11,6 +11,7 @@ namespace EPiServer.Labs.BlockEnhancements
         public bool StatusIndicator { get; set; } = true;
         public bool InlinePublish { get; set; } = true;
         public bool PublishWithLocalContentItems { get; set; } = true;
+        public bool ContentDraftView { get; set; } = true;
     }
 
     public class BlockEnhancementsModule : ShellModule

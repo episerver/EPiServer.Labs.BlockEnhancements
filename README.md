@@ -127,6 +127,7 @@ public class CustomBlockEnhancementsModule : IInitializableHttpModule
         var options = ServiceLocator.Current.GetInstance<BlockEnhancementsOptions>();
         options.InlineEditing = false;
         options.PublishWithLocalContentItems = true;
+        options.ContentDraftView = true;
         options.InlinePublish = false;
         options.StatusIndicator = false;
     }

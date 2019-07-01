@@ -4,6 +4,7 @@ define([
 
     "epi/dependency",
     "epi/UriParser",
+    "epi-cms/contentediting/ContentActionSupport",
     "epi-cms/contentediting/ContentViewModel",
 
     "epi/shell/widget/FormContainer"
@@ -12,6 +13,7 @@ define([
     topic,
     dependency,
     UriParser,
+    ContentActionSupport,
     ContentViewModel,
     FormContainer) {
 
@@ -47,6 +49,7 @@ define([
                     return;
                 }
                 topic.publish("/epi/cms/content/statuschange/", model.contentData.status, {id: model.contentLink});
+                topic.publish("/refresh/ui");
             });
         },
 
@@ -71,7 +74,7 @@ define([
         _onFormCreated: function () {
             this.inherited(arguments);
 
-            if (!this._model.canChangeContent()) {
+            if (!this._model.canChangeContent(ContentActionSupport.action.Edit)) {
                 this.set("readOnly", true);
             }
         },

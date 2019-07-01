@@ -1,6 +1,7 @@
 define([
     "dojo/_base/declare",
     "dojo/when",
+    "dojo/topic",
     "epi/dependency",
     "epi-cms/contentediting/ContentViewModel",
     "epi/shell/DialogService",
@@ -10,6 +11,7 @@ define([
 ], function (
     declare,
     when,
+    topic,
     dependency,
     ContentViewModel,
     dialogService,
@@ -77,6 +79,7 @@ define([
 
             return this.inherited(arguments).then(function () {
                     //dialogService.alert("<strong>" + this.model.contentData.name + "</strong> was published");
+                    topic.publish("/refresh/ui");
                 }.bind(this)).otherwise(showErrorMessage)
                 .always(function () {
                     this.set("isAvailable", false);

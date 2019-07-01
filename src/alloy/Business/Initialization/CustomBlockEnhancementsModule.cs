@@ -14,18 +14,19 @@ namespace AlloyTemplates.Business.Initialization
             var options = ServiceLocator.Current.GetInstance<BlockEnhancementsOptions>();
             options.InlineEditing = true;
             options.PublishWithLocalContentItems = true;
+            options.ContentDraftView = true;
             options.InlinePublish = true;
             options.StatusIndicator = true;
         }
 
         public void Uninitialize(InitializationEngine context)
         {
-            
+
         }
 
         public void InitializeHttpEvents(HttpApplication application)
         {
-            
+
         }
     }
 }

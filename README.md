@@ -12,12 +12,21 @@ The list of features is configurable. You can decide which of them should be ena
 
 ## Publish content with local blocks
 
+This extra command available in the Global Menu will automatically check the "For this page" 
+folder of the current page and list all unpublished blocks that could be published in a single operation.
+
 ![Publish content with local blocks](assets/docsimages/publish_with_local_items.png)
+
+After running the command, the dialog window with list of local blocks is displayed. 
+The Editor can decide which blocks will be published using checkboxes next to local block name.
 
 ![Publish content with local blocks](assets/docsimages/publish_with_local_items_dialog.png)
 
-This extra command available in the Global Menu will automatically check the "For this page" 
-folder of the current page and list all unpublished blocks that could be published in a single operation.
+Command will publish all page and all selected blocks.
+
+Known issue |
+------------ |
+If block contains "For this block" folder, the content from this block won't be published. |
 
 This way the editor won't have to manually click through all local blocks just to check if all of them have already been published.
 

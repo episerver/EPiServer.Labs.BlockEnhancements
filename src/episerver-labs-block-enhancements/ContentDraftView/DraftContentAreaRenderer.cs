@@ -25,9 +25,8 @@ namespace EPiServer.Labs.BlockEnhancements.ContentDraftView
             }
 
             // ************************************************************************************
-            // This code is copied from ContentAreaRenderer.Render method
-            // all protected methods are call using defaultContentAreaRenderer to make sure
-            // that overriden version will be used
+            // The code modifies original Render method using reflection to make sure
+            // proper list of items is used.
             // ************************************************************************************
 
             if (contentArea == null || contentArea.IsEmpty)

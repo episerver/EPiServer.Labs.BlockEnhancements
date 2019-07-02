@@ -36,6 +36,11 @@ define([
             var model = this._model,
                 value = this.value;
 
+            // the form was not changed
+            if (!this.value) {
+                return;
+            }
+
             //TODO:PR TO CMS-UI - once we upgrade to EPiServer.CMS.UI 11.10.0 we can remove the custom InlineContentViewModel
             // and uncomment this line below
             //this._model.onContentLinkChange = function () { };
@@ -58,7 +63,7 @@ define([
             var self = this;
             return this._getContextStore().query({uri: "epi.cms.contentdata:///" + contentLink})
                 .then(function (context) {
-                    self._contenxt = context;
+                    self._context = context;
                     var uri = new UriParser(context.uri);
                     return uri.getId();
                 })

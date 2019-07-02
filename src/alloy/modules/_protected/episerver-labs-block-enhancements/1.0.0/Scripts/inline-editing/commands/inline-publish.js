@@ -33,6 +33,7 @@ define([
 
             this.messageService = this.messageService || dependency.resolve("epi.shell.MessageService");
             this._contentVersionStore = dependency.resolve("epi.storeregistry").get("epi.cms.contentversion");
+            this._contentDataStore = dependency.resolve("epi.storeregistry").get("epi.cms.contentdata");
         },
 
         _execute: function () {
@@ -78,8 +79,10 @@ define([
             }, this);
 
             return this.inherited(arguments).then(function () {
-                    //dialogService.alert("<strong>" + this.model.contentData.name + "</strong> was published");
+                dialogService.alert("<strong>" + this.model.contentData.name + "</strong> was published successfully");
+                this._contentDataStore.refresh(this.model.contentData.contentLink).then(function () {
                     topic.publish("/refresh/ui");
+                });
                 }.bind(this)).otherwise(showErrorMessage)
                 .always(function () {
                     this.set("isAvailable", false);

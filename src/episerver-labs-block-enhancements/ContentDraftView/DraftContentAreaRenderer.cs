@@ -1,3 +1,4 @@
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web.Mvc;
@@ -26,7 +27,7 @@ namespace EPiServer.Labs.BlockEnhancements.ContentDraftView
             // ************************************************************************************
             // This code is copied from ContentAreaRenderer.Render method
             // all protected methods are call using defaultContentAreaRenderer to make sure
-            // that overriden versiona will be used
+            // that overriden version will be used
             // ************************************************************************************
 
             if (contentArea == null || contentArea.IsEmpty)
@@ -44,7 +45,15 @@ namespace EPiServer.Labs.BlockEnhancements.ContentDraftView
                 viewContext.Writer.Write(tagBuilder.ToString(TagRenderMode.StartTag));
             }
 
-            var contentAreaItems = contentArea.Items.Select(x => x.CreateWritableClone());
+            var contentAreaItems = contentArea.Items.Select(x => x.CreateWritableClone()).ToList();
+            foreach (var contentAreaItem in contentAreaItems)
+            {
+                if (contentAreaItem.RenderSettings == null)
+                {
+                    contentAreaItem.RenderSettings = new Dictionary<string, object>();
+                }
+            }
+
             this.CallProtectedMethod(nameof(RenderContentAreaItems), htmlHelper, contentAreaItems);
             if (tagBuilder == null)
                 return;

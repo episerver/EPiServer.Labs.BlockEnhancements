@@ -60,6 +60,15 @@ define([
 
         _setContentLinkAttr: function (contentLink) {
             this._set("contentLink", contentLink);
+
+            // we have to change the current context's mode to "create" in order to turn off the "Create new block" link for nested blocks scenarios
+            //TODO: we should revert this to the original value, maybe onFormCreated event?
+            var contextService = dependency.resolve("epi.shell.ContextService");
+            if (!contextService.currentContext) {
+                contextService.currentContext = {};
+            }
+            contextService.currentContext.currentMode = "create";
+
             var self = this;
             return this._getContextStore().query({uri: "epi.cms.contentdata:///" + contentLink})
                 .then(function (context) {

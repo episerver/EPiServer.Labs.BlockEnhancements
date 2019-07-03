@@ -4,7 +4,8 @@ define([
     "epi-cms/core/ContentReference",
     "epi-cms/contentediting/PageDataController",
     "epi-cms/widget/overlay/_OverlayItemInfoMixin",
-    "episerver-labs-block-enhancements/content-draft-view/command-provider"
+    "episerver-labs-block-enhancements/content-draft-view/command-provider",
+    "xstyle/css!episerver-labs-block-enhancements/content-draft-view/styles.css"
 ], function (
     topic,
     dependency,
@@ -15,15 +16,22 @@ define([
 ) {
     var isDraftViewEnabled = false;
 
-    return function () {
+    function registerCommandProvider() {
+        // registers new command provider which contains "Content Draft View" command
+
         var commandregistry = dependency.resolve("epi.globalcommandregistry");
         commandregistry.registerProvider("epi.cms.globalToolbar", new CommandProvider());
+    }
+
+    function patchOverlay() {
+        // modify the overlay code so it displays the draft background in Draft View mode
 
         var originalPostCreate = _OverlayItemInfoMixin.prototype.postCreate;
         _OverlayItemInfoMixin.prototype.postCreate = function () {
             originalPostCreate.apply(this, arguments);
 
             var _this = this;
+
             function isDraft () {
                 if (_this.params &&
                     _this.params.sourceItemNode &&
@@ -43,12 +51,16 @@ define([
                 }
             }));
         };
+    }
+
+    function patchPostMixinProperties() {
+        // modify pagedatacontroller
 
         var originalPostMixInProperties = PageDataController.prototype.postMixInProperties;
-
         PageDataController.prototype.postMixInProperties = function () {
             originalPostMixInProperties.apply(this, arguments);
             this.own(
+                // update the current view when switching to Draft View mode
                 topic.subscribe("/epi/setcommondraftview", function (isInDraftView) {
                     if (!this._previewQueryParameters) {
                         this._previewQueryParameters = {};
@@ -57,13 +69,21 @@ define([
                     this._previewQueryParameters.commondrafts = isInDraftView;
                     this._onViewRequireReload();
                 }.bind(this)),
+
+                // update the view after inline block action was done
                 topic.subscribe("/refresh/ui", function () {
                     this.contentDataStore.refresh(this._currentViewModel.contentLink).then(function () {
                         if (this._previewQueryParameters && this._previewQueryParameters.commondrafts) {
                             this._onViewRequireReload();
                         }
                     }.bind(this));
-                }.bind(this)))
+                }.bind(this)));
         };
     }
+
+    return function () {
+        registerCommandProvider();
+        patchOverlay();
+        patchPostMixinProperties();
+    };
 });

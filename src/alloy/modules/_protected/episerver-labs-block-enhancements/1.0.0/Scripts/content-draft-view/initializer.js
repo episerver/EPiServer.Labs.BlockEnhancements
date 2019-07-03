@@ -58,9 +58,11 @@ define([
                     this._onViewRequireReload();
                 }.bind(this)),
                 topic.subscribe("/refresh/ui", function () {
-                    if (this._previewQueryParameters && this._previewQueryParameters.commondrafts) {
-                        this._onViewRequireReload();
-                    }
+                    this.contentDataStore.refresh(this._currentViewModel.contentLink).then(function () {
+                        if (this._previewQueryParameters && this._previewQueryParameters.commondrafts) {
+                            this._onViewRequireReload();
+                        }
+                    }.bind(this));
                 }.bind(this)))
         };
     }

@@ -1,5 +1,4 @@
-using System.Web;
-using EPiServer.Core;
+﻿using EPiServer.Core;
 using EPiServer.Editor;
 using EPiServer.Globalization;
 using EPiServer.ServiceLocation;
@@ -17,15 +16,6 @@ namespace EPiServer.Labs.BlockEnhancements.ContentDraftView
             _defaultContentAreaLoader = defaultContentAreaLoader;
         }
 
-        //TODO: remove once we upgrade dependencies to CMS UI 11.10
-        private bool IsPublished(IContent content)
-        {
-            var versionable = content as IVersionable;
-            if (versionable != null)
-                return versionable.Status == VersionStatus.Published;
-            return true;
-        }
-
         public IContent Get(ContentAreaItem contentAreaItem)
         {
             if (PageEditing.PageIsInEditMode && ContentDraftView.IsInContentDraftViewMode)
@@ -38,7 +28,7 @@ namespace EPiServer.Labs.BlockEnhancements.ContentDraftView
                     var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
 
                     var content = contentLoader.Get<IContent>(commonDraft.ContentLink);
-                    if (IsPublished(content))
+                    if (content.IsPublished())
                     {
                         var defaultContent = _defaultContentAreaLoader.Get(contentAreaItem);
                         return defaultContent;

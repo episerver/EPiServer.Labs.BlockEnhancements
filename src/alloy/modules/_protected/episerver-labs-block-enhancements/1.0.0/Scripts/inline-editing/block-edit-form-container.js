@@ -17,18 +17,6 @@ define([
     ContentViewModel,
     FormContainer) {
 
-    var InlineContentViewModel = declare([ContentViewModel], {
-        _contentLinkChanged: function (oldContentLink, newContentLink) {
-            // store the latest newContentLink, could have changed during sync, ie when first changing a property
-            this.set("contentLink", newContentLink);
-
-            this.syncService.set("contentLink", newContentLink);
-
-            // propagate new contentlink
-            this.validator.setContextId(newContentLink);
-        }
-    });
-
     return declare([FormContainer], {
         contentLink: null,
 
@@ -41,9 +29,7 @@ define([
                 return;
             }
 
-            //TODO:PR TO CMS-UI - once we upgrade to EPiServer.CMS.UI 11.10.0 we can remove the custom InlineContentViewModel
-            // and uncomment this line below
-            //this._model.onContentLinkChange = function () { };
+            this._model.onContentLinkChange = function () { };
 
             Object.keys(this.value).forEach(function (propertyName) {
                 model.setProperty(propertyName, value[propertyName]);
@@ -77,7 +63,7 @@ define([
                     return uri.getId();
                 })
                 .then(function (contentLink) {
-                    self._model = new InlineContentViewModel({contentLink: contentLink});
+                    self._model = new ContentViewModel({contentLink: contentLink});
                     return self._model.reload();
                 })
                 .then(function () {

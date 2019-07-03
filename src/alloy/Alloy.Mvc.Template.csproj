@@ -396,6 +396,7 @@
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\content-draft-view\command-provider.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\content-draft-view\common-drafts-view-mixin.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\content-draft-view\initializer.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\content-draft-view\styles.css" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\content-draft-view\toggle-content-draft-view-command.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\initializer.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\block-edit-form-container.js" />

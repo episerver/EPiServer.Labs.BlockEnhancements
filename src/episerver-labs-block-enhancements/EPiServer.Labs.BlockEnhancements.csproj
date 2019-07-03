@@ -173,7 +173,6 @@
     <Compile Include="ContentDraftView\ContentDraftView.cs" />
     <Compile Include="ContentDraftView\CustomContentAreaLoader.cs" />
     <Compile Include="ContentDraftView\ContentDraftViewInitializer.cs" />
-    <Compile Include="ContentDraftView\DraftContentAreaRenderer.cs" />
     <Compile Include="ContentExtensions.cs" />
     <Compile Include="InlineBlocksEditing\BlocksEditingMetadataExtender.cs" />
     <Compile Include="InlineBlocksEditing\InlineBlockEditSettingsAttribute.cs" />

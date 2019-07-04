@@ -3,7 +3,8 @@ define([
     "epi/dependency",
     "epi-cms/core/ContentReference",
     "epi-cms/widget/overlay/_OverlayItemInfoMixin",
-    "episerver-labs-block-enhancements/content-draft-view/command-provider"
+    "episerver-labs-block-enhancements/content-draft-view/command-provider",
+    "xstyle/css!episerver-labs-block-enhancements/content-draft-view/styles.css"
 ], function (
     topic,
     dependency,
@@ -13,9 +14,15 @@ define([
 ) {
     var isDraftViewEnabled = false;
 
-    return function () {
+    function registerCommandProvider() {
+        // registers new command provider which contains "Content Draft View" command
+
         var commandregistry = dependency.resolve("epi.globalcommandregistry");
         commandregistry.registerProvider("epi.cms.globalToolbar", new CommandProvider());
+    }
+
+    function patchOverlay() {
+        // modify the overlay code so it displays the draft background in Draft View mode
 
         var originalPostCreate = _OverlayItemInfoMixin.prototype.postCreate;
         _OverlayItemInfoMixin.prototype.postCreate = function () {
@@ -48,4 +55,9 @@ define([
             }));
         };
     }
+
+    return function () {
+        registerCommandProvider();
+        patchOverlay();
+    };
 });

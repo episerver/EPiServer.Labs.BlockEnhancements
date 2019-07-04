@@ -2,14 +2,12 @@ define([
     "dojo/topic",
     "epi/dependency",
     "epi-cms/core/ContentReference",
-    "epi-cms/contentediting/PageDataController",
     "epi-cms/widget/overlay/_OverlayItemInfoMixin",
     "episerver-labs-block-enhancements/content-draft-view/command-provider"
 ], function (
     topic,
     dependency,
     ContentReference,
-    PageDataController,
     _OverlayItemInfoMixin,
     CommandProvider
 ) {
@@ -23,8 +21,14 @@ define([
         _OverlayItemInfoMixin.prototype.postCreate = function () {
             originalPostCreate.apply(this, arguments);
 
+            this.own(
+                topic.subscribe("/epi/setcommondraftview", function (isInDraftView) {
+                    isDraftViewEnabled = isInDraftView;
+                }));
+
             var _this = this;
-            function isDraft () {
+
+            function isDraft() {
                 if (_this.params &&
                     _this.params.sourceItemNode &&
                     _this.params.sourceItemNode.dataset &&
@@ -42,28 +46,6 @@ define([
                     overlayItemInfo.set("class", "epi-overlay-content-invisible");
                 }
             }));
-        };
-
-        var originalPostMixInProperties = PageDataController.prototype.postMixInProperties;
-
-        PageDataController.prototype.postMixInProperties = function () {
-            originalPostMixInProperties.apply(this, arguments);
-            this.own(
-                topic.subscribe("/epi/setcommondraftview", function (isInDraftView) {
-                    if (!this._previewQueryParameters) {
-                        this._previewQueryParameters = {};
-                    }
-                    isDraftViewEnabled = isInDraftView;
-                    this._previewQueryParameters.commondrafts = isInDraftView;
-                    this._onViewRequireReload();
-                }.bind(this)),
-                topic.subscribe("/refresh/ui", function () {
-                    this.contentDataStore.refresh(this._currentViewModel.contentLink).then(function () {
-                        if (this._previewQueryParameters && this._previewQueryParameters.commondrafts) {
-                            this._onViewRequireReload();
-                        }
-                    }.bind(this));
-                }.bind(this)))
         };
     }
 });

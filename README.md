@@ -182,3 +182,18 @@ public class CustomBlockEnhancementsModule : IInitializableHttpModule
     public void InitializeHttpEvents(HttpApplication application) {  }
 }
  ```
+ 
+
+
+### Please note
+> Episerver Labs projects are meant to provide the developer community with pre-release features with the purpose of showcasing ongoing work and getting feedback in early stages of development. 
+>
+> You should be aware that Labs are trials and not supported Episerver releases. While we hope you use them there are a few things you should expect:
+> *	Functionality may change 
+> *	Labs projects  have not been through the same quality assurance process as the versioned products and in some cases may show unexpected behaviour.
+> *	The software may not work on all environments
+> *	There is promise of support , however we will gratefully receive all feedback
+>
+> The software is provided “As is” without warranty of any kind or promise of support.
+In no event shall Episerver be liable for any claim, damages or liability in relation to the software
+By using this software you are also agreeing to our developer program terms [https://www.episerver.com/legal/program-terms/](https://www.episerver.com/legal/program-terms/)

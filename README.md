@@ -183,6 +183,11 @@ public class CustomBlockEnhancementsModule : IInitializableHttpModule
 }
  ```
  
+## Install
+
+```Install-Package EPiServer.Labs.BlockEnhancements```
+
+https://nuget.episerver.com/package/?id=EPiServer.Labs.BlockEnhancements
 
 
 ### Please note

@@ -8,6 +8,11 @@ define([
     return declare([_CommandProviderMixin, Destroyable], {
 
         updateCommandModel: function (model) {
+            if (!model) {
+                this.inherited(arguments);
+                return;
+            }
+
             var transitionEnabled = model.contentData.transitions.some(function (transition) {
                 return transition.name === "publishWithLocalContentItems";
             });

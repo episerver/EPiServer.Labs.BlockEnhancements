@@ -1,6 +1,5 @@
 define([
     "dojo/_base/declare",
-    "dojo/_base/lang",
     "dojo/topic",
     "dojo/Deferred",
     "dojo/DeferredList",
@@ -9,17 +8,15 @@ define([
     "epi",
     "epi/dependency",
     "epi/shell/DialogService",
-    "epi-cms/ApplicationSettings",
     "epi-cms/core/ContentReference",
     "epi-cms/contentediting/ContentViewModel",
     "epi-cms/contentediting/ContentActionSupport",
     "epi-cms/contentediting/command/_ChangeContentStatus",
-    "episerver-labs-block-enhancements/publish-with-local-content-items/content-items-list",
+    "episerver-labs-block-enhancements/publish-with-local-content-items/content-dependencies",
     "epi/i18n!epi/cms/nls/episerver.cms.contentediting.toolbar.buttons",
     "epi/i18n!epi/cms/nls/episerverlabs.blockenhancements"
 ], function (
     declare,
-    lang,
     topic,
     Deferred,
     DeferredList,
@@ -28,12 +25,11 @@ define([
     epi,
     dependency,
     dialogService,
-    ApplicationSettings,
     ContentReference,
     ContentViewModel,
     ContentActionSupport,
     _ChangeContentStatus,
-    ContentItemsList,
+    ContentDependencies,
     resources,
     labsResources
 ) {
@@ -69,49 +65,59 @@ define([
                 return transition.name === "publish";
             }).length !== 0;
 
-            var forThisPage = self.model.contentData.assetsFolderLink;
-            if (forThisPage === ApplicationSettings.contentAssetsFolder.toString()) {
-                if (!isPublishCommandAvailable) {
-                    return;
-                }
-                return when(self.inherited(args)).then(function (result) {
-                    callback(result.oldId);
-                });
-            }
 
-            return this._getContentsToPublish(forThisPage).then(function (contentsToPublish) {
-                if (contentsToPublish.length === 0) {
-                    if (!isPublishCommandAvailable) {
-                        return;
-                    }
-                    return when(self.inherited(args)).then(function (result) {
-                        callback(result.oldId);
-                    });
-                }
+            var contentItemsList = new ContentDependencies({
+                contentLink: self.model.contentData.contentLink,
+                mode: "confirm"
+            });
 
-                var contentItemsList = new ContentItemsList({ contentItems: contentsToPublish });
+            var confirmation = dialogService.confirmation({
+                description: labsResources.dialog.confirmation,
+                dialogClass: "epi-dialog-contentReferences",
+                content: contentItemsList,
+                title: labsResources.dialog.title,
+                cancelActionText: epi.resources.action.cancel,
+                confirmActionText: epi.resources.action.publish,
+                setFocusOnConfirmButton: true
+            });
 
-                return dialogService.confirmation({
-                    description: lang.replace(labsResources.dialog.confirmation, [contentsToPublish.length]),
-                    content: contentItemsList,
-                    title: labsResources.dialog.title,
-                    cancelActionText: epi.resources.action.cancel,
-                    confirmActionText: epi.resources.action.publish,
-                    setFocusOnConfirmButton: true
-                }).then(function () {
-                    var selectedContentItems = contentItemsList.get("selectedContentItems");
-                    return self._publishBlocks(selectedContentItems).then(function (publishResults) {
+            return confirmation.then(function () {
+                var selectedContentLinks = contentItemsList.get("selectedContentLinks");
+                return self._getContentsToPublish(selectedContentLinks).then(function (selectedContents) {
+                    self._publishBlocks(selectedContents).then(function (publishResults) {
+                        var success = "Successfully published ";
+                        var contentMessage = "<strong>" + self.model.contentData.name + "</strong>";
+                        var publishCount = publishResults.filter(function (result) {
+                            return result[0];
+                        }).length;
+                        var dependenciesSuccessMessage = (publishCount === selectedContents.length ? "all" : (publishCount + " out of " + selectedContents.length)) + " selected content items";
                         if (!isPublishCommandAvailable) {
-                            self.set("isAvailable", false);
-                            callback(self.model.contentData.contentLink);
+                            if (publishCount > 0) {
+                                callback(self.model.contentData.contentLink);
+                                dialogService.alert(success + dependenciesSuccessMessage);
+                            } else {
+                                dialogService.alert("No content items were published");
+                            }
                             return;
                         }
                         return when(self.inherited(args)).then(function (result) {
                             callback(result.oldId);
+                            var pageSuccessMessage = success + contentMessage;
+                            if (publishCount > 0) {
+                                dialogService.alert(pageSuccessMessage + " and " + dependenciesSuccessMessage);
+                            } else {
+                                dialogService.alert(pageSuccessMessage);
+                            }
+                        }).otherwise(function (e) {
+                            dialogService.alert("Content publish failed");
+                            console.error(e);
                         });
+                    }).otherwise(function (e) {
+                        dialogService.alert("Content publish failed");
+                        console.error(e);
                     });
                 });
-            });
+            }).otherwise(function () {});
         },
 
         _publishBlocks: function (contentsToPublish) {
@@ -126,17 +132,15 @@ define([
             }.bind(this)));
         },
 
-        _getContentsToPublish: function (forThisPage) {
+        _getContentsToPublish: function (contentLinks) {
             var deferred = new Deferred();
 
-            this._store.get(forThisPage).then(function (contentLinks) {
-                var dependencies = whenAll(contentLinks.map(function (contentLink) {
-                    return this._pageDataStore.get(contentLink);
-                }.bind(this)));
-                dependencies.then(function (results) {
-                    deferred.resolve(results);
-                });
-            }.bind(this));
+            var dependencies = whenAll(contentLinks.map(function (contentLink) {
+                return this._pageDataStore.get(contentLink);
+            }.bind(this)));
+            dependencies.then(function (results) {
+                deferred.resolve(results);
+            });
 
             return deferred.promise;
         }

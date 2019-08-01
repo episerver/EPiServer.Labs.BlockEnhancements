@@ -412,7 +412,8 @@
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-publish\commands\block-menu-inline-publish.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-publish\initializer.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-with-local-content-items\command-provider.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-with-local-content-items\content-items-list.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-with-local-content-items\content-dependencies.html" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-with-local-content-items\content-dependencies.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-with-local-content-items\initializer.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-with-local-content-items\command.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\status-indicator\block-status-indicator.css" />

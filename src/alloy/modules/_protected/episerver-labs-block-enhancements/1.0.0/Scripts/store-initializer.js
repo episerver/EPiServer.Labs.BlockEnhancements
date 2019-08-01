@@ -15,6 +15,7 @@ define([
             new Throttle(
                 new JsonRest({
                     target: routes.getRestPath({ moduleArea: "episerver-labs-block-enhancements", storeName: "episerverlabsblockenhancements" }),
+                    idProperty: "contentLink"
                 })
             )
         );

@@ -7,22 +7,11 @@ define([
 
     return declare([_CommandProviderMixin, Destroyable], {
 
-        updateCommandModel: function (model) {
-            if (!model) {
-                this.inherited(arguments);
-                return;
-            }
-
-            var transitionEnabled = model.contentData.transitions.some(function (transition) {
-                return transition.name === "publishWithLocalContentItems";
-            });
-
+        updateCommandModel: function () {
             var commands = [];
-            if (transitionEnabled) {
-                var publishWithLocalContentItemsCommand = new PublishWithLocalContentItemsCommand();
-                this.own(publishWithLocalContentItemsCommand);
-                commands.push(publishWithLocalContentItemsCommand);
-            }
+            var publishWithLocalContentItemsCommand = new PublishWithLocalContentItemsCommand();
+            this.own(publishWithLocalContentItemsCommand);
+            commands.push(publishWithLocalContentItemsCommand);
 
             this.set("commands", commands);
 

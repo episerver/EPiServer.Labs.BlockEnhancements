@@ -4,7 +4,7 @@ define([
     "dojo/dom-class",
     "dojo/dom-construct",
     "dojo/dom-style",
-    "dojo/keys",
+    "dojo/aspect",
     "dojo/when",
     "dojo/Evented",
     "dojo/store/util/QueryResults",
@@ -19,14 +19,15 @@ define([
     "dojo/text!./content-dependencies.html",
     "epi/i18n!epi/cms/nls/episerver.cms.widget.contentreferences",
     "epi/i18n!epi/cms/nls/episerver.cms.contentediting.editactionpanel.publishactionmenu",
-    "epi/i18n!epi/cms/nls/episerverlabs.blockenhancements"
+    "epi/i18n!epi/cms/nls/episerverlabs.blockenhancements",
+    "xstyle/css!./content-dependencies.css"
 ], function (
     declare,
     lang,
     domClass,
     domConstruct,
     domStyle,
-    keys,
+    aspect,
     when,
     Evented,
     QueryResults,
@@ -61,6 +62,11 @@ define([
                     return !!object.references && object.references.length > 0;
                 }
             });
+
+            this.own(aspect.after(this.store, "query", function (results) {
+                when(results).then(this._afterStoreQuery.bind(this));
+                return results;
+            }.bind(this)));
         },
 
         buildRendering: function () {
@@ -78,7 +84,7 @@ define([
                     }),
                     treePath: {
                         label: " ",
-                        className: "epi-width20",
+                        className: "epi-width45",
                         get: function (item) {
                             var treePath = item.treePath || [];
                             return treePath.join("<span class=\"epi-breadCrumbsSeparator\">&gt;</span>");
@@ -87,14 +93,16 @@ define([
                     },
                     changed: {
                         label: labsResources.changed,
-                        className: "epi-width20"
+                        className: "epi-width15",
+                        ellipsis: true
                     },
                     changedBy: {
                         label: labsResources.by,
-                        className: "epi-width10"
+                        className: "epi-width10",
+                        ellipsis: true
                     },
                     uri: {
-                        className: "epi-width10 epi-grid-column--centered",
+                        className: "epi-width5 epi-grid-column--centered",
                         label: " ",
                         formatter: function (value) {
                             return value ? linkTemplate : "";
@@ -103,7 +111,7 @@ define([
                     },
                     selected: {
                         label: " ",
-                        className: "epi-width10 epi-grid-column--centered",
+                        className: "epi-width5 epi-grid-column--centered",
                         renderCell: function (object, value, node) {
                             var current = self.get("allContentLinks") || [];
                             var canBePublished = typeof object.canBePublished !== "undefined" ? object.canBePublished : true;
@@ -161,6 +169,12 @@ define([
 
         fetchData: function () {
             this.grid.refresh();
+        },
+
+        _afterStoreQuery: function (results) {
+            var hasItems = results.length > 0;
+            domClass.toggle(this.noDataNode, "dijitHidden", hasItems);
+            domClass.toggle(this.gridNode, "dijitHidden", !hasItems);
         },
 
         _onChangeContext: function (e) {

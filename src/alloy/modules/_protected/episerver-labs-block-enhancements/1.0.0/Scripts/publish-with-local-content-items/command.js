@@ -73,7 +73,7 @@ define([
 
             var confirmation = dialogService.confirmation({
                 description: labsResources.dialog.confirmation,
-                dialogClass: "epi-dialog-contentReferences",
+                dialogClass: "epi-dialog-smartPublish",
                 content: contentItemsList,
                 title: labsResources.dialog.title,
                 cancelActionText: epi.resources.action.cancel,
@@ -82,7 +82,7 @@ define([
             });
 
             return confirmation.then(function () {
-                var selectedContentLinks = contentItemsList.get("selectedContentLinks");
+                var selectedContentLinks = contentItemsList.get("selectedContentLinks") || [];
                 return self._getContentsToPublish(selectedContentLinks).then(function (selectedContents) {
                     self._publishBlocks(selectedContents).then(function (publishResults) {
                         var success = "Successfully published ";

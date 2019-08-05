@@ -164,6 +164,7 @@ define([
 
         startup: function () {
             this.inherited(arguments);
+            this.noDataMessageNode.innerHTML = labsResources.noitemstopublish;
             this.own(this.grid.on(".dgrid-column-uri a:click", this._onChangeContext.bind(this)));
         },
 

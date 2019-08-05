@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <languages>
   <language name="Swedish" id="sv">
-    <episerverlabsblockenhancements>
-      <ilineediting>
+    <episerverlabs>
+      <blockenhancements>
+        <command>
+          <label>Smart publicera</label>
+          <partofapproval>Är en del av en aktiv godkännande sekvens och kan inte publiceras just nu</partofapproval>
+        </command>
+        <noitemstopublish>Det finns inget att publicera</noitemstopublish>
+        <name>Namn</name>
+        <changed>Ändrad</changed>
+        <by>Av</by>
         <dialog>
-          <save>Spara</save>
+          <title>Bekräfta att du publicerar sidan och relaterat innehåll</title>
+          <confirmation>Dessa är opublicerade innehåll som används.&lt;br/&gt;Välj de som du vill publicera samtidigt.</confirmation>
         </dialog>
-      </ilineediting>
-    </episerverlabsblockenhancements>
+        <ilineediting>
+          <dialog>
+            <save>Spara</save>
+          </dialog>
+        </ilineediting>
+      </blockenhancements>
+    </episerverlabs>
   </language>
 </languages>

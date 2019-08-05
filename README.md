@@ -5,34 +5,35 @@ The vision is to make it possible to edit and publish blocks directly on the pag
 The page is selected at all times and all actions around local blocks is performed inline.
 
 The list of current features is as following:
-* [Publish content with local blocks](#publish-content-with-local-blocks)<br>
-* [Inline block editing](#inline-block-editing)<br>
-* [Showing block status on content area](#showing-block-status-on-content-area)<br>
-* [Inline publishing](#inline-publish)<br>
-* [Content Draft View](#content-draft-view)<br>
+* [Smart publish](#smart-publish)
+* [Inline block editing](#inline-block-editing)
+* [Showing block status on content area](#showing-block-status-on-content-area)
+* [Inline publishing](#inline-publish)
+* [Content Draft View](#content-draft-view)
 
-All of those features work together, but you can decide which ones are enabled, by [Configuring enabled features](#configuring-enabled-features)<br>
+All of those features work together, but you can decide which ones are enabled, by [Configuring enabled features](#configuring-enabled-features)
 
-## Publish content with local blocks
+## Smart publish
 
-This is an extra command available in the global menu. It automatically checks the "For this page" folder of the current page and lists all draft versions of blocks that could be published with the page.
+This is an extra command available in the global menu. It traverses current content dependency graph and lists all draft versions of blocks that could be published simultaneously.
 
-![Publish content with local blocks](assets/docsimages/publish_with_local_items.png)
+![Smart publish](assets/docsimages/smart_publish.png)
 
-After running the command, a dialog box with a list of all draft versions of local blocks is displayed. 
-The editor can decide which blocks will be published using checkboxes next to the local block name.
+After running the command, a dialog box with a list of all draft versions of all dependent content items together with its own dependencies will be presented.
+The default traversal depth is set to 2 and the dependencies are presented as a tree with roots set to first level dependencies and leaves as second level dependencies.
+The editor can decide which blocks will be published using checkboxes next to the block name.
 
-![Publish content with local blocks](assets/docsimages/publish_with_local_items_dialog.png)
+![Publish content with local blocks](assets/docsimages/smart_publish_dialog.png)
 
-The command will publish the page and all selected blocks.
+The command will publish the page and all the selected blocks.
 
-Known issue |
------------- |
-If a block contains a "For this block" folder, the content from this block will not be published. |
+Combining that "Smart" aspect of the new command with an existing "Inline Edit" feature makes quite a powerful combination:
 
-Using this feature, the editor do not have to manually click through all local blocks just to check if all of them have already been published.
+![Publish content with local blocks](assets/docsimages/smart_publish_1_shared_blocks.gif)
 
-![Publish content with local blocks](assets/docsimages/publish_with_local_items_demo.gif)
+A more advanced scenario can look something like this:
+
+![Publish content with local blocks](assets/docsimages/smart_publish_2_bootstrap.gif)
 
 ## Inline block editing
 

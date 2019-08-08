@@ -4,7 +4,7 @@
     <episerverlabs>
       <blockenhancements>
         <command>
-          <label>Smart publish</label>
+          <label>Smart Publish</label>
           <partofapproval>Is part of an active approval sequence and cannot be published at the moment</partofapproval>
         </command>
         <noitemstopublish>There is nothing to be published</noitemstopublish>
@@ -13,7 +13,7 @@
         <by>By</by>
         <dialog>
           <title>Confirm publishing the page with related content items</title>
-          <confirmation>Those are unpublished content items used by the current content.&lt;br/&gt; Choose the ones that you would like to publish simultanously.</confirmation>
+          <confirmation>There are unpublished content items used by the current content.&lt;br/&gt; Choose the ones that you would like to publish simultaneously.</confirmation>
         </dialog>
         <ilineediting>
           <dialog>

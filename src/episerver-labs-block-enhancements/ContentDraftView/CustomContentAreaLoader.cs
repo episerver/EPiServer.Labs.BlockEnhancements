@@ -33,7 +33,12 @@ namespace EPiServer.Labs.BlockEnhancements.ContentDraftView
                         var defaultContent = _defaultContentAreaLoader.Get(contentAreaItem);
                         return defaultContent;
                     }
-                    contentAreaItem.ContentLink = commonDraft.ContentLink;
+
+                    if (!contentAreaItem.IsReadOnly)
+                    {
+                        contentAreaItem.ContentLink = commonDraft.ContentLink;
+                    }
+
                     return content;
                 }
             }

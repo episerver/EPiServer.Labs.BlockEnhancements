@@ -99,6 +99,10 @@ define([
         },
 
         _setStatusIconAttr: function(cssClasses) {
+            if (!this.iconNodeStatus) {
+                return;
+            }
+
             if (!(cssClasses instanceof Array)) {
                 return;
             }
@@ -112,6 +116,10 @@ define([
         },
 
         _setStatusMessageAttr: function(/* String */message) {
+            if (!this.iconNodeStatus) {
+                return;
+            }
+
             domAttr.set(this.iconNodeStatus, "title", epiString.toTooltipText(message));
         },
     });

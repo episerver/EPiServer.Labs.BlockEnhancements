@@ -12,6 +12,7 @@ namespace EPiServer.Labs.BlockEnhancements
         public bool InlinePublish { get; set; } = true;
         public bool PublishWithLocalContentItems { get; set; } = true;
         public bool ContentDraftView { get; set; } = true;
+        public bool ContentAreaBrowse { get; set; } = true;
     }
 
     public class BlockEnhancementsModule : ShellModule

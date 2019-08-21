@@ -176,6 +176,7 @@ public class CustomBlockEnhancementsModule : IInitializableHttpModule
         options.ContentDraftView = true;
         options.InlinePublish = false;
         options.StatusIndicator = false;
+        options.ContentAreaBrowse = true;
     }
 
     public void Uninitialize(InitializationEngine context)  {  }

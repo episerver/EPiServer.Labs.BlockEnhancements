@@ -19,6 +19,7 @@
           <dialog>
             <save>Spara</save>
           </dialog>
+          <browseexistingitems>välj innehåll</browseexistingitems>
         </ilineediting>
       </blockenhancements>
     </episerverlabs>

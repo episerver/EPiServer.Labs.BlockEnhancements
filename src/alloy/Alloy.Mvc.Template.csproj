@@ -400,11 +400,14 @@
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\content-draft-view\styles.css" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\content-draft-view\toggle-content-draft-view-command.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\initializer.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\browsable-content-area-mixin.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\content-area-editor.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\block-edit-form-container.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\block-menu-inline-edit.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\custom-block-edit.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\inline-edit.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\inline-publish.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\content-area.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\create-content-group-container-with-no-header.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\form-dialog.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\initializer.js" />

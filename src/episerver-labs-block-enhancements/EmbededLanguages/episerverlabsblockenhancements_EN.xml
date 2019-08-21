@@ -19,6 +19,7 @@
           <dialog>
             <save>Save</save>
           </dialog>
+          <browseexistingitems>browse existing content</browseexistingitems>
         </ilineediting>
       </blockenhancements>
     </episerverlabs>

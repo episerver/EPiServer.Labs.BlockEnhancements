@@ -13,7 +13,7 @@ define([
             category: null,
 
             _labelSetter: function(value) {
-                if (this.label === actionStrings.view) {
+                if (value === actionStrings.view) {
                     this.inherited(arguments);
                 } else {
                     this.label = actionStrings.view;
@@ -24,7 +24,7 @@ define([
             },
 
             _iconClassSetter: function(value) {
-                if (this.iconClass === "epi-iconSearch") {
+                if (value === "epi-iconSearch") {
                     this.inherited(arguments);
                 } else {
                     this.iconClass = "epi-iconSearch";

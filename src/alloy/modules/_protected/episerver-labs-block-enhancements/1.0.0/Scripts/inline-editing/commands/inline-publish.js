@@ -3,6 +3,7 @@ define([
     "dojo/when",
     "dojo/topic",
     "epi/dependency",
+    "epi-cms/core/ContentReference",
     "epi-cms/contentediting/ContentViewModel",
     "epi/shell/DialogService",
     "epi-cms/contentediting/ContentActionSupport",
@@ -13,6 +14,7 @@ define([
     when,
     topic,
     dependency,
+    ContentReference,
     ContentViewModel,
     dialogService,
     ContentActionSupport,
@@ -34,6 +36,14 @@ define([
             this.messageService = this.messageService || dependency.resolve("epi.shell.MessageService");
             this._contentVersionStore = dependency.resolve("epi.storeregistry").get("epi.cms.contentversion");
             this._contentDataStore = dependency.resolve("epi.storeregistry").get("epi.cms.contentdata");
+
+            this.own(topic.subscribe("/epi/cms/content/statuschange/", function(status, contentIdentity) {
+                var updatedContentId = new ContentReference(contentIdentity.id).id;
+                var currentModelId = new ContentReference(this.model.contentLink).id;
+                if (updatedContentId === currentModelId) {
+                    this._onModelChange();
+                }
+            }.bind(this)));
         },
 
         _execute: function () {
@@ -104,6 +114,10 @@ define([
         _onModelChange: function () {
             // summary:
             //		Updates canExecute and isAvailable after the model has been updated.
+
+            if (!this.model) {
+                return;
+            }
 
             var _arguments = arguments;
             return when(this._contentVersionStore

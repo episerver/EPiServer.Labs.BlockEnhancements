@@ -55,6 +55,7 @@ define([
                 });
                 dialog.show();
 
+                var isDirty = false;
                 var inlinePublishCommand = new InlinePublish();
 
                 function updatePublishCommandVisibility() {
@@ -84,18 +85,26 @@ define([
                         dialog.hideSaveButton();
                         dialog.set("closeText", "Close");
                     }
-                    dialog.set("titleIcon", "aaa");
 
                     updatePublishCommandVisibility();
 
                 }.bind(this));
 
+                var onChangeHandle = on(form, "change", function () {
+                    isDirty = true;
+                });
 
                 var executeHandle = on(dialog, "execute", form.saveForm.bind(form));
 
                 var publishHandle = on(dialog, "Publish", function () {
-                    inlinePublishCommand.execute().then(function () {
-                        dialog.hide();
+                    var deferred = true;
+                    if (isDirty) {
+                        deferred = form.saveForm();
+                    }
+                    when(deferred).then(function () {
+                        inlinePublishCommand.execute().then(function () {
+                            dialog.hide();
+                        });
                     });
                 });
 
@@ -105,6 +114,7 @@ define([
                     executeHandle.remove();
                     closeHandle.remove();
                     formCreatedHandle.remove();
+                    onChangeHandle.remove();
                     publishHandle.remove();
                     isAvailableHandle.remove();
                     canExecuteHandle.remove();

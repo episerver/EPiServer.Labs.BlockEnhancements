@@ -16,18 +16,16 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
         public ContentAreaDescriptor(BlockEnhancementsOptions options)
         {
             _options = options;
-            if (_options.ContentAreaBrowse)
-            {
-                ClientEditingClass = "episerver-labs-block-enhancements/inline-editing/content-area-editor";
-            }
+            ClientEditingClass = "episerver-labs-block-enhancements/editors/content-area-editor";
         }
 
         public override void ModifyMetadata(ExtendedMetadata metadata, IEnumerable<Attribute> attributes)
         {
             base.ModifyMetadata(metadata, attributes);
-            if (_options.ContentAreaBrowse)
-                metadata.OverlayConfiguration["customType"] =
-                    "episerver-labs-block-enhancements/inline-editing/content-area";
+            metadata.OverlayConfiguration["customType"] =
+                "episerver-labs-block-enhancements/editors/content-area";
+            metadata.OverlayConfiguration["blockEnhancementsOptions"] = _options;
+            metadata.EditorConfiguration["blockEnhancementsOptions"] = _options;
         }
     }
 }

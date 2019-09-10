@@ -85,7 +85,6 @@ define([
                         dialog.hideSaveButton();
                         dialog.set("closeText", "Close");
                     }
-                    dialog.set("titleIcon", "aaa");
 
                     updatePublishCommandVisibility();
 

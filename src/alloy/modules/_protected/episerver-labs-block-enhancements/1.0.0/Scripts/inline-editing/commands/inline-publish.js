@@ -38,6 +38,9 @@ define([
             this._contentDataStore = dependency.resolve("epi.storeregistry").get("epi.cms.contentdata");
 
             this.own(topic.subscribe("/epi/cms/content/statuschange/", function(status, contentIdentity) {
+                if (!this.model || !this.model.contentLink) {
+                    return;
+                }
                 var updatedContentId = new ContentReference(contentIdentity.id).id;
                 var currentModelId = new ContentReference(this.model.contentLink).id;
                 if (updatedContentId === currentModelId) {

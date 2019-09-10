@@ -19,6 +19,10 @@ define([
         browseexistingitems: "browseexistingitems",
 
         getTemplateString: function () {
+            if (!this.blockEnhancementsOptions.contentAreaBrowse) {
+                return this.inherited(arguments);
+            }
+
             return when(this.inherited(arguments)).then(function (template) {
                 template.templateString += "<br/>{" + this.browseexistingitems + "}";
                 if (!template.actions) {

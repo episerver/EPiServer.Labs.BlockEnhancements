@@ -134,7 +134,11 @@ define([
                 }
 
                 this.set("isAvailable", true);
-                this.set("canExecute", !this.model.readOnly);
+
+                var contentData = this.model.content || this.model;
+                var hasAccessRights = ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Edit);
+                var hasProviderSupportForEditing = ContentActionSupport.hasProviderCapability(contentData.providerCapabilityMask, ContentActionSupport.providerCapabilities.Edit);
+                this.set("canExecute", hasAccessRights && hasProviderSupportForEditing);
             }
         });
     });

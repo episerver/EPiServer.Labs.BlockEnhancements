@@ -41,8 +41,11 @@
             <help>Main editorial content of the page</help>
           </mainbody>
           <maincontentarea>
-            <caption>Large content area</caption>
+            <caption>Large content area culture specific</caption>
           </maincontentarea>
+          <maincontentareanotculturespecific>
+            <caption>Content area not culture specific</caption>
+          </maincontentareanotculturespecific>
         </properties>
       </icontentdata>
       <!-- ProductPage -->

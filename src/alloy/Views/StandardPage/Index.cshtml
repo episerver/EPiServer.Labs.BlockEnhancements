@@ -10,4 +10,7 @@
         @Html.DisplayFor(m => m.CurrentPage.MainBody)
     </div>
 </div>
+<h2>Culture specific blocks</h2>
 @Html.PropertyFor(x => x.CurrentPage.MainContentArea, new { CssClass = "row", Tag = Global.ContentAreaTags.TwoThirdsWidth })
+<h2>Not culture specific blocks</h2>
+@Html.PropertyFor(x => x.CurrentPage.MainContentAreaNotCultureSpecific, new { CssClass = "row", Tag = Global.ContentAreaTags.TwoThirdsWidth })

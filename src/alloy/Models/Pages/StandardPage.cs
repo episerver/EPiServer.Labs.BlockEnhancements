@@ -21,6 +21,12 @@ namespace AlloyTemplates.Models.Pages
         [Display(
             GroupName = SystemTabNames.Content,
             Order = 320)]
+        [CultureSpecific]
         public virtual ContentArea MainContentArea { get; set; }
+
+        [Display(
+            GroupName = SystemTabNames.Content,
+            Order = 320)]
+        public virtual ContentArea MainContentAreaNotCultureSpecific { get; set; }
     }
 }

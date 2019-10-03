@@ -57,7 +57,7 @@ namespace EPiServer.Labs.BlockEnhancements
                    versionStatus == ExtendedVersionStatus.PreviouslyPublished;
         }
 
-        public bool IsPartOfActiveApproval(IContent content)
+        private bool IsPartOfActiveApproval(IContent content)
         {
             var definition = _approvalDefinitionRepository.ResolveAsync(content.ContentLink).ConfigureAwait(false)
                 .GetAwaiter().GetResult();
@@ -114,11 +114,26 @@ namespace EPiServer.Labs.BlockEnhancements
                 .Where(x => x != ContentReference.EmptyReference);
         }
 
+        private IEnumerable<ContentReference> GetLanguageAgnosticDependencies(IContent content)
+        {
+            var currentLanguageDependencies = GetDependencies(content);
+
+            if (content.IsMasterLanguageBranch())
+            {
+                return currentLanguageDependencies;
+            }
+
+            var masterLanguage = ((ILocalizable) content).MasterLanguage;
+            var masterVersion = _contentRepository.Get<IContent>(content.ContentLink.ToReferenceWithoutVersion(), masterLanguage);
+            var masterVersionDependencies = GetDependencies(masterVersion);
+            return currentLanguageDependencies.Union(masterVersionDependencies);
+        }
+
         public IEnumerable<Dependency> GetUnpublishedDependencies(ContentReference contentLink)
         {
             var dependencies = new List<Dependency>();
             var root = _contentRepository.Get<IContent>(contentLink);
-            var directDependencies = GetDependencies(root).ToList();
+            var directDependencies = GetLanguageAgnosticDependencies(root).ToList();
             var you = _localizationService.GetStringByCulture("/episerver/shared/text/yousubject",
                 CultureInfo.CurrentCulture);
             var currentUser = _httpContextAccessor()?.User?.Identity?.Name;
@@ -149,7 +164,7 @@ namespace EPiServer.Labs.BlockEnhancements
                     dependency.ChangedBy = isCurrentUser ? you : changeTrackable.ChangedBy;
                 }
 
-                var subDependencies = GetDependencies(referenceContent).ToList();
+                var subDependencies = GetLanguageAgnosticDependencies(referenceContent).ToList();
                 foreach (var subDependency in subDependencies)
                 {
                     var subContent = _contentRepository.Get<IContent>(subDependency);

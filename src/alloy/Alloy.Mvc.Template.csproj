@@ -77,6 +77,10 @@
     <Reference Include="EPiServer, Version=11.10.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.Core.11.10.0\lib\net461\EPiServer.dll</HintPath>
     </Reference>
+    <Reference Include="EPiServer.AddOns.Helpers, Version=0.4.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7">
+      <HintPath>..\..\packages\EPiServer.AddOns.Helpers.0.4.0.0\lib\EPiServer.AddOns.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EPiServer.ApplicationModules, Version=11.10.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.Framework.11.10.0\lib\net461\EPiServer.ApplicationModules.dll</HintPath>
     </Reference>
@@ -106,6 +110,18 @@
     </Reference>
     <Reference Include="EPiServer.Events, Version=11.10.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.Framework.11.10.0\lib\net461\EPiServer.Events.dll</HintPath>
+    </Reference>
+    <Reference Include="EPiServer.Forms, Version=4.25.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7">
+      <HintPath>..\..\packages\EPiServer.Forms.4.25.1\lib\EPiServer.Forms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Forms.Core, Version=4.25.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7">
+      <HintPath>..\..\packages\EPiServer.Forms.Core.4.25.1\lib\EPiServer.Forms.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPiServer.Forms.UI, Version=4.25.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7">
+      <HintPath>..\..\packages\EPiServer.Forms.UI.4.25.1\lib\EPiServer.Forms.UI.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EPiServer.Framework, Version=11.10.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.Framework.11.10.0\lib\net461\EPiServer.Framework.dll</HintPath>
@@ -508,6 +524,11 @@
     <Content Include="modules\_protected\Shell\Shell.zip" />
     <Content Include="modules\_protected\CMS\web.config" />
     <Content Include="modules\_protected\CMS\CMS.zip" />
+    <None Include="modules\_protected\EPiServer.Forms.UI\EPiServer.Forms.UI.zip" />
+    <None Include="modules\_protected\EPiServer.Forms.UI\module.config" />
+    <None Include="modules\_protected\EPiServer.Forms\EPiServer.Forms.zip" />
+    <None Include="modules\_protected\EPiServer.Forms\Forms.config" />
+    <None Include="modules\_protected\EPiServer.Forms\Views\ElementBlocks\Web.config" />
     <None Include="Views\_ReadMe.txt" />
     <Content Include="web.config">
       <SubType>Designer</SubType>

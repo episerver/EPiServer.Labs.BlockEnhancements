@@ -20,6 +20,7 @@
             <save>Spara</save>
           </dialog>
           <browseexistingitems>välj innehåll</browseexistingitems>
+          <doubleclicktoinlineedit>Dubbelklicka för att redigera inline</doubleclicktoinlineedit>
         </ilineediting>
       </blockenhancements>
     </episerverlabs>

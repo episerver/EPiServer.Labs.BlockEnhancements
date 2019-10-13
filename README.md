@@ -39,7 +39,9 @@ A more advanced scenario can look something like this:
 
 This feature allows editors to edit block content directly on the page. 
 
-Any block that the current editor has rights to can now be double-clicked which will open a dialog box with an editable block form. 
+Any block that the current editor has rights to can now be double-clicked which will open a dialog box with an editable block form.
+
+![Double click to edit inline](assets/docsimages/double_click_inline_edit.gif)
 
 Alternatively, there is a new **"Inline block edit"** command added to content area items menu.  
 

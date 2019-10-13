@@ -20,6 +20,7 @@
             <save>Save</save>
           </dialog>
           <browseexistingitems>browse existing content</browseexistingitems>
+          <doubleclicktoinlineedit>Double click to inline edit</doubleclicktoinlineedit>
         </ilineediting>
       </blockenhancements>
     </episerverlabs>

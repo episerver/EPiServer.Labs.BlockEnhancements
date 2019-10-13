@@ -39,11 +39,12 @@ A more advanced scenario can look something like this:
 
 This feature allows editors to edit block content directly on the page. 
 
-There is new **"Inline block edit"** command added to content area items menu.
+Any block that the current editor has rights to can now be double-clicked which will open a dialog box with an editable block form. 
+
+Alternatively, there is a new **"Inline block edit"** command added to content area items menu.  
 
 ![Inline block editing command](assets/docsimages/inline_edit.png)
-
-The command opens a dialog box with an editable block form. 
+ 
 The editor can edit blocks the same way as when switching to blocks editing context.
 
 ![Inline block editing default form](assets/docsimages/inline_edit_advanced_block.png)

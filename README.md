@@ -10,6 +10,7 @@ The list of current features is as following:
 * [Showing block status on content area](#showing-block-status-on-content-area)
 * [Inline publishing](#inline-publish)
 * [Content Draft View](#content-draft-view)
+* [Inline Create](#inline-create)
 
 All of those features work together, but you can decide which ones are enabled, by [Configuring enabled features](#configuring-enabled-features)
 
@@ -163,6 +164,14 @@ The editor can use the new **"Content Draft View"** button to get an overview of
 
 ![Content draft view](assets/docsimages/content_draft_view_demo.gif)
 
+## Inline Create
+
+Allow editors to create & publish new blocks inline, without the need to leave the current content context.
+
+This feature also works in nested block scenarios, so let's say an editor can create a Row Block instance and then add child blocks to that Row. All those operations can be done without leaving the parent page context.  
+
+All new blocks are published automatically.
+
 ## Configuring enabled features
 
 To turn off one or more feature, use the `BlockEnhancementsOptions` options class and then, for example, in the initialization module, set `false` on the feature that should not be available. All features are enabled by default. 
@@ -180,6 +189,7 @@ public class CustomBlockEnhancementsModule : IInitializableHttpModule
         options.InlinePublish = false;
         options.StatusIndicator = false;
         options.ContentAreaBrowse = true;
+        options.InlineCreate = true;
     }
 
     public void Uninitialize(InitializationEngine context)  {  }

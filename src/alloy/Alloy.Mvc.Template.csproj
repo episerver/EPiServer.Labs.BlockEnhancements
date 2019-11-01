@@ -425,6 +425,10 @@
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\content-draft-view\page-data-controller-initializer.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\content-draft-view\styles.css" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\content-draft-view\toggle-content-draft-view-command.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\create-new-block-edit-form-container.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\commands\create-new-command.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\initializer.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\styles.css" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\browsable-content-area-mixin.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\content-area-editor.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\content-area.js" />

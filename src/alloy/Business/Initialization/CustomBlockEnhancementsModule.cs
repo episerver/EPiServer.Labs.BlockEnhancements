@@ -18,6 +18,7 @@ namespace AlloyTemplates.Business.Initialization
             options.InlinePublish = true;
             options.StatusIndicator = true;
             options.ContentAreaBrowse = true;
+            options.InlineCreate = true;
         }
 
         public void Uninitialize(InitializationEngine context)

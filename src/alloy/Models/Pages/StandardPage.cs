@@ -2,6 +2,7 @@
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using System.ComponentModel.DataAnnotations;
+using AlloyTemplates.Models.Blocks;
 
 namespace AlloyTemplates.Models.Pages
 {
@@ -28,5 +29,8 @@ namespace AlloyTemplates.Models.Pages
             GroupName = SystemTabNames.Content,
             Order = 320)]
         public virtual ContentArea MainContentAreaNotCultureSpecific { get; set; }
+
+        [AllowedTypes(typeof(ButtonBlock))]
+        public virtual ContentArea TylkoButtony { get; set; }
     }
 }

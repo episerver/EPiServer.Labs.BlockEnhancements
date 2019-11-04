@@ -10,7 +10,7 @@
     <description>Collection of useful enhancements around Block Publishing process.</description>
     <releaseNotes/>
     <copyright>Copyright 2019</copyright>
-    <tags>content block publishing publish local</tags>
+    <tags>content block blocks labs enhancements publishing publish local</tags>
     <licenseUrl>https://raw.githubusercontent.com/episerver/episerver.labs.blockenhancements/master/LICENSE</licenseUrl>
     <iconUrl>http://www.episerver.com/Framework/Styles/Images/Products/Content.png</iconUrl>
     <projectUrl>https://github.com/episerver/episerver.labs.blockenhancements</projectUrl>

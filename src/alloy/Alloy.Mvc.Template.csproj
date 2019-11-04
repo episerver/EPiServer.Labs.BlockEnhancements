@@ -337,6 +337,7 @@
     <Compile Include="Business\Initialization\ExtendedTinyMceInitialization.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Models\Blocks\AdvancedBlock.cs" />
+    <Compile Include="Models\Pages\BootstrapPage.cs" />
     <Compile Include="Models\Pages\ISearchPage.cs" />
     <Compile Include="Business\PageViewContextFactory.cs" />
     <Compile Include="Business\Rendering\ErrorHandlingContentRenderer.cs" />
@@ -390,7 +391,6 @@
     <Compile Include="Models\Pages\ProductPage.cs" />
     <Compile Include="Models\Pages\SitePageData.cs" />
     <Compile Include="Models\Pages\StandardPage.cs" />
-    <Compile Include="Models\Pages\TestPage.cs" />
     <Compile Include="Models\Pages\StartPage.cs" />
     <Compile Include="Models\Properties\PropertyStringList.cs" />
     <Compile Include="Models\Register\RegisterViewModel.cs">

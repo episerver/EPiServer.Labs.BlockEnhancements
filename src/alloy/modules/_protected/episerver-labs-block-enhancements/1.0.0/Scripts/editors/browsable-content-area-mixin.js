@@ -52,6 +52,11 @@ define([
                 this.dialog.show();
 
             } else {
+                //TODO: parent is null in nested block scenarios when the 1st level hasn't been created yet
+                if (!this.parent) {
+                    this.parent = this.model;
+                }
+
                 this.inherited(arguments);
             }
         }

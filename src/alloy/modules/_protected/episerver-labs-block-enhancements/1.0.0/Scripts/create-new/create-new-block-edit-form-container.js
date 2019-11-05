@@ -35,16 +35,9 @@ define([
             this.createContentViewModel.set("autoPublish", autoPublish);
         },
 
-        _onFormCreated: function () {
+        layout: function () {
             this.inherited(arguments);
-
-            //TODO: find a better way to fix this
-            setTimeout(function () {
-                if (this._contentBox && this._contentBox.h) {
-                    this._contentBox.h += 50;
-                    this.layout();
-                }
-            }.bind(this), 0);
+            this.containerLayout.containerNode.style.removeProperty("height");
         },
 
         reloadMetadata: function (parent, contentType) {

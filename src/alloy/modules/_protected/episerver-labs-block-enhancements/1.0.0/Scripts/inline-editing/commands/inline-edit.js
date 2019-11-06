@@ -75,7 +75,9 @@ define([
                     dialog.setPublishLabel(inlinePublishCommand.label);
                 }.bind(this));
 
-                var form = new FormContainer({}, dialog.content, "last");
+                var form = new FormContainer({
+                    isInlineCreateEnabled: this.isInlineCreateEnabled
+                }, dialog.content, "last");
                 form.set("contentLink", this.model.contentLink).then(function () {
                     inlinePublishCommand.set("model", this.model);
                 }.bind(this));

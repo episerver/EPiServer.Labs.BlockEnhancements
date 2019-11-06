@@ -337,6 +337,7 @@
     <Compile Include="Business\Initialization\ExtendedTinyMceInitialization.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Models\Blocks\AdvancedBlock.cs" />
+    <Compile Include="Models\Pages\BootstrapPage.cs" />
     <Compile Include="Models\Pages\ISearchPage.cs" />
     <Compile Include="Business\PageViewContextFactory.cs" />
     <Compile Include="Business\Rendering\ErrorHandlingContentRenderer.cs" />
@@ -390,7 +391,6 @@
     <Compile Include="Models\Pages\ProductPage.cs" />
     <Compile Include="Models\Pages\SitePageData.cs" />
     <Compile Include="Models\Pages\StandardPage.cs" />
-    <Compile Include="Models\Pages\TestPage.cs" />
     <Compile Include="Models\Pages\StartPage.cs" />
     <Compile Include="Models\Properties\PropertyStringList.cs" />
     <Compile Include="Models\Register\RegisterViewModel.cs">
@@ -425,6 +425,10 @@
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\content-draft-view\page-data-controller-initializer.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\content-draft-view\styles.css" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\content-draft-view\toggle-content-draft-view-command.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\create-new-block-edit-form-container.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\commands\create-new-command.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\initializer.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\styles.css" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\browsable-content-area-mixin.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\content-area-editor.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\content-area.js" />

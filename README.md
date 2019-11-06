@@ -10,6 +10,7 @@ The list of current features is as following:
 * [Showing block status on content area](#showing-block-status-on-content-area)
 * [Inline publishing](#inline-publish)
 * [Content Draft View](#content-draft-view)
+* [Inline Create](#inline-create)
 
 All of those features work together, but you can decide which ones are enabled, by [Configuring enabled features](#configuring-enabled-features)
 
@@ -161,7 +162,25 @@ The editor can use the new **"Content Draft View"** button to get an overview of
 
 ![Unpublished content view](assets/docsimages/content_draft_view_unpublished_content.png)
 
-![Content draft view](assets/docsimages/content_draft_view_demo.gif)
+![Content draft demo](assets/docsimages/content_draft_view_demo.gif)
+
+## Inline Create
+
+Allow editors to create & publish new blocks inline, without the need to leave the current content context.
+
+This feature also works in nested block scenarios, so let's say an editor can create a Row Block instance and then add child blocks to that Row. All those operations can be done without leaving the parent page context.  
+
+All new blocks are published automatically. It works both in On-Page Edit (OPE) and in regular Forms view.
+
+After clicking "Create new block" link the editor will be prompted with a content type list dialog:
+
+![Content type list dialog](assets/docsimages/create_new_block_dialog.png)
+
+After choosing the content type the editor will see the inline edit form straight away. All properties will be included (both required and optional):
+
+![Create new block form](assets/docsimages/create_new_edit_form.png)
+
+![Create new demo](assets/docsimages/create_new_nested_block.gif)
 
 ## Configuring enabled features
 
@@ -180,6 +199,7 @@ public class CustomBlockEnhancementsModule : IInitializableHttpModule
         options.InlinePublish = false;
         options.StatusIndicator = false;
         options.ContentAreaBrowse = true;
+        options.InlineCreate = true;
     }
 
     public void Uninitialize(InitializationEngine context)  {  }

@@ -27,7 +27,7 @@ define([
                 updateInlinePublishCommands(this);
             }
             if (this.blockEnhancementsOptions.inlineEditing) {
-                updateInlineEditCommands(this);
+                updateInlineEditCommands(this, this.blockEnhancementsOptions.inlineCreate);
             }
         }
     });

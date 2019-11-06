@@ -6,7 +6,7 @@
 
 .epi-dialog-portrait.inline-edit-dialog .dijitDialogPaneContentArea {
     min-height: 300px;
-    max-height: 600px;
+    max-height: 750px;
     height: auto;
 }
 
@@ -21,6 +21,9 @@
 
 .inline-edit-dialog .epi-form-container__section {
     margin: 0;
+    min-height: 300px;
+    max-height: 750px;
+    overflow-y: auto;
 }
 
 .inline-edit-dialog .epi-formsHeaderContainer {

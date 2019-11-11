@@ -20,4 +20,10 @@ namespace AlloyTemplates.Models.Pages
     {
         public virtual ContentArea Columns { get; set; }
     }
+
+    [SiteContentType(GUID = "5544A99A-E239-41B8-9C59-20EAA5936047", Description = "Lorem ipsum dolorum ipsum met")]
+    public class VeryLongBootstrapRowBlock : SiteBlockData
+    {
+        public virtual ContentArea Columns { get; set; }
+    }
 }

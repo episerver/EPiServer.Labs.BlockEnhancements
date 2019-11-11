@@ -5,8 +5,10 @@ define([
     "epi/shell/widget/dialog/Alert",
     "episerver-labs-block-enhancements/inline-editing/form-dialog",
     "epi-cms/widget/ContentTypeList",
+    "epi-cms/widget/ContentType",
     "epi-cms/widget/command/CreateContentFromSelector",
     "episerver-labs-block-enhancements/create-new/create-new-block-edit-form-container",
+    "episerver-labs-block-enhancements/create-new/get-tooltip",
     "epi/i18n!epi/cms/nls/episerver.cms.components.createblock",
     "epi/i18n!epi/cms/nls/episerver.shared.action",
     "xstyle/css!episerver-labs-block-enhancements/create-new/styles.css"
@@ -17,13 +19,21 @@ define([
     Alert,
     FormDialog,
     ContentTypeList,
+    ContentType,
     CreateContentFromSelector,
     CreateNewBlockEditFormContainer,
+    getTooltip,
     res,
     shared
 ) {
 
     return function() {
+        var originalRender = ContentType.prototype.render;
+        ContentType.prototype.render = function () {
+            originalRender.apply(this, arguments);
+            this.domNode.title = getTooltip(this.contentType);
+        };
+
         var originalSwitchView = CreateContentFromSelector.prototype._switchView;
         CreateContentFromSelector.prototype._switchView = function(content) {
             var autoPublish = this.autoPublish;

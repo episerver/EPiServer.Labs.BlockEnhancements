@@ -9,6 +9,10 @@
     height: 30px;
 }
 
+.create-content-dialog .epi-browserWindowContent .epi-noPreview {
+    display: none;
+}
+
 .create-content-dialog .epi-listingContainer {
     margin-left: 8px;
 }

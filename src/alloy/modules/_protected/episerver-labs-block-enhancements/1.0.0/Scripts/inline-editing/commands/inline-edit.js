@@ -140,7 +140,9 @@ define([
                 var contentData = this.model.content || this.model;
                 var hasAccessRights = ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Edit);
                 var hasProviderSupportForEditing = ContentActionSupport.hasProviderCapability(contentData.providerCapabilityMask, ContentActionSupport.providerCapabilities.Edit);
-                this.set("canExecute", hasAccessRights && hasProviderSupportForEditing);
+                var isReadyToPublish = contentData.status === ContentActionSupport.versionStatus.CheckedIn;
+                var isDeleted = contentData.isDeleted;
+                this.set("canExecute", hasAccessRights && hasProviderSupportForEditing && !isReadyToPublish && !isDeleted);
             }
         });
     });

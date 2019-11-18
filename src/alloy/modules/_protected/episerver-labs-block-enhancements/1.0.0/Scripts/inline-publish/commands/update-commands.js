@@ -1,7 +1,9 @@
 define([
-    "episerver-labs-block-enhancements/inline-editing/commands/inline-publish"
+    "episerver-labs-block-enhancements/inline-editing/commands/inline-publish",
+    "episerver-labs-block-enhancements/inline-editing/commands/inline-send-for-review"
 ], function (
-    InlinePublish
+    InlinePublish,
+    InlineSendForReview
 ) {
     return function updateCommands(commandsOwner) {
         var removeCommand = commandsOwner.commands.filter(function (x) {
@@ -15,5 +17,9 @@ define([
         var inlinePublish = new InlinePublish();
         commandsOwner.commands.splice(removeCommandIndex, 0, inlinePublish);
         commandsOwner.own(inlinePublish);
+
+        var inlineSendForReview = new InlineSendForReview();
+        commandsOwner.commands.splice(removeCommandIndex, 0, inlineSendForReview);
+        commandsOwner.own(inlineSendForReview);
     }
 });

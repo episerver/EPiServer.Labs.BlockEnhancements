@@ -434,6 +434,9 @@
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\content-area-editor.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\content-area.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\initializer.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\block-menu-inline-command-mixin.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\inline-command-mixin.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\inline-send-for-review.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\update-commands.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\block-edit-form-container.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\block-menu-inline-edit.js" />
@@ -445,6 +448,7 @@
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\initializer.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\inline-edit.css" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-publish\commands\block-menu-inline-publish.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-publish\commands\block-menu-inline-send-for-review.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-publish\commands\update-commands.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-publish\initializer.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-with-local-content-items\content-dependencies.css" />

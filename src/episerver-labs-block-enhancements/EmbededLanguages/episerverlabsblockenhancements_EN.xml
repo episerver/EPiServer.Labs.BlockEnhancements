@@ -22,6 +22,16 @@
           <browseexistingitems>browse existing content</browseexistingitems>
           <doubleclicktoinlineedit>Double click to inline edit</doubleclicktoinlineedit>
         </ilineediting>
+        <inlinecommands>
+          <inlinepublish>
+            <error>Content publish failed</error>
+            <success>was published successfully</success>
+          </inlinepublish>
+          <inlinereadytopublish>
+            <error>Couldn't mark as Ready to Publish</error>
+            <success>was marked as Ready to Publish successfully</success>
+          </inlinereadytopublish>
+        </inlinecommands>
       </blockenhancements>
     </episerverlabs>
   </language>

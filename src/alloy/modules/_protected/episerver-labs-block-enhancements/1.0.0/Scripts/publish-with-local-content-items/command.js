@@ -90,9 +90,15 @@ define([
                     self._publishBlocks(selectedContents).then(function (publishResults) {
                         var success = "Successfully published ";
                         var contentMessage = "<strong>" + self.model.contentData.name + "</strong>";
-                        var publishCount = publishResults.filter(function (result) {
+                        var publishedItems = publishResults.filter(function (result) {
                             return result[0];
-                        }).length;
+                        });
+                        var publishCount = publishedItems.length;
+                        whenAll(publishedItems.map(function (result) {
+                            return self._pageDataStore.refresh(result[1].id);
+                        })).then(function () {
+                            topic.publish("/refresh/ui");
+                        });
                         var dependenciesSuccessMessage = (publishCount === selectedContents.length ? "all" : (publishCount + " out of " + selectedContents.length)) + " selected content items";
                         if (!isPublishCommandAvailable) {
                             if (publishCount > 0) {

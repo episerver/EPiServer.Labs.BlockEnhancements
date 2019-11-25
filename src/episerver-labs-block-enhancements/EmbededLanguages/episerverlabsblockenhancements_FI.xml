@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<languages>
+  <language name="Finnish" id="fi">
+    <episerverlabs>
+      <blockenhancements>
+        <command>
+          <label>Älykäs julkaisu</label>
+          <partofapproval>On osa aktiivista hyväksymistyönkulkua eikä voida tällä hetkellä julkaista</partofapproval>
+        </command>
+        <noitemstopublish>Ei ole julkaistavaa</noitemstopublish>
+        <name>Nimi</name>
+        <changed>Muutettu</changed>
+        <by>muokkaaja</by>
+        <dialog>
+          <title>Vahvista että haluat julkaista sivun sekä siihen liittyvää sisältöä</title>
+          <confirmation>Julkaisematonta sisältöä jota tässä käytetään.&lt;br/&gt;Valitse sisällöt joita haluat julkaista tässä yhteydessä.</confirmation>
+        </dialog>
+        <ilineediting>
+          <dialog>
+            <save>Tallenna</save>
+          </dialog>
+          <browseexistingitems>valitse sisällöt</browseexistingitems>
+          <doubleclicktoinlineedit>Tuplaklikkaa muokkaaksesi tässä näkymässä</doubleclicktoinlineedit>
+          <inlineblockedit>Muokkaa lohkoa</inlineblockedit>
+        </ilineediting>
+        <inlinecommands><inlinepublish><error>Julkaisu onnistui</error><success>julkaistiin onnistuneesti</success></inlinepublish><inlinereadytopublish><error>Ei voitu merkitä valmiiksi julkaistavaksi</error><success>merkittiin valmiiksi julkaistavaksi onnistuneesti</success></inlinereadytopublish></inlinecommands>
+      </blockenhancements>
+    </episerverlabs>
+  </language>
+</languages>

@@ -30,7 +30,7 @@ namespace EPiServer.Labs.BlockEnhancements.StatusIndicator
             _currentProject = currentProject;
         }
 
-        public IEnumerable<ContentReference> GetLatestVersions(IEnumerable<ContentReference> ids, NameValueCollection queryString)
+        public IEnumerable<StructureStoreContentDataModel> GetLatestVersions(IEnumerable<ContentReference> ids, NameValueCollection queryString)
         {
             if (ids == null)
             {
@@ -77,9 +77,8 @@ namespace EPiServer.Labs.BlockEnhancements.StatusIndicator
             };
             // The ContentVersionFilter modify content links.
             // We have to use this filter here to make sure that we will use proper links
-            var contentModels = _contentStoreModelCreator
+            return _contentStoreModelCreator
                 .CreateContentDataStoreModels<StructureStoreContentDataModel>(contents, queryParameters).ToList();
-            return contentModels.Select(x => x.ContentLink);
         }
     }
 }

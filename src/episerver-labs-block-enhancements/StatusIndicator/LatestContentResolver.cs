@@ -4,6 +4,7 @@ using System.Linq;
 using EPiServer.Cms.Shell.UI.Rest;
 using EPiServer.Cms.Shell.UI.Rest.ContentQuery;
 using EPiServer.Cms.Shell.UI.Rest.Models;
+using EPiServer.Cms.Shell.UI.Rest.Projects;
 using EPiServer.Core;
 using EPiServer.Globalization;
 using EPiServer.Security;
@@ -16,13 +17,17 @@ namespace EPiServer.Labs.BlockEnhancements.StatusIndicator
         private readonly IContentLoader _contentLoader;
         private readonly IContentVersionRepository _contentVersionRepository;
         private readonly LanguageResolver _languageResolver;
+        private readonly ProjectContentResolver _projectContentResolver;
+        private readonly CurrentProject _currentProject;
 
-        public LatestContentResolver(IContentStoreModelCreator contentStoreModelCreator, IContentVersionRepository contentVersionRepository, LanguageResolver languageResolver, IContentLoader contentLoader)
+        public LatestContentResolver(IContentStoreModelCreator contentStoreModelCreator, IContentVersionRepository contentVersionRepository, LanguageResolver languageResolver, IContentLoader contentLoader, ProjectContentResolver projectContentResolver, CurrentProject currentProject)
         {
             _contentStoreModelCreator = contentStoreModelCreator;
             _contentVersionRepository = contentVersionRepository;
             _languageResolver = languageResolver;
             _contentLoader = contentLoader;
+            _projectContentResolver = projectContentResolver;
+            _currentProject = currentProject;
         }
 
         public IEnumerable<ContentReference> GetLatestVersions(IEnumerable<ContentReference> ids, NameValueCollection queryString)
@@ -35,6 +40,13 @@ namespace EPiServer.Labs.BlockEnhancements.StatusIndicator
             var draftLinks = new List<ContentReference>();
             foreach (var id in ids)
             {
+                if (_currentProject.ProjectId.HasValue)
+                {
+                    var projectReference = _projectContentResolver.GetProjectReference(id, _currentProject.ProjectId.Value);
+                    draftLinks.Add(projectReference);
+                    continue;
+                }
+
                 var content = _contentLoader.Get<IContent>(id) as IVersionable;
                 if (content == null)
                 {

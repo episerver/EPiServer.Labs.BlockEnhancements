@@ -48,8 +48,11 @@ define([
         forceReload: true,
 
         postscript: function () {
+            this.inherited(arguments);
+
             this._store = dependency.resolve("epi.storeregistry").get("episerver.labs.blockenhancements");
             this._pageDataStore = dependency.resolve("epi.storeregistry").get("epi.cms.contentdata");
+            this.projectService = dependency.resolve("epi.cms.ProjectService");
         },
 
         _execute: function () {
@@ -143,6 +146,22 @@ define([
             });
 
             return deferred.promise;
+        },
+
+        _onModelChange: function () {
+            // summary:
+            //		Updates isAvailable after the model has been updated.
+
+            this.inherited(arguments);
+            this.projectService.getCurrentProjectId().then(function (isProjectActive) {
+                if (isProjectActive) {
+                    this.set("isAvailable", false);
+                } else {
+                    var contentData = this.model.contentData || this.model;
+                    var hasPublishRights = ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Publish);
+                    this.set("isAvailable", hasPublishRights);
+                }
+            }.bind(this));
         }
     });
 });

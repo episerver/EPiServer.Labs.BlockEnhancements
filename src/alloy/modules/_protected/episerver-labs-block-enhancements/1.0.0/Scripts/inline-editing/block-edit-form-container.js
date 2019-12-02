@@ -21,6 +21,12 @@ define([
         contentLink: null,
         isInlineCreateEnabled: null,
 
+        postCreate: function () {
+            this.inherited(arguments);
+
+            this._enhancedStore = dependency.resolve("epi.storeregistry").get("episerver.labs.blockenhancements");
+        },
+
         saveForm: function () {
             var model = this._model,
                 value = this.value;
@@ -60,19 +66,21 @@ define([
             }
 
             var self = this;
-            return this._getContextStore().query({uri: "epi.cms.contentdata:///" + contentLink})
-                .then(function (context) {
-                    self._context = context;
-                    var uri = new UriParser(context.uri);
-                    return uri.getId();
-                })
-                .then(function (contentLink) {
-                    self._model = new ContentViewModel({contentLink: contentLink});
-                    return self._model.reload();
-                })
-                .then(function () {
-                    self.set("metadata", self._model.get("metadata"));
-                });
+            return this._enhancedStore.executeMethod("GetLatestVersions", null, [contentLink]).then(function (latestContents) {
+                return self._getContextStore().query({uri: "epi.cms.contentdata:///" + latestContents[0].contentLink})
+                    .then(function (context) {
+                        self._context = context;
+                        var uri = new UriParser(context.uri);
+                        return uri.getId();
+                    })
+                    .then(function (contentLink) {
+                        self._model = new ContentViewModel({contentLink: contentLink});
+                        return self._model.reload();
+                    })
+                    .then(function () {
+                        self.set("metadata", self._model.get("metadata"));
+                    });
+            });
         },
 
         _onFormCreated: function () {

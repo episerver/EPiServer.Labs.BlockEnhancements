@@ -12,7 +12,8 @@ namespace EPiServer.Labs.BlockEnhancements.ContentDraftView
         public void ConfigureContainer(ServiceConfigurationContext context)
         {
             context.Services.Intercept<IContentAreaLoader>(
-                (locator, defaultContentAreaLoader) => new CustomContentAreaLoader(defaultContentAreaLoader));
+                (locator, defaultContentAreaLoader) => new CustomContentAreaLoader(defaultContentAreaLoader,
+                    ServiceLocator.Current.GetInstance<IContextModeResolver>()));
         }
         public void Initialize(InitializationEngine context) { }
         public void Uninitialize(InitializationEngine context) { }

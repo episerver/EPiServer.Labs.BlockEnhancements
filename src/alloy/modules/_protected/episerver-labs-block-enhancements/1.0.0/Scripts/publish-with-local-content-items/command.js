@@ -48,8 +48,11 @@ define([
         forceReload: true,
 
         postscript: function () {
+            this.inherited(arguments);
+
             this._store = dependency.resolve("epi.storeregistry").get("episerver.labs.blockenhancements");
             this._pageDataStore = dependency.resolve("epi.storeregistry").get("epi.cms.contentdata");
+            this.projectService = dependency.resolve("epi.cms.ProjectService");
         },
 
         _execute: function () {
@@ -87,9 +90,15 @@ define([
                     self._publishBlocks(selectedContents).then(function (publishResults) {
                         var success = "Successfully published ";
                         var contentMessage = "<strong>" + self.model.contentData.name + "</strong>";
-                        var publishCount = publishResults.filter(function (result) {
+                        var publishedItems = publishResults.filter(function (result) {
                             return result[0];
-                        }).length;
+                        });
+                        var publishCount = publishedItems.length;
+                        whenAll(publishedItems.map(function (result) {
+                            return self._pageDataStore.refresh(result[1].id);
+                        })).then(function () {
+                            topic.publish("/refresh/ui");
+                        });
                         var dependenciesSuccessMessage = (publishCount === selectedContents.length ? "all" : (publishCount + " out of " + selectedContents.length)) + " selected content items";
                         if (!isPublishCommandAvailable) {
                             if (publishCount > 0) {
@@ -143,6 +152,22 @@ define([
             });
 
             return deferred.promise;
+        },
+
+        _onModelChange: function () {
+            // summary:
+            //		Updates isAvailable after the model has been updated.
+
+            this.inherited(arguments);
+            this.projectService.getCurrentProjectId().then(function (isProjectActive) {
+                if (isProjectActive) {
+                    this.set("isAvailable", false);
+                } else {
+                    var contentData = this.model.contentData || this.model;
+                    var hasPublishRights = ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Publish);
+                    this.set("isAvailable", hasPublishRights);
+                }
+            }.bind(this));
         }
     });
 });

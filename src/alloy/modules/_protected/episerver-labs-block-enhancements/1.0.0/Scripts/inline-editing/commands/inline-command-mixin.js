@@ -46,8 +46,9 @@ define([
             this.messageService = this.messageService || dependency.resolve("epi.shell.MessageService");
             this._contentVersionStore = dependency.resolve("epi.storeregistry").get("epi.cms.contentversion");
             this._contentDataStore = dependency.resolve("epi.storeregistry").get("epi.cms.contentdata");
+            this._enhancedStore = dependency.resolve("epi.storeregistry").get("episerver.labs.blockenhancements");
 
-            this.own(topic.subscribe("/epi/cms/content/statuschange/", function(status, contentIdentity) {
+            this.own(topic.subscribe("/epi/cms/content/statuschange/", function (status, contentIdentity) {
                 if (!this.model || !this.model.contentLink) {
                     return;
                 }
@@ -62,7 +63,7 @@ define([
         _execute: function () {
             var self = this;
 
-            function showErrorMessage (error) {
+            function showErrorMessage(error) {
                 if (error) {
                     dialogService.alert({
                         heading: self.errorMessageHeading,
@@ -96,9 +97,9 @@ define([
                 dialogService.alert(self.errorMessageHeading);
             }
 
-            var messages = this.messageService.query({ contextId: this.model.contentData.contentLink });
+            var messages = this.messageService.query({contextId: this.model.contentData.contentLink});
             messages.forEach(function (message) {
-                this.messageService.remove({ id: message.id });
+                this.messageService.remove({id: message.id});
             }, this);
 
             return this.inherited(arguments).then(function () {
@@ -106,7 +107,7 @@ define([
                 this._contentDataStore.refresh(this.model.contentData.contentLink).then(function () {
                     topic.publish("/refresh/ui");
                 });
-                }.bind(this)).otherwise(showErrorMessage)
+            }.bind(this)).otherwise(showErrorMessage)
                 .always(function () {
                     this.set("isAvailable", false);
                 }.bind(this));
@@ -134,33 +135,32 @@ define([
 
             var _arguments = arguments;
             var masterContentData = this.model.content || this.model;
-            return when(this._contentVersionStore
-                .query({ contentLink: this.model.contentLink, query: "getcommondraftversion" }).then(
-                    function (commonDraftVersion) {
-                        var contentData = commonDraftVersion;
-                        // we want to exit early if the page is already published or the user does not have proper access rights
-                        if (!contentData || this.ignoredStatuses.indexOf(contentData.status) !== -1 ||
-                            !ContentActionSupport.hasAccessToAction(masterContentData, this.requiredAction) ||
-                            (this.skippedAction && ContentActionSupport.hasAccessToAction(masterContentData, this.skippedAction))
-                        ) {
-                            this.set("isAvailable", false);
-                            return;
-                        }
 
-                        this.set("isAvailable", true);
+            return this._enhancedStore.executeMethod("GetLatestVersions", null, [this.model.contentLink]).then(function (latestContents) {
+                var contentData = latestContents[0];
+                // we want to exit early if the page is already published or the user does not have proper access rights
+                if (!contentData || this.ignoredStatuses.indexOf(contentData.status) !== -1 ||
+                    !ContentActionSupport.hasAccessToAction(masterContentData, this.requiredAction) ||
+                    (this.skippedAction && ContentActionSupport.hasAccessToAction(masterContentData, this.skippedAction))
+                ) {
+                    this.set("isAvailable", false);
+                    return;
+                }
 
-                        if (this._viewModel) {
-                            this._viewModel.destroy();
-                        }
-                        this._viewModel = new ContentViewModel({
-                            contentLink: contentData.contentLink,
-                            contextTypeName: "epi.cms.contentdata"
-                        });
-                        this._viewModel.set("contentData", contentData);
-                        this.model = this._viewModel;
+                this.set("isAvailable", true);
 
-                        this.inherited(_arguments);
-                    }.bind(this)));
+                if (this._viewModel) {
+                    this._viewModel.destroy();
+                }
+                this._viewModel = new ContentViewModel({
+                    contentLink: contentData.contentLink,
+                    contextTypeName: "epi.cms.contentdata"
+                });
+                this._viewModel.set("contentData", contentData);
+                this.model = this._viewModel;
+
+                this.inherited(_arguments);
+            }.bind(this));
         }
     });
 });

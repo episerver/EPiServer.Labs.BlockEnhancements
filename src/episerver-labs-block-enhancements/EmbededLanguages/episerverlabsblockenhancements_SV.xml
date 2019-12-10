@@ -24,13 +24,13 @@
         </ilineediting>
         <inlinecommands>
           <inlinepublish>
-            <error>Publicerades framgångsrikt</error>
-            <success>markerades som redo att publiceras framgångsrikt</success>
-          </inlinepublish>
-          <inlinereadytopublish>
-            <error>Det gick inte att markera som redo att publicera</error>
-            <success>markerades som redo att publiceras framgångsrikt</success>
-          </inlinereadytopublish>
+            <error>Publicerades framgångsrikt</error>
+            <success>markerades som redo att publiceras framgångsrikt</success>
+          </inlinepublish>
+          <inlinereadytopublish>
+            <error>Det gick inte att markera som redo att publicera</error>
+            <success>markerades som redo att publiceras framgångsrikt</success>
+          </inlinereadytopublish>
         </inlinecommands>
       </blockenhancements>
     </episerverlabs>

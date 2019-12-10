@@ -57,7 +57,8 @@ define([
 
                 var _this = this;
                 var isDirty = false;
-                var hasPublishAccessRights = ContentActionSupport.hasAccess(this.model.content.accessMask, ContentActionSupport.accessLevel.Publish);
+                var contentData = this.model.content || this.model;
+                var hasPublishAccessRights = ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Publish);
                 var inlinePublishCommand = new InlinePublish();
 
                 function canPublish() {

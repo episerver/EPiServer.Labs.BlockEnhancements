@@ -1,0 +1,17 @@
+{
+    "name": "episerver-cms-telemetry",
+    "version": "0.1.0",
+    "main": "tracker.js",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "@babel/core": "^7.7.4",
+        "@babel/preset-env": "^7.7.4",
+        "@microsoft/applicationinsights-web": "^2.3.1",
+        "webpack": "^4.41.2",
+        "webpack-cli": "^3.3.10"
+    },
+    "scripts": {
+        "build": "webpack --mode production",
+        "build:debug": "webpack --mode development"
+    }
+}

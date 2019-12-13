@@ -1,20 +1,24 @@
 define([
     "dojo/_base/declare",
     "dojo/topic",
+    "dojo/on",
 
     "epi/dependency",
     "epi/UriParser",
     "epi-cms/contentediting/ContentActionSupport",
     "epi-cms/contentediting/ContentViewModel",
+    "episerver-labs-block-enhancements/inline-editing/tooltip-patch",
 
     "epi/shell/widget/FormContainer"
 ], function (
     declare,
     topic,
+    on,
     dependency,
     UriParser,
     ContentActionSupport,
     ContentViewModel,
+    tooltipPatch,
     FormContainer) {
 
     return declare([FormContainer], {
@@ -25,6 +29,11 @@ define([
             this.inherited(arguments);
 
             this._enhancedStore = dependency.resolve("epi.storeregistry").get("episerver.labs.blockenhancements");
+            this.own(on(this, "FormCreated", function () {
+                this.own(on(this.form.domNode.firstElementChild, "scroll", function () {
+                    tooltipPatch.hideAll();
+                }))
+            }.bind(this)));
         },
 
         saveForm: function () {

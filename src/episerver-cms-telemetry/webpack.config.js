@@ -11,7 +11,7 @@ module.exports = (env, argv) => {
             filename: "tracker.js",
             libraryTarget: "amd",
             libraryExport: "default",
-            path: path.resolve(__dirname, "dist")
+            path: path.resolve(__dirname, "./../alloy/modules/_protected/episerver-labs-block-enhancements/1.0.0/Scripts")
         }
     }
 }

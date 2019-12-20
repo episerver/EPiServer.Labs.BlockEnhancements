@@ -1,15 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.271
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "alloy", "src\alloy\Alloy.Mvc.Template.csproj", "{3D79ADE5-DADB-47D2-933D-E98F9773AFAD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alloy.Mvc.Template", "src\alloy\Alloy.Mvc.Template.csproj", "{3D79ADE5-DADB-47D2-933D-E98F9773AFAD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F856CAEC-B3F9-4320-B39D-E8F2EB8F6111}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A1272902-1CD0-4507-9714-CB3AE96E78FD}"
 	ProjectSection(SolutionItems) = preProject
-		build\Templates.targets = build\Templates.targets
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
@@ -21,6 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A1272902
 		README.md = README.md
 		setup.cmd = setup.cmd
 		site.cmd = site.cmd
+		build\Templates.targets = build\Templates.targets
 		version.cs = version.cs
 		gulpfile.js = gulpfile.js
 		karma.conf.js = karma.conf.js
@@ -31,6 +31,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A1272902
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiServer.Labs.BlockEnhancements", "src\episerver-labs-block-enhancements\EPiServer.Labs.BlockEnhancements.csproj", "{7D3CB0B4-BF55-4577-ABF2-D83F8EA5D49F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiServer.Labs.BlockEnhancements.Test", "src\EPiServer.Labs.BlockEnhancements.Test\EPiServer.Labs.BlockEnhancements.Test.csproj", "{602884E4-A777-4211-88E3-8779FD83C3AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +48,10 @@ Global
 		{7D3CB0B4-BF55-4577-ABF2-D83F8EA5D49F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D3CB0B4-BF55-4577-ABF2-D83F8EA5D49F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D3CB0B4-BF55-4577-ABF2-D83F8EA5D49F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{602884E4-A777-4211-88E3-8779FD83C3AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{602884E4-A777-4211-88E3-8779FD83C3AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{602884E4-A777-4211-88E3-8779FD83C3AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{602884E4-A777-4211-88E3-8779FD83C3AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3D79ADE5-DADB-47D2-933D-E98F9773AFAD} = {F856CAEC-B3F9-4320-B39D-E8F2EB8F6111}
 		{7D3CB0B4-BF55-4577-ABF2-D83F8EA5D49F} = {F856CAEC-B3F9-4320-B39D-E8F2EB8F6111}
+		{602884E4-A777-4211-88E3-8779FD83C3AA} = {F856CAEC-B3F9-4320-B39D-E8F2EB8F6111}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {31F10C96-F924-4A0A-9B12-36A09C66A0B3}

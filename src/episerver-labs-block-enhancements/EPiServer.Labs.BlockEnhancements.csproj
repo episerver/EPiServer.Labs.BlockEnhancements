@@ -183,6 +183,8 @@
     <Compile Include="StatusIndicator\IsLocalContent.cs" />
     <Compile Include="StatusIndicator\LatestContentResolver.cs" />
     <Compile Include="StatusIndicator\ProjectContentResolver.cs" />
+    <Compile Include="Telemetry\Internal\TelemetryInitialization.cs" />
+    <Compile Include="Telemetry\Internal\TelemetryOptionsTransform.cs" />
     <Compile Include="Telemetry\TelemetryOptions.cs" />
     <Compile Include="TimeAgoFormatter.cs" />
   </ItemGroup>

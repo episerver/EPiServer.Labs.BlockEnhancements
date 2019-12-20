@@ -1,5 +1,8 @@
-﻿namespace EPiServer.Labs.BlockEnhancements.Telemetry
+﻿using EPiServer.ServiceLocation;
+
+namespace EPiServer.Labs.BlockEnhancements.Telemetry
 {
+    [Options]
     public class TelemetryOptions
     {
         /// <summary>
@@ -10,5 +13,10 @@
         /// will always be collected in DXC environments.
         /// </remarks>
         public bool OptedIn { get; set; } = false;
+
+        /// <summary>
+        /// Indicates whether the application is running in a DXC environment.
+        /// </summary>
+        internal bool IsDxcEnvironment { get; set; } = false;
     }
 }

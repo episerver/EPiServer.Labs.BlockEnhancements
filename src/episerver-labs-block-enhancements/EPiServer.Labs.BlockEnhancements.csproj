@@ -186,6 +186,7 @@
     <Compile Include="Telemetry\Internal\TelemetryInitialization.cs" />
     <Compile Include="Telemetry\Internal\TelemetryOptionsTransform.cs" />
     <Compile Include="Telemetry\TelemetryOptions.cs" />
+    <Compile Include="Telemetry\Internal\TelemetryConfigStore.cs" />
     <Compile Include="TimeAgoFormatter.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -18,5 +18,11 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry
         /// Indicates whether the application is running in a DXC environment.
         /// </summary>
         internal bool IsDxcEnvironment { get; set; } = false;
+
+        /// <summary>
+        /// Gets a value indicating if telemetry is enabled.
+        /// </summary>
+        /// <returns><code>true</code> if in DXC or if the customer has opted in; otherwise <code>false</code></returns>
+        internal bool IsTelemetryEnabled() => IsDxcEnvironment || OptedIn;
     }
 }

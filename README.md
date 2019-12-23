@@ -40,6 +40,8 @@ A more advanced scenario can look something like this:
 
 This feature allows editors to edit block content directly on the page. 
 
+In order for the changes to appear in OPE without refreshing the page, **Content Draft View** must be enabled and draft mode must be active.
+
 Any block that the current editor has rights to can now be double-clicked which will open a dialog box with an editable block form.
 
 ![Double click to edit inline](assets/docsimages/double_click_inline_edit.gif)

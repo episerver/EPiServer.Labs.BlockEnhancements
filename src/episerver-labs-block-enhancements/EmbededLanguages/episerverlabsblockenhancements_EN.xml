@@ -8,6 +8,7 @@
           <partofapproval>Is part of an active approval sequence and cannot be published at the moment</partofapproval>
         </command>
         <noitemstopublish>There is nothing to be published</noitemstopublish>
+        <loadingitems>Loading items...</loadingitems>
         <name>Name</name>
         <changed>Changed</changed>
         <by>By</by>

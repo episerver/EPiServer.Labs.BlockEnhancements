@@ -57,15 +57,23 @@ define([
                 });
                 dialog.show();
 
+                var _this = this;
                 var isDirty = false;
+                var contentData = this.model.content || this.model;
+                var hasPublishAccessRights = ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Publish);
                 var inlinePublishCommand = new InlinePublish();
+
+                function canPublish() {
+                    return inlinePublishCommand.get("isAvailable") && inlinePublishCommand.get("canExecute");
+                }
 
                 function updatePublishCommandVisibility() {
                     if (!dialog) {
                         return;
                     }
-                    var isVisible = inlinePublishCommand.get("isAvailable") && inlinePublishCommand.get("canExecute");
-                    dialog.togglePublishButton(isVisible);
+                    var isDirtyLocalBlock = isDirty && _this.model.content.capabilities.isLocalContent;
+                    dialog.togglePublishButton(hasPublishAccessRights && (canPublish() || isDirtyLocalBlock));
+                    dialog.setPublishLabel(inlinePublishCommand.label);
                 }
 
                 var isAvailableHandle = inlinePublishCommand.watch("isAvailable", updatePublishCommandVisibility.bind(this));
@@ -96,6 +104,7 @@ define([
 
                 var onChangeHandle = on(form, "change", function () {
                     isDirty = true;
+                    updatePublishCommandVisibility();
                 });
 
                 var executeHandle = on(dialog, "execute", form.saveForm.bind(form));
@@ -106,8 +115,20 @@ define([
                         deferred = form.saveForm();
                     }
                     when(deferred).then(function () {
-                        inlinePublishCommand.execute().then(function () {
-                            dialog.hide();
+                        var prePublishDeferred = true;
+                        // check if the Publish became available after the form was saved
+                        if (!canPublish()) {
+                            // if it did, then we have to manually refresh its model to get most recent availability flags
+                            prePublishDeferred = inlinePublishCommand._onModelChange();
+                        }
+                        when(prePublishDeferred).then(function () {
+                            if (canPublish()) {
+                                inlinePublishCommand.execute().then(function () {
+                                    dialog.hide();
+                                });
+                            } else {
+                                dialog.hide();
+                            }
                         });
                     });
                 });

@@ -23,7 +23,16 @@
           <doubleclicktoinlineedit>Dubbelklicka för att redigera inline</doubleclicktoinlineedit>
           <inlineblockedit>Redigera inline</inlineblockedit>
         </ilineediting>
-        <inlinecommands><inlinepublish><error>Publicerades framgångsrikt</error><success>markerades som redo att publiceras framgångsrikt</success></inlinepublish><inlinereadytopublish><error>Det gick inte att markera som redo att publicera</error><success>markerades som redo att publiceras framgångsrikt</success></inlinereadytopublish></inlinecommands>
+        <inlinecommands>
+          <inlinepublish>
+            <error>Publicerades framgångsrikt</error>
+            <success>markerades som redo att publiceras framgångsrikt</success>
+          </inlinepublish>
+          <inlinereadytopublish>
+            <error>Det gick inte att markera som redo att publicera</error>
+            <success>markerades som redo att publiceras framgångsrikt</success>
+          </inlinereadytopublish>
+        </inlinecommands>
       </blockenhancements>
     </episerverlabs>
   </language>

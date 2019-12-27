@@ -84,12 +84,11 @@ define([
                     }),
                     treePath: {
                         label: " ",
-                        className: "epi-width45",
+                        className: "epi-width30",
                         get: function (item) {
-                            var treePath = item.treePath || [];
-                            return treePath.join("<span class=\"epi-breadCrumbsSeparator\">&gt;</span>");
+                            return (item.treePath || []).join(" > ");
                         },
-                        ellipsisNoTooltip: true
+                        ellipsis: true
                     },
                     changed: {
                         label: labsResources.changed,

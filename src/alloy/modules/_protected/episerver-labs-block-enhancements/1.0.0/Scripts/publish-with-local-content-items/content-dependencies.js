@@ -63,6 +63,12 @@ define([
                 }
             });
 
+            this.own(aspect.before(this.store, "query", function () {
+                this.noDataMessageNode.innerHTML = labsResources.loadingitems;
+                domClass.remove(this.noDataNode, "dijitHidden");
+                domClass.add(this.gridNode, "dijitHidden");
+            }.bind(this)));
+
             this.own(aspect.after(this.store, "query", function (results) {
                 when(results).then(this._afterStoreQuery.bind(this));
                 return results;
@@ -163,7 +169,6 @@ define([
 
         startup: function () {
             this.inherited(arguments);
-            this.noDataMessageNode.innerHTML = labsResources.noitemstopublish;
             this.own(this.grid.on(".dgrid-column-uri a:click", this._onChangeContext.bind(this)));
         },
 
@@ -173,6 +178,7 @@ define([
 
         _afterStoreQuery: function (results) {
             var hasItems = results.length > 0;
+            this.noDataMessageNode.innerHTML = labsResources.noitemstopublish;
             domClass.toggle(this.noDataNode, "dijitHidden", hasItems);
             domClass.toggle(this.gridNode, "dijitHidden", !hasItems);
         },

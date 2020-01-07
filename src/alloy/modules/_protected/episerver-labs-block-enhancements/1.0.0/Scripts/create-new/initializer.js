@@ -62,10 +62,13 @@ define([
                         autoPublish: autoPublish,
                         addToDestination: model
                     }, editDialog.content, "last");
-                    form.reloadMetadata(content, selectedType).then(function () {
+
+                    editDialog.own(on(form, "FormCreated", function () {
                         editDialog.show();
                         editDialog.togglePublishButton(false);
-                    });
+                    }));
+
+                    form.reloadMetadata(content, selectedType);
 
                     _this.own(on(editDialog, "execute", form.saveForm.bind(form)));
                     editDialog.own(form);

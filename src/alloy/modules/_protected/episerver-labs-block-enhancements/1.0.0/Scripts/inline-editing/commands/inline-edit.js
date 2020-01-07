@@ -53,7 +53,6 @@ define([
                 var dialog = new FormDialog({
                     title: this.model.name
                 });
-                dialog.show();
 
                 var _this = this;
                 var isDirty = false;
@@ -96,6 +95,7 @@ define([
                         dialog.set("closeText", "Close");
                     }
 
+                    dialog.show();
                     updatePublishCommandVisibility();
 
                 }.bind(this));

@@ -2,7 +2,6 @@ define([
     "dojo/_base/declare",
     "dojo/topic",
     "dojo/on",
-    "dojo/window",
     "epi/dependency",
     "epi/UriParser",
     "epi-cms/contentediting/ContentActionSupport",
@@ -14,15 +13,12 @@ define([
     declare,
     topic,
     on,
-    win,
     dependency,
     UriParser,
     ContentActionSupport,
     ContentViewModel,
     tooltipPatch,
     FormContainer) {
-
-    var MIN_SUPPORTED_BROWSER_HEIGHT = 768;
 
     return declare([FormContainer], {
         contentLink: null,
@@ -66,11 +62,6 @@ define([
         layout: function () {
             this.inherited(arguments);
             this.containerLayout.containerNode.style.removeProperty("height");
-            var windowSize = win.getBox();
-            // for short browser windows we need to explicitly calculate the form height
-            if (windowSize.h <= MIN_SUPPORTED_BROWSER_HEIGHT) {
-                this.containerLayout.containerNode.style.height = Math.floor(windowSize.h * 0.8) + "px";
-            }
         },
 
         _setContentLinkAttr: function (contentLink) {

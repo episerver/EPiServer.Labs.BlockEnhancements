@@ -35,11 +35,6 @@ define([
             this.createContentViewModel.set("autoPublish", autoPublish);
         },
 
-        layout: function () {
-            this.inherited(arguments);
-            this.containerLayout.containerNode.style.removeProperty("height");
-        },
-
         reloadMetadata: function (parent, contentType) {
             this.createContentViewModel.set({
                 parent: parent,

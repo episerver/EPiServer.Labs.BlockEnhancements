@@ -1,6 +1,9 @@
-﻿using EPiServer.Framework.Web.Resources;
+﻿using System;
+using System.Collections.Generic;
+using EPiServer.Framework.Web.Resources;
 using EPiServer.ServiceLocation;
 using EPiServer.Shell.Modules;
+using EPiServer.Shell.Services.Rest;
 
 namespace EPiServer.Labs.BlockEnhancements
 {
@@ -26,8 +29,17 @@ namespace EPiServer.Labs.BlockEnhancements
         /// <inheritdoc />
         public override ModuleViewModel CreateViewModel(ModuleTable moduleTable, IClientResourceService clientResourceService)
         {
+            string GetAssemblyVersion(Type type)
+            {
+                return type.Assembly.GetName().Version.ToString();
+            }
+
             var options = ServiceLocator.Current.GetInstance<BlockEnhancementsOptions>();
-            return new BlockEnhancementsModuleViewModel(this, clientResourceService, options);
+
+            var model = new BlockEnhancementsModuleViewModel(this, clientResourceService, options);
+            model.InstalledModules["CmsUI"] = GetAssemblyVersion(typeof(RestControllerBase));
+            model.InstalledModules["BlockEnhancements"] = GetAssemblyVersion(typeof(BlockEnhancementsModule));
+            return model;
         }
     }
 
@@ -37,8 +49,11 @@ namespace EPiServer.Labs.BlockEnhancements
             base(shellModule, clientResourceService)
         {
             Options = options;
+            InstalledModules = new Dictionary<string, string>();
         }
 
         public BlockEnhancementsOptions Options { get; }
+
+        public Dictionary<string, string> InstalledModules { get; }
     }
 }

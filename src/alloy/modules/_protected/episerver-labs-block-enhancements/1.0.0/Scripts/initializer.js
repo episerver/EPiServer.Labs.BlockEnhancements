@@ -42,6 +42,9 @@ define([
             if (options.inlineCreate) {
                 createNewInitializer();
             }
+
+            //TODO: use versions CMS-15096
+            console.log(this._settings.installedModules);
         }
     });
 });

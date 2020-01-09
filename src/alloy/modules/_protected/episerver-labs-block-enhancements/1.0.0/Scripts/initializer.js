@@ -45,10 +45,7 @@ define([
                 createNewInitializer();
             }
 
-            telemetryInitializer();
-
-            //TODO: use versions CMS-15096
-            console.log(this._settings.installedModules);
+            telemetryInitializer(this._settings.installedModules);
         }
     });
 });

@@ -3,7 +3,7 @@ import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 let appInsights = null;
 
 const Tracker = {
-    initialize(instrumentationKey) {
+    initialize(instrumentationKey, versions) {
         appInsights = new ApplicationInsights({
             config: {
                 disableAjaxTracking: true,
@@ -11,6 +11,9 @@ const Tracker = {
             }
         });
         appInsights.loadAppInsights();
+        appInsights.addTelemetryInitializer((envelope) => {
+            envelope.data.versions = versions;
+        });
     },
 
     track(eventName, data) {

@@ -7,7 +7,8 @@ define([
     "episerver-labs-block-enhancements/inline-editing/initializer",
     "episerver-labs-block-enhancements/inline-publish/initializer",
     "episerver-labs-block-enhancements/content-draft-view/initializer",
-    "episerver-labs-block-enhancements/create-new/initializer"
+    "episerver-labs-block-enhancements/create-new/initializer",
+    "episerver-labs-block-enhancements/telemetry-initializer"
 ], function (
     declare,
     _Module,
@@ -17,7 +18,8 @@ define([
     inlineEditingInitializer,
     inlinePublishInitializer,
     contentDraftViewInitializer,
-    createNewInitializer
+    createNewInitializer,
+    telemetryInitializer
 ) {
     return declare([_Module], {
         initialize: function () {
@@ -42,6 +44,8 @@ define([
             if (options.inlineCreate) {
                 createNewInitializer();
             }
+
+            telemetryInitializer();
 
             //TODO: use versions CMS-15096
             console.log(this._settings.installedModules);

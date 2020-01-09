@@ -8,7 +8,7 @@ define([
     "episerver-labs-block-enhancements/inline-publish/initializer",
     "episerver-labs-block-enhancements/content-draft-view/initializer",
     "episerver-labs-block-enhancements/create-new/initializer",
-    "episerver-labs-block-enhancements/telemetry-initializer"
+    "episerver-labs-block-enhancements/telemetry/initializer"
 ], function (
     declare,
     _Module,

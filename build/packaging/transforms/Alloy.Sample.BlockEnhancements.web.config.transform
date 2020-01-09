@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modifications>
+    <add path="configuration/episerver.framework/virtualRoles/providers">
+        <add __keyAttributes="name" name="EPiBetaUsers" type="EPiServer.Security.AuthenticatedRole, EPiServer.Framework" />
+    </add>
+    <add path="configuration/episerver.framework">
+        <licensing licenseFilePath="E:\License.config" />
+    </add>    
+    <setAttribute path="configuration/episerver.framework/appData"
+                  attributeName="basePath"
+                  attributeValue="{basePath}" />
+    <setAttribute path="configuration/episerver.framework/clientResources"
+                  attributeName="debug"
+                  attributeValue="false" />
+    <setAttribute path="configuration/connectionStrings/add[@name='EPiServerDB']"
+                  attributeName="connectionString"
+                  attributeValue="Data Source={DbServer};Database={DbDatabase};User Id={DbUserName};Password={DbPassword};Network Library=DBMSLPCN;MultipleActiveResultSets=True" />
+</modifications>

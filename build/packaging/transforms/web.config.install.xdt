@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+  <episerver.shell xdt:Transform="InsertIfMissing">
+    <protectedModules rootPath="~/EPiServer/" xdt:Transform="InsertIfMissing">
+      <add name="episerver-labs-block-enhancements" xdt:Transform="InsertIfMissing" xdt:Locator="Match(name)"/>
+    </protectedModules>
+  </episerver.shell>
+</configuration>

@@ -7,7 +7,7 @@ function ZipCurrentModule
 {
     Param ([String]$moduleName)
     Robocopy.exe $defaultVersion\ $version\ /S
-    Remove-Item "$moduleName.zip" -Force -Recurse
+    Remove-Item "$moduleName.zip" -Force -Recurse -ErrorAction Ignore
     ((Get-Content -Path module.config -Raw).TrimEnd() -Replace $defaultVersion, $version ) | Set-Content -Path module.config
     Start-Process -NoNewWindow -Wait -FilePath $zip -ArgumentList "a", "$moduleName.zip", "$version", "module.config"
     ((Get-Content -Path module.config -Raw).TrimEnd() -Replace $version, $defaultVersion ) | Set-Content -Path module.config

@@ -8,7 +8,7 @@ define([
             .get().then(function(telemetry){
                 if(telemetry.isEnabled){
                     tracker.initialize(telemetry.instrumentationKey, versions);
-
+                    tracker.track("hello-world");
                 }
             });
     }

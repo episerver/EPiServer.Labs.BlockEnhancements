@@ -6,15 +6,17 @@ const Tracker = {
     initialize(instrumentationKey) {
         appInsights = new ApplicationInsights({
             config: {
-                instrumentationKey: instrumentationKey                
+                disableAjaxTracking: true,
+                instrumentationKey: instrumentationKey
             }
         });
+        appInsights.loadAppInsights();
     },
 
     track(eventName, data) {
         if (!appInsights) {
             throw new Error("Tracker not initialized");
-        }        
+        }
 
         appInsights.trackEvent({ name: eventName }, data);
     }

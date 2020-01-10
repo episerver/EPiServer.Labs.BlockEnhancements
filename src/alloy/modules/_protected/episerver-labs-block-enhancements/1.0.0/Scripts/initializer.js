@@ -45,7 +45,7 @@ define([
                 createNewInitializer();
             }
 
-            telemetryInitializer(this._settings.installedModules);
+            telemetryInitializer();
         }
     });
 });

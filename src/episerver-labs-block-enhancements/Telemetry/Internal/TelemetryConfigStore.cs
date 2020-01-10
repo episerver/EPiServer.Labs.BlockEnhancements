@@ -1,4 +1,6 @@
-﻿using EPiServer.Shell.Services.Rest;
+﻿using System;
+using System.Collections.Generic;
+using EPiServer.Shell.Services.Rest;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -20,8 +22,24 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
             return Rest(new
             {
                 instrumentationKey = await GetInstrumentationKey(),
-                isEnabled = await IsTelemetryEnabled()
+                isEnabled = await IsTelemetryEnabled(),
+                versions = GetVersions()
             });
+        }
+
+        private Dictionary<string, string> GetVersions()
+        {
+            string GetAssemblyVersion(Type type)
+            {
+                return type.Assembly.GetName().Version.ToString();
+            }
+
+            var result = new Dictionary<string, string>
+            {
+                ["CmsUI"] = GetAssemblyVersion(typeof(RestControllerBase)),
+                ["BlockEnhancements"] = GetAssemblyVersion(typeof(BlockEnhancementsModule))
+            };
+            return result;
         }
 
         private async Task<string> GetInstrumentationKey()

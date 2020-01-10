@@ -21,8 +21,8 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
         {
             return Rest(new
             {
-                instrumentationKey = await GetInstrumentationKey(),
-                isEnabled = await IsTelemetryEnabled(),
+                instrumentationKey = await GetInstrumentationKey().ConfigureAwait(false),
+                isEnabled = await IsTelemetryEnabled().ConfigureAwait(false),
                 versions = GetVersions()
             });
         }

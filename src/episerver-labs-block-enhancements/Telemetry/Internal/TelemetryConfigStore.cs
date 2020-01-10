@@ -1,6 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using EPiServer.Licensing;
+using EPiServer.Security;
 using EPiServer.Shell.Services.Rest;
+using EPiServerProfile = EPiServer.Personalization.EPiServerProfile;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -9,22 +15,49 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
     [RestStore("telemetryconfig")]
     public class TelemetryConfigStore : RestControllerBase
     {
-        private readonly TelemetryOptions _options;
+        private readonly TelemetryOptions _telemetryOptions;
+        private readonly LicensingOptions _licensingOptions;
+        private readonly IPrincipalAccessor _principalAccessor;
 
-        public TelemetryConfigStore(TelemetryOptions options)
+        public TelemetryConfigStore(TelemetryOptions telemetryOptions, LicensingOptions licensingOptions, IPrincipalAccessor principalAccessor)
         {
-            _options = options;
+            _telemetryOptions = telemetryOptions;
+            _licensingOptions = licensingOptions;
+            _principalAccessor = principalAccessor;
+
+            HashHandler = new SiteSecurity();
         }
 
         [HttpGet]
-        public async Task<ActionResult> Get()
+        public async Task<RestResult> Get()
         {
-            return Rest(new
+            return Rest(new TelemetryConfigModel
             {
-                instrumentationKey = await GetInstrumentationKey().ConfigureAwait(false),
-                isEnabled = await IsTelemetryEnabled().ConfigureAwait(false),
-                versions = GetVersions()
+                InstrumentationKey = await GetInstrumentationKey().ConfigureAwait(false),
+                IsEnabled = await IsTelemetryEnabled().ConfigureAwait(false),
+                Client = GetClientHash(),
+                User = GetUserHash(),
+                Versions = GetVersions()
             });
+        }
+
+        private string GetClientHash()
+        {
+            var licenseKey = _licensingOptions.LicenseKey;
+            if (licenseKey != null)
+            {
+                return HashString(licenseKey);
+            }
+
+            try
+            {
+                var license = LoadLicense(_licensingOptions.LicenseFilePath);
+                return HashString(license?.LicensedCompany);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private Dictionary<string, string> GetVersions()
@@ -49,9 +82,39 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
             return await Task.FromResult("e4b8b0bc-c592-4797-8a7e-61cf60978363");
         }
 
+        private string GetUserHash()
+        {
+            var username = _principalAccessor.CurrentName();
+            var email = LoadEmailFromProfile(username);
+            return HashString(email ?? username);
+        }
+
+        private string HashString(string data)
+        {
+            if (data == null)
+            {
+                return null;
+            }
+            return HashHandler.GenerateStringHash(Encoding.Unicode.GetBytes(data));
+        }
+
         private async Task<bool> IsTelemetryEnabled()
         {
-            return await Task.FromResult(_options.IsTelemetryEnabled());
+            return await Task.FromResult(_telemetryOptions.IsTelemetryEnabled());
         }
+
+        // Allow mocking the generated hash in unit tests.
+        internal IHashHandler HashHandler { get; set; }
+
+        // Delegate license loading to allow mocking in unit tests.
+        internal Func<string, LicenseData> LoadLicense = (string licenseFilePath) =>
+        {
+            var key = RSA.Create();
+            key.FromXmlString(CloudLicenseConsts.PublicKey);
+            return LicenseData.Load(licenseFilePath, null, key).FirstOrDefault();
+        };
+
+        // Delegate profile loading to allow mocking in unit tests.
+        internal Func<string, string> LoadEmailFromProfile = (string username) => EPiServerProfile.Get(username)?.Email;
     }
 }

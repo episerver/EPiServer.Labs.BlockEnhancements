@@ -18,7 +18,7 @@ const Tracker = {
 
     track(eventName, data) {
         if (!appInsights) {
-            throw new Error("Tracker not initialized");
+            return;
         }
 
         appInsights.trackEvent({ name: eventName }, data);

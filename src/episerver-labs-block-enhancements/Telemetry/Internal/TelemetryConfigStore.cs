@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using EPiServer.Shell.Modules;
 
 namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
 {
@@ -18,12 +19,14 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
         private readonly TelemetryOptions _telemetryOptions;
         private readonly LicensingOptions _licensingOptions;
         private readonly IPrincipalAccessor _principalAccessor;
+        private readonly ModuleTable _moduleTable;
 
-        public TelemetryConfigStore(TelemetryOptions telemetryOptions, LicensingOptions licensingOptions, IPrincipalAccessor principalAccessor)
+        public TelemetryConfigStore(TelemetryOptions telemetryOptions, LicensingOptions licensingOptions, IPrincipalAccessor principalAccessor, ModuleTable moduleTable)
         {
             _telemetryOptions = telemetryOptions;
             _licensingOptions = licensingOptions;
             _principalAccessor = principalAccessor;
+            _moduleTable = moduleTable;
 
             HashHandler = new SiteSecurity();
         }
@@ -62,17 +65,7 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
 
         private Dictionary<string, string> GetVersions()
         {
-            string GetAssemblyVersion(Type type)
-            {
-                return type.Assembly.GetName().Version.ToString();
-            }
-
-            var result = new Dictionary<string, string>
-            {
-                ["CmsUI"] = GetAssemblyVersion(typeof(RestControllerBase)),
-                ["BlockEnhancements"] = GetAssemblyVersion(typeof(BlockEnhancementsModule))
-            };
-            return result;
+            return _moduleTable.GetModules().ToDictionary(_ => _.Name, _ => _.ResolveVersion().ToString());
         }
 
         private async Task<string> GetInstrumentationKey()

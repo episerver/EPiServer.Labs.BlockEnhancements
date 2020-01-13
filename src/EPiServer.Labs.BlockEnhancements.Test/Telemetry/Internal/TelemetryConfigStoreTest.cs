@@ -4,6 +4,7 @@ using EPiServer.Labs.BlockEnhancements.Telemetry;
 using EPiServer.Labs.BlockEnhancements.Telemetry.Internal;
 using EPiServer.Licensing;
 using EPiServer.Security;
+using EPiServer.Shell.Modules;
 using Moq;
 using Xunit;
 
@@ -25,9 +26,14 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
             var principalAccessor = Mock.Of<IPrincipalAccessor>();
             principalAccessor.Principal = new GenericPrincipal(new GenericIdentity("username"), null);
 
+            var moduleTable = new Mock<ModuleTable>();
+            moduleTable
+                .Setup(_ => _.GetModules())
+                .Returns(new[] { new ShellModule("module-name", null, null) });
+
             _telemetryOptions = new TelemetryOptions();
             _licensingOptions = new LicensingOptions();
-            _telemetryConfigStore = new TelemetryConfigStore(_telemetryOptions, _licensingOptions, principalAccessor)
+            _telemetryConfigStore = new TelemetryConfigStore(_telemetryOptions, _licensingOptions, principalAccessor, moduleTable.Object)
             {
                 HashHandler = hashHandler.Object
             };
@@ -82,6 +88,13 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
             _telemetryConfigStore.LoadEmailFromProfile = (string username) => "user@domain.com";
             var result = await _telemetryConfigStore.Get();
             Assert.Equal("hashed-user@domain.com", result.GetData<TelemetryConfigModel>().User);
+        }
+
+        [Fact]
+        public async void GetVersions_ShouldSetVersions_AsDictionary()
+        {
+            var result = await _telemetryConfigStore.Get();
+            Assert.Contains("module-name", result.GetData<TelemetryConfigModel>().Versions);
         }
     }
 }

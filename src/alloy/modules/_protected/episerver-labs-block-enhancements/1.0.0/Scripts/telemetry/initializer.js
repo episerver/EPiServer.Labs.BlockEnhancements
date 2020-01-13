@@ -6,10 +6,8 @@ define([
         dependency.resolve("epi.storeregistry")
             .get("episerver.labs.blockenhancements.telemetry")
             .get().then(function(telemetry){
-                if(telemetry.isEnabled){
-                    tracker.initialize(telemetry.instrumentationKey, telemetry.versions);
-                    tracker.track("hello-world");
-                }
-            });
+            tracker.initialize(telemetry.isEnabled, telemetry.instrumentationKey, telemetry.versions);
+            tracker.track("hello-world");
+        });
     }
 });

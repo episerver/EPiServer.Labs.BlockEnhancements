@@ -21,7 +21,7 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
             var hashHandler = new Mock<IHashHandler>();
             hashHandler
                 .Setup(_ => _.GenerateStringHash(It.IsAny<byte[]>()))
-                .Returns((byte[] data) => "hashed-" + Encoding.Unicode.GetString(data));
+                .Returns((byte[] data) => "hashed-" + Encoding.Unicode.GetString(data) + "=");
 
             var principalAccessor = Mock.Of<IPrincipalAccessor>();
             principalAccessor.Principal = new GenericPrincipal(new GenericIdentity("username"), null);
@@ -37,6 +37,14 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
             {
                 HashHandler = hashHandler.Object
             };
+        }
+
+        [Fact]
+        public async void HashString_ShouldTrimTrailingEquals()
+        {
+            _licensingOptions.LicenseKey = "=";
+            var result = await _telemetryConfigStore.Get();
+            Assert.Equal("hashed-", result.GetData<TelemetryConfigModel>().Client);
         }
 
         [Fact]

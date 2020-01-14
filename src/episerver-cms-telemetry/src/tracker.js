@@ -3,7 +3,7 @@ import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 let appInsights = null;
 
 const Tracker = {
-    initialize(isEnabled, instrumentationKey, versions) {
+    initialize(isEnabled, instrumentationKey, versions, authenticatedUserId, accountId) {
         appInsights = new ApplicationInsights({
             config: {
                 disableTelemetry: !isEnabled,
@@ -12,6 +12,7 @@ const Tracker = {
             }
         });
         appInsights.loadAppInsights();
+        appInsights.setAuthenticatedUserContext(authenticatedUserId, accountId);
         appInsights.addTelemetryInitializer((envelope) => {
             envelope.data.versions = versions;
         });

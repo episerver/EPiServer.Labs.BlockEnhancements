@@ -88,7 +88,7 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
             {
                 return null;
             }
-            return HashHandler.GenerateStringHash(Encoding.Unicode.GetBytes(data));
+            return HashHandler.GenerateStringHash(Encoding.Unicode.GetBytes(data)).TrimEnd('=');
         }
 
         private async Task<bool> IsTelemetryEnabled()

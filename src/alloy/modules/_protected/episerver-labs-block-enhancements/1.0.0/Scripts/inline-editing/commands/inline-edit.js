@@ -14,8 +14,9 @@ define([
         "episerver-labs-block-enhancements/inline-editing/form-dialog",
         "episerver-labs-block-enhancements/inline-editing/block-edit-form-container",
         "episerver-labs-block-enhancements/inline-editing/commands/inline-publish",
+        "epi/i18n!epi/cms/nls/episerverlabs.blockenhancements.ilineediting",
 
-        "xstyle/css!episerver-labs-block-enhancements/inline-editing/inline-edit.css"
+        "xstyle/css!episerver-labs-block-enhancements/inline-editing/inline-edit.css",
     ],
 
     function (
@@ -32,14 +33,15 @@ define([
         _Command,
         FormDialog,
         FormContainer,
-        InlinePublish
+        InlinePublish,
+        labsResources
     ) {
 
         return declare([_Command], {
             // summary:
             //      Show inline block edit dialog
 
-            label: "Inline block edit",
+            label: labsResources.inlineblockedit,
 
             iconClass: "epi-iconPen",
 

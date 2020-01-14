@@ -22,6 +22,7 @@
           </dialog>
           <browseexistingitems>browse existing content</browseexistingitems>
           <doubleclicktoinlineedit>Double click to inline edit</doubleclicktoinlineedit>
+          <inlineblockedit>Inline block edit</inlineblockedit>
         </ilineediting>
         <inlinecommands>
           <inlinepublish>
@@ -29,7 +30,7 @@
             <success>was published successfully</success>
           </inlinepublish>
           <inlinereadytopublish>
-            <error>Couldn't mark as Ready to Publish</error>
+            <error>Could not mark as Ready to Publish</error>
             <success>was marked as Ready to Publish successfully</success>
           </inlinereadytopublish>
         </inlinecommands>

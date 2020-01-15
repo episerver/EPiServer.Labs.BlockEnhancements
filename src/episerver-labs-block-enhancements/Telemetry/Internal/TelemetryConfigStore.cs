@@ -43,6 +43,17 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
         [HttpGet]
         public async Task<RestResult> Get()
         {
+            if (!_telemetryOptions.IsTelemetryEnabled())
+            {
+                return Rest(new TelemetryConfigModel
+                {
+                    Configuration = new Dictionary<string, object>
+                    {
+                        ["disableTelemetry"] = true
+                    }
+                });
+            }
+
             return Rest(new TelemetryConfigModel
             {
                 Client = GetClientHash(),

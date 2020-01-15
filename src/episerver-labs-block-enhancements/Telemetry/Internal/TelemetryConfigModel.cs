@@ -6,9 +6,7 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
     {
         public string Client { get; internal set; }
 
-        public string InstrumentationKey { get; internal set; }
-
-        public bool IsEnabled { get; internal set; }
+        public IDictionary<string, object> Configuration { get; internal set; }
 
         public string User { get; internal set; }
 

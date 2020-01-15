@@ -1,15 +1,17 @@
-﻿using EPiServer.Licensing;
+﻿using EPiServer.Framework.Serialization;
+using EPiServer.Licensing;
 using EPiServer.Security;
+using EPiServer.Shell.Modules;
 using EPiServer.Shell.Services.Rest;
 using EPiServerProfile = EPiServer.Personalization.EPiServerProfile;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using EPiServer.Shell.Modules;
 
 namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
 {
@@ -20,13 +22,20 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
         private readonly LicensingOptions _licensingOptions;
         private readonly IPrincipalAccessor _principalAccessor;
         private readonly ModuleTable _moduleTable;
+        private readonly IObjectSerializer _objectSerializer;
 
-        public TelemetryConfigStore(TelemetryOptions telemetryOptions, LicensingOptions licensingOptions, IPrincipalAccessor principalAccessor, ModuleTable moduleTable)
+        public TelemetryConfigStore(
+            TelemetryOptions telemetryOptions,
+            LicensingOptions licensingOptions,
+            IPrincipalAccessor principalAccessor,
+            ModuleTable moduleTable,
+            IObjectSerializer objectSerializer)
         {
             _telemetryOptions = telemetryOptions;
             _licensingOptions = licensingOptions;
             _principalAccessor = principalAccessor;
             _moduleTable = moduleTable;
+            _objectSerializer = objectSerializer;
 
             HashHandler = new SiteSecurity();
         }
@@ -36,9 +45,8 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
         {
             return Rest(new TelemetryConfigModel
             {
-                InstrumentationKey = await GetInstrumentationKey().ConfigureAwait(false),
-                IsEnabled = await IsTelemetryEnabled().ConfigureAwait(false),
                 Client = GetClientHash(),
+                Configuration = await GetTelemetryConfiguration().ConfigureAwait(false),
                 User = GetUserHash(),
                 Versions = GetVersions()
             });
@@ -68,11 +76,16 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
             return _moduleTable.GetModules().ToDictionary(_ => _.Name, _ => _.ResolveVersion().ToString());
         }
 
-        private async Task<string> GetInstrumentationKey()
+        private async Task<IDictionary<string, object>> GetTelemetryConfiguration()
         {
-            // hardcoded instrumentation key from the production subscription
-            // https://portal.azure.com/#@episerver.net/resource/subscriptions/d08856e3-820a-4d39-8954-8b8916e966be/resourceGroups/cmsuitelemetryrg/providers/microsoft.insights/components/cmsui-telemetry-services-ai/overview
-            return await Task.FromResult("e4b8b0bc-c592-4797-8a7e-61cf60978363");
+            var endpointUrl = "https://episervercmsui.azurewebsites.net/api/telemetry-config";
+
+            using (var response = await GetRequestAsync(endpointUrl).ConfigureAwait(false))
+            using (var content = response.Content)
+            {
+                var raw = await content.ReadAsStringAsync().ConfigureAwait(false);
+                return _objectSerializer.Deserialize<IDictionary<string, object>>(raw);
+            }
         }
 
         private string GetUserHash()
@@ -91,10 +104,13 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
             return HashHandler.GenerateStringHash(Encoding.Unicode.GetBytes(data)).TrimEnd('=');
         }
 
-        private async Task<bool> IsTelemetryEnabled()
-        {
-            return await Task.FromResult(_telemetryOptions.IsTelemetryEnabled());
-        }
+        // Delegate get request to allow mocking in unit tests.
+        internal Func<string, Task<HttpResponseMessage>> GetRequestAsync = async (string requestUri) => {
+            using (var client = new HttpClient())
+            {
+                return await client.GetAsync(requestUri).ConfigureAwait(false);
+            }
+        };
 
         // Allow mocking the generated hash in unit tests.
         internal IHashHandler HashHandler { get; set; }

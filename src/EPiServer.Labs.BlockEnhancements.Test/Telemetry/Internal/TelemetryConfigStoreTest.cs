@@ -1,5 +1,8 @@
-﻿using System.Security.Principal;
+﻿using System.Net.Http;
+using System.Security.Principal;
 using System.Text;
+using System.Threading.Tasks;
+using EPiServer.Framework.Serialization.Json.Internal;
 using EPiServer.Labs.BlockEnhancements.Telemetry;
 using EPiServer.Labs.BlockEnhancements.Telemetry.Internal;
 using EPiServer.Licensing;
@@ -33,8 +36,12 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
 
             _telemetryOptions = new TelemetryOptions();
             _licensingOptions = new LicensingOptions();
-            _telemetryConfigStore = new TelemetryConfigStore(_telemetryOptions, _licensingOptions, principalAccessor, moduleTable.Object)
+            _telemetryConfigStore = new TelemetryConfigStore(_telemetryOptions, _licensingOptions, principalAccessor, moduleTable.Object, new JsonObjectSerializer())
             {
+                GetRequestAsync = (string url) => Task.FromResult(new HttpResponseMessage
+                {
+                    Content = new StringContent("{\"key\":true}")
+                }),
                 HashHandler = hashHandler.Object
             };
         }
@@ -80,6 +87,13 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
             _telemetryConfigStore.LoadLicense = (string licenseFilePath) => throw new LicenseException();
             var result = await _telemetryConfigStore.Get();
             Assert.Null(result.GetData<TelemetryConfigModel>().Client);
+        }
+
+        [Fact]
+        public async void GetConfiguration_ShouldReturnResponse_AsDictionary()
+        {
+            var result = await _telemetryConfigStore.Get();
+            Assert.Contains("key", result.GetData<TelemetryConfigModel>().Configuration);
         }
 
         [Fact]

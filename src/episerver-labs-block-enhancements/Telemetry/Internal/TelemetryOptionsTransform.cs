@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.Configuration;
 
 namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
@@ -14,7 +13,7 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
         internal static void Transform(TelemetryOptions options, NameValueCollection settings)
         {
             var environmentName = settings.Get(EnvironmentNameConfigKey);
-            options.IsDxcEnvironment = environmentName != null && environmentName.Equals("production", StringComparison.OrdinalIgnoreCase);
+            options.IsDxcEnvironment = environmentName != null;
         }
     }
 }

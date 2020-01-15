@@ -17,6 +17,7 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
     {
         private readonly TelemetryOptions _telemetryOptions;
         private readonly LicensingOptions _licensingOptions;
+        private readonly HttpResponseMessage _httpResponseMessage;
         private readonly TelemetryConfigStore _telemetryConfigStore;
 
         public TelemetryConfigStoreTest()
@@ -34,14 +35,15 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
                 .Setup(_ => _.GetModules())
                 .Returns(new[] { new ShellModule("module-name", null, null) });
 
-            _telemetryOptions = new TelemetryOptions();
+            _telemetryOptions = new TelemetryOptions { OptedIn = true };
             _licensingOptions = new LicensingOptions();
+            _httpResponseMessage = new HttpResponseMessage
+            {
+                Content = new StringContent("{\"key\":true}")
+            };
             _telemetryConfigStore = new TelemetryConfigStore(_telemetryOptions, _licensingOptions, principalAccessor, moduleTable.Object, new JsonObjectSerializer())
             {
-                GetRequestAsync = (string url) => Task.FromResult(new HttpResponseMessage
-                {
-                    Content = new StringContent("{\"key\":true}")
-                }),
+                GetRequestAsync = (string url) => Task.FromResult(_httpResponseMessage),
                 HashHandler = hashHandler.Object
             };
         }
@@ -52,6 +54,41 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
             _licensingOptions.LicenseKey = "=";
             var result = await _telemetryConfigStore.Get();
             Assert.Equal("hashed-", result.GetData<TelemetryConfigModel>().Client);
+        }
+
+        [Fact]
+        public async void Get_WhenIsTelemetryEnabled_IsFalse_ShouldSetDisableTelemetry_AsTrue()
+        {
+            _telemetryOptions.OptedIn = false;
+            var result = await _telemetryConfigStore.Get();
+            Assert.True(result.GetData<TelemetryConfigModel>().Configuration["disableTelemetry"] as bool?);
+        }
+
+        [Fact]
+        public async void Get_WhenIsTelemetryEnabled_IsFalse_ShouldNotCallAzureFunction()
+        {
+            _telemetryOptions.OptedIn = false;
+            bool isDelegateCalled = false;
+            _telemetryConfigStore.GetRequestAsync = (url) =>
+            {
+                isDelegateCalled = true;
+                return Task.FromResult(_httpResponseMessage);
+            };
+            var result = await _telemetryConfigStore.Get();
+            Assert.False(isDelegateCalled);
+        }
+
+        [Fact]
+        public async void Get_WhenIsTelemetryEnabled_IsTrue_ShouldCallAzureFunction()
+        {
+            bool isDelegateCalled = false;
+            _telemetryConfigStore.GetRequestAsync = (url) =>
+            {
+                isDelegateCalled = true;
+                return Task.FromResult(_httpResponseMessage);
+            };
+            var result = await _telemetryConfigStore.Get();
+            Assert.True(isDelegateCalled);
         }
 
         [Fact]

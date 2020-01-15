@@ -8,7 +8,7 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
     public class TelemetryOptionsTransformTest
     {
         [Fact]
-        public void Transform_WhenEnvironmentName_IsProduction_ShouldSetIsDxcEnvironment_AsTrue()
+        public void Transform_WhenEnvironmentName_IsNotNull_ShouldSetIsDxcEnvironment_AsTrue()
         {
             var options = new TelemetryOptions();
             var settings = new NameValueCollection
@@ -19,20 +19,6 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
             TelemetryOptionsTransform.Transform(options, settings);
 
             Assert.True(options.IsDxcEnvironment);
-        }
-
-        [Fact]
-        public void Transform_WhenEnvironmentName_IsNotProduction_ShouldSetIsDxcEnvironment_AsFalse()
-        {
-            var options = new TelemetryOptions();
-            var settings = new NameValueCollection
-            {
-                { TelemetryOptionsTransform.EnvironmentNameConfigKey, "NotProduction" }
-            };
-
-            TelemetryOptionsTransform.Transform(options, settings);
-
-            Assert.False(options.IsDxcEnvironment);
         }
 
         [Fact]

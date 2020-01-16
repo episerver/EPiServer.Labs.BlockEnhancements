@@ -11,5 +11,13 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
         public string User { get; internal set; }
 
         public IDictionary<string, string> Versions { get; internal set; }
+
+        internal static TelemetryConfigModel Disabled = new TelemetryConfigModel
+        {
+            Configuration = new Dictionary<string, object>
+            {
+                ["disableTelemetry"] = true
+            }
+        };
     }
 }

@@ -45,19 +45,19 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
         {
             if (!_telemetryOptions.IsTelemetryEnabled())
             {
-                return Rest(new TelemetryConfigModel
-                {
-                    Configuration = new Dictionary<string, object>
-                    {
-                        ["disableTelemetry"] = true
-                    }
-                });
+                return Rest(TelemetryConfigModel.Disabled);
+            }
+
+            var configuration = await GetTelemetryConfiguration().ConfigureAwait(false);
+            if (configuration == null)
+            {
+                return Rest(TelemetryConfigModel.Disabled);
             }
 
             return Rest(new TelemetryConfigModel
             {
                 Client = GetClientHash(),
-                Configuration = await GetTelemetryConfiguration().ConfigureAwait(false),
+                Configuration = configuration,
                 User = GetUserHash(),
                 Versions = GetVersions()
             });
@@ -87,15 +87,33 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
             return _moduleTable.GetModules().ToDictionary(_ => _.Name, _ => _.ResolveVersion().ToString());
         }
 
+        /// <summary>
+        /// Gets the telemetry configuration from azure function endpoint.
+        /// </summary>
+        /// <returns>
+        /// A dictionary containing the configuration; otherwise null if the request to
+        /// the azure function failed.
+        /// </returns>
         private async Task<IDictionary<string, object>> GetTelemetryConfiguration()
         {
             var endpointUrl = "https://episervercmsui.azurewebsites.net/api/telemetry-config";
-
-            using (var response = await GetRequestAsync(endpointUrl).ConfigureAwait(false))
-            using (var content = response.Content)
+            try
             {
-                var raw = await content.ReadAsStringAsync().ConfigureAwait(false);
-                return _objectSerializer.Deserialize<IDictionary<string, object>>(raw);
+                using (var response = await GetRequestAsync(endpointUrl).ConfigureAwait(false))
+                using (var content = response.Content)
+                {
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return null;
+                    }
+                    var raw = await content.ReadAsStringAsync().ConfigureAwait(false);
+                    return _objectSerializer.Deserialize<IDictionary<string, object>>(raw);
+                }
+            }
+            catch (HttpRequestException)
+            {
+                // Occurs when the request fails due to server issues or timeout.
+                return null;
             }
         }
 
@@ -116,7 +134,8 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
         }
 
         // Delegate get request to allow mocking in unit tests.
-        internal Func<string, Task<HttpResponseMessage>> GetRequestAsync = async (string requestUri) => {
+        internal Func<string, Task<HttpResponseMessage>> GetRequestAsync = async (string requestUri) =>
+        {
             using (var client = new HttpClient())
             {
                 return await client.GetAsync(requestUri).ConfigureAwait(false);

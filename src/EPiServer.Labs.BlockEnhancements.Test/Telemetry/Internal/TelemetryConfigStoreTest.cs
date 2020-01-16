@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -131,6 +132,29 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
         {
             var result = await _telemetryConfigStore.Get();
             Assert.Contains("key", result.GetData<TelemetryConfigModel>().Configuration);
+        }
+
+        [Fact]
+        public async void GetConfiguration_WhenResponseCode_IsNotSuccessful_ShouldReturnDisableTelemetry()
+        {
+            _telemetryConfigStore.GetRequestAsync = (url) =>
+            {
+                _httpResponseMessage.StatusCode = HttpStatusCode.NotFound;
+                return Task.FromResult(_httpResponseMessage);
+            };
+            var result = await _telemetryConfigStore.Get();
+            Assert.True(result.GetData<TelemetryConfigModel>().Configuration["disableTelemetry"] as bool?);
+        }
+
+        [Fact]
+        public async void GetConfiguration_WhenRequest_ThrowsException_ShouldReturnDisableTelemetry()
+        {
+            _telemetryConfigStore.GetRequestAsync = (url) =>
+            {
+                throw new HttpRequestException();
+            };
+            var result = await _telemetryConfigStore.Get();
+            Assert.True(result.GetData<TelemetryConfigModel>().Configuration["disableTelemetry"] as bool?);
         }
 
         [Fact]

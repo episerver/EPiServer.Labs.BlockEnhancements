@@ -96,7 +96,7 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
         /// </returns>
         private async Task<IDictionary<string, object>> GetTelemetryConfiguration()
         {
-            var endpointUrl = "https://episervercmsui.azurewebsites.net/api/telemetry-config";
+            var endpointUrl = "https://episervercmsui.azurewebsites.net/api/telemetryconfig";
             try
             {
                 using (var response = await GetRequestAsync(endpointUrl).ConfigureAwait(false))

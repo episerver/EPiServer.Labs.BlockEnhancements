@@ -1,4 +1,4 @@
-﻿using EPiServer.Framework.Serialization;
+using EPiServer.Framework.Serialization;
 using EPiServer.Licensing;
 using EPiServer.Security;
 using EPiServer.Shell.Modules;
@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
@@ -48,19 +49,22 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
                 return Rest(TelemetryConfigModel.Disabled);
             }
 
-            var configuration = await GetTelemetryConfiguration().ConfigureAwait(false);
+            var telemetryConfigModel = new TelemetryConfigModel
+            {
+                Client = GetClientHash(),
+                User = GetUserHash(),
+                Versions = GetVersions()
+            };
+
+            var configuration = await GetTelemetryConfiguration(telemetryConfigModel).ConfigureAwait(false);
             if (configuration == null)
             {
                 return Rest(TelemetryConfigModel.Disabled);
             }
 
-            return Rest(new TelemetryConfigModel
-            {
-                Client = GetClientHash(),
-                Configuration = configuration,
-                User = GetUserHash(),
-                Versions = GetVersions()
-            });
+            telemetryConfigModel.Configuration = configuration;
+
+            return Rest(telemetryConfigModel);
         }
 
         private string GetClientHash()
@@ -94,12 +98,23 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
         /// A dictionary containing the configuration; otherwise null if the request to
         /// the azure function failed.
         /// </returns>
-        private async Task<IDictionary<string, object>> GetTelemetryConfiguration()
+        private async Task<IDictionary<string, object>> GetTelemetryConfiguration(TelemetryConfigModel telemetryConfigModel)
         {
-            var endpointUrl = "https://episervercmsui.azurewebsites.net/api/telemetryconfig";
+            var endpointUrl = new Uri("https://episervercmsui.azurewebsites.net/api/telemetryconfig");
+            var uriBuilder = new UriBuilder(endpointUrl);
+            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+            query.Add("client", telemetryConfigModel.Client);
+            query.Add("user", telemetryConfigModel.User);
+            foreach (var version in telemetryConfigModel.Versions)
+            {
+                query.Add(version.Key, version.Value);
+            }
+
+            uriBuilder.Query = query.ToString();
+            var url = uriBuilder.Uri.ToString();
             try
             {
-                using (var response = await GetRequestAsync(endpointUrl).ConfigureAwait(false))
+                using (var response = await GetRequestAsync(url).ConfigureAwait(false))
                 using (var content = response.Content)
                 {
                     if (!response.IsSuccessStatusCode)

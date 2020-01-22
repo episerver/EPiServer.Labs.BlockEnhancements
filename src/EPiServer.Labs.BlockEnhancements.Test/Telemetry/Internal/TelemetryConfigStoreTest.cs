@@ -20,6 +20,7 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
         private readonly LicensingOptions _licensingOptions;
         private readonly HttpResponseMessage _httpResponseMessage;
         private readonly TelemetryConfigStore _telemetryConfigStore;
+        private readonly IPrincipalAccessor _principalAccessor;
 
         public TelemetryConfigStoreTest()
         {
@@ -28,8 +29,8 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
                 .Setup(_ => _.GenerateStringHash(It.IsAny<byte[]>()))
                 .Returns((byte[] data) => "hashed-" + Encoding.Unicode.GetString(data) + "=");
 
-            var principalAccessor = Mock.Of<IPrincipalAccessor>();
-            principalAccessor.Principal = new GenericPrincipal(new GenericIdentity("username"), null);
+            _principalAccessor = Mock.Of<IPrincipalAccessor>();
+            _principalAccessor.Principal = new GenericPrincipal(new GenericIdentity("username"), null);
 
             var moduleTable = new Mock<ModuleTable>();
             moduleTable
@@ -37,12 +38,15 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
                 .Returns(new[] { new ShellModule("module-name", null, null) });
 
             _telemetryOptions = new TelemetryOptions { OptedIn = true };
-            _licensingOptions = new LicensingOptions();
+            _licensingOptions = new LicensingOptions
+            {
+                LicenseKey = "LicenseKey"
+            };
             _httpResponseMessage = new HttpResponseMessage
             {
                 Content = new StringContent("{\"key\":true}")
             };
-            _telemetryConfigStore = new TelemetryConfigStore(_telemetryOptions, _licensingOptions, principalAccessor, moduleTable.Object, new JsonObjectSerializer())
+            _telemetryConfigStore = new TelemetryConfigStore(_telemetryOptions, _licensingOptions, _principalAccessor, moduleTable.Object, new JsonObjectSerializer())
             {
                 GetRequestAsync = (string url) => Task.FromResult(_httpResponseMessage),
                 HashHandler = hashHandler.Object
@@ -178,6 +182,65 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
         {
             var result = await _telemetryConfigStore.Get();
             Assert.Contains("module-name", result.GetData<TelemetryConfigModel>().Versions);
+        }
+
+        [Fact]
+        public async void GetConfiguration_ShouldBeCalledWithClientParameter()
+        {
+            _telemetryConfigStore.GetRequestAsync = url =>
+            {
+                Assert.Contains("client=hashed-LicenseKey", url);
+                return Task.FromResult(_httpResponseMessage);
+            };
+            await _telemetryConfigStore.Get();
+        }
+
+        [Fact]
+        public async void GetConfiguration_ShouldBeCalledWithUserParameter()
+        {
+            _telemetryConfigStore.GetRequestAsync = url =>
+            {
+                Assert.Contains("user=hashed-username", url);
+                return Task.FromResult(_httpResponseMessage);
+            };
+            await _telemetryConfigStore.Get();
+        }
+
+        [Fact]
+        public async void GetConfiguration_ShouldBeCalledWithModuleParameter()
+        {
+            _telemetryConfigStore.GetRequestAsync = url =>
+            {
+                Assert.Contains("module-name=0.0", url);
+                return Task.FromResult(_httpResponseMessage);
+            };
+            await _telemetryConfigStore.Get();
+        }
+
+        [Fact]
+        public async void GetConfiguration_WhenLicenseIsEmpty_ShouldBeCalledWithClientParameter_AsEmpty()
+        {
+            _licensingOptions.LicenseKey = null;
+
+            _telemetryConfigStore.GetRequestAsync = url =>
+            {
+                Assert.Contains("client=&", url);
+                return Task.FromResult(_httpResponseMessage);
+            };
+            await _telemetryConfigStore.Get();
+        }
+
+        [Fact]
+        public async void GetConfiguration_WhenPrincipalIsNull_ShouldBeCalledWithUserParameter_AsEmpty()
+        {
+            _principalAccessor.Principal = null;
+
+            _telemetryConfigStore.GetRequestAsync = url =>
+            {
+                Assert.Contains("user=&", url);
+                return Task.FromResult(_httpResponseMessage);
+            };
+            await _telemetryConfigStore.Get();
         }
     }
 }

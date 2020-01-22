@@ -13,6 +13,7 @@ define([
     "epi-cms/contentediting/ContentActionSupport",
     "epi-cms/contentediting/command/_ChangeContentStatus",
     "episerver-labs-block-enhancements/publish-with-local-content-items/content-dependencies",
+    "episerver-labs-block-enhancements/tracker",
     "epi/i18n!epi/cms/nls/episerver.cms.contentediting.toolbar.buttons",
     "epi/i18n!epi/cms/nls/episerverlabs.blockenhancements"
 ], function (
@@ -30,6 +31,7 @@ define([
     ContentActionSupport,
     _ChangeContentStatus,
     ContentDependencies,
+    tracker,
     resources,
     labsResources
 ) {
@@ -47,6 +49,13 @@ define([
 
         forceReload: true,
 
+        trackCommand: true,
+        commandType: "smart",
+        _trackingData: {},
+        _getTrackingData: function () {
+            return this._trackingData;
+        },
+
         postscript: function () {
             this.inherited(arguments);
 
@@ -56,6 +65,16 @@ define([
         },
 
         _execute: function () {
+
+            var isPage = this.model.contentData.capabilities.isPage;
+            var isBlock = this.model.contentData.capabilities.isBlock;
+            if (isPage || isBlock){
+                tracker.track("publish", {
+                    "command-type": "smart-command-click",
+                    "content-type": isPage ? "page" : "block"
+                });
+            }
+
             var self = this;
             var args = arguments;
 
@@ -86,6 +105,11 @@ define([
 
             return confirmation.then(function () {
                 var selectedContentLinks = contentItemsList.get("selectedContentLinks") || [];
+                var defaultSelectedContent = contentItemsList.get("_defaultSelectedContent") || [];
+                self._trackingData = {
+                    "smart-publish.is-default-selected": defaultSelectedContent.length === selectedContentLinks.length,
+                    "smart-publish.no-item-selected": selectedContentLinks.length === 0
+                };
                 return self._getContentsToPublish(selectedContentLinks).then(function (selectedContents) {
                     self._publishBlocks(selectedContents).then(function (publishResults) {
                         var success = "Successfully published ";
@@ -122,7 +146,9 @@ define([
                         });
                     });
                 });
-            }).otherwise(function () {});
+            }, function () {
+                return confirmation;
+            });
         },
 
         _publishBlocks: function (contentsToPublish) {

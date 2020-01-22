@@ -256,6 +256,8 @@ Publish actions:
 * A publish action using Inline Edit dialog will have the command type `inline-edit-form` and no additional telemetry data.
 * A publish action using ContentArea context item menu will have the command type `content-area` and no additional telemetry data.
 * A publish action using Assets Pane items context menu will have the command type `assets-pane` and no additional telemetry data.
+* A publish action using smart publish will have the command type `smart`, and with `smart-publish.is-default-selected` and `smart-publish.no-item-selected` as additional telemetry data.
+* Click on the smart publish command will have the command type `smart-command-click` and no additional telemetry data.
 
 ### Please note
 > Episerver Labs projects are meant to provide the developer community with pre-release features with the purpose of showcasing ongoing work and getting feedback in early stages of development.

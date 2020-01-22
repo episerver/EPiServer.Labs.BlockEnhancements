@@ -1,7 +1,7 @@
 # Episerver Labs - Block Enhancements
 
 The project contains a few features that, in general, make the life of Episerver editors easier.
-The vision is to make it possible to edit and publish blocks directly on the page without a need for switching context. 
+The vision is to make it possible to edit and publish blocks directly on the page without a need for switching context.
 The page is selected at all times and all actions around local blocks is performed inline.
 
 The list of current features is as following:
@@ -38,7 +38,7 @@ A more advanced scenario can look something like this:
 
 ## Inline block editing
 
-This feature allows editors to edit block content directly on the page. 
+This feature allows editors to edit block content directly on the page.
 
 In order for the changes to appear in OPE without refreshing the page, **Content Draft View** must be enabled and draft mode must be active.
 
@@ -46,10 +46,10 @@ Any block that the current editor has rights to can now be double-clicked which 
 
 ![Double click to edit inline](assets/docsimages/double_click_inline_edit.gif)
 
-Alternatively, there is a new **"Inline block edit"** command added to content area items menu.  
+Alternatively, there is a new **"Inline block edit"** command added to content area items menu.
 
 ![Inline block editing command](assets/docsimages/inline_edit.png)
- 
+
 The editor can edit blocks the same way as when switching to blocks editing context.
 
 ![Inline block editing default form](assets/docsimages/inline_edit_advanced_block.png)
@@ -64,13 +64,13 @@ Additionally, the command is available from the assets pane.
 
 In many scenarios, blocks are not using `Name` and `Categories` properties during rendering.
 This is the reason why we introduced the `InlineBlockEditSettings` configuration attribute.
-You can apply it to your block content type and hide those properties. 
+You can apply it to your block content type and hide those properties.
 Additionally, you can also use this attribute to hide specific groups to make the editing form cleaner.
 
 The attribute contains three properties:
 
 Property | Default value | Description
------------- | ------------- | ------------- 
+------------ | ------------- | -------------
 ShowNameProperty | false | When `true`, then `Name` property will be displayed
 ShowCategoryProperty | false | When `true`, then `Categories` property will be displayed
 HiddenGroups | Advanced | Comma-separated list of tabs that should be hidden
@@ -80,7 +80,7 @@ There is no need to display other built-in properties or group properties into s
 
 ![Inline block editing with publish and tinymce](assets/docsimages/inline_edit_Editorial_block.png)
 
-Another example is the Teaser block which has just a few simple properties: 
+Another example is the Teaser block which has just a few simple properties:
 
 ![Inline block editing enhanced form](assets/docsimages/inline_edit_dialog.png)
 
@@ -128,7 +128,7 @@ public class AdvancedBlock : SiteBlockData
 Another enhancement is the way to get a bit more details about particular content area items.
 Each content area item will display status icons similar to the page tree. You will now see if block is a draft or if a language branch is missing.
 
-Additionally to help distinguish local blocks from shared blocks, there is a new "Local block" icon.  
+Additionally to help distinguish local blocks from shared blocks, there is a new "Local block" icon.
 
 ![Publish content with local blocks](assets/docsimages/contentarea_statuses.png)
 
@@ -170,7 +170,7 @@ The editor can use the new **"Content Draft View"** button to get an overview of
 
 Allow editors to create & publish new blocks inline, without the need to leave the current content context.
 
-This feature also works in nested block scenarios, so let's say an editor can create a Row Block instance and then add child blocks to that Row. All those operations can be done without leaving the parent page context.  
+This feature also works in nested block scenarios, so let's say an editor can create a Row Block instance and then add child blocks to that Row. All those operations can be done without leaving the parent page context.
 
 All new blocks are published automatically. It works both in On-Page Edit (OPE) and in regular Forms view.
 
@@ -186,8 +186,8 @@ After choosing the content type the editor will see the inline edit form straigh
 
 ## Configuring enabled features
 
-To turn off one or more feature, use the `BlockEnhancementsOptions` options class and then, for example, in the initialization module, set `false` on the feature that should not be available. All features are enabled by default. 
- 
+To turn off one or more feature, use the `BlockEnhancementsOptions` options class and then, for example, in the initialization module, set `false` on the feature that should not be available. All features are enabled by default.
+
 ```csharp
 [InitializableModule]
 [ModuleDependency(typeof(FrameworkInitialization))]
@@ -211,14 +211,23 @@ public class CustomBlockEnhancementsModule : IConfigurableModule
 
     public void Uninitialize(InitializationEngine context) { }
 }
- ```
- 
+```
+
 ## Install
 
 ```Install-Package EPiServer.Labs.BlockEnhancements```
 
 https://nuget.episerver.com/package/?id=EPiServer.Labs.BlockEnhancements
 
+## Telemetry information
+
+### Tracked events
+
+#### publish
+
+All publish actions will be tracked by telemetry in an event with the name `publish`. The default data being sent will include what type of publish command it is and if it's a page or block that's being published. Each different publish action might add additional data to the `publish` event if needed.
+
+* A publish action using the publish menu will have the command type `default` and no additional telemetry data.
 
 ### Please note
 > Episerver Labs projects are meant to provide the developer community with pre-release features with the purpose of showcasing ongoing work and getting feedback in early stages of development.

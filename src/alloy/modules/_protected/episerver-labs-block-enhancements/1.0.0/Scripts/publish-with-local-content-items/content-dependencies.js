@@ -5,6 +5,7 @@ define([
     "dojo/dom-construct",
     "dojo/dom-style",
     "dojo/aspect",
+    "dojo/on",
     "dojo/when",
     "dojo/Evented",
     "dojo/store/util/QueryResults",
@@ -28,6 +29,7 @@ define([
     domConstruct,
     domStyle,
     aspect,
+    on,
     when,
     Evented,
     QueryResults,
@@ -165,6 +167,9 @@ define([
 
             this.grid = new this._gridClass(gridSettings, this.gridNode);
             this.own(this.grid);
+            this.own(on.once(this.grid, "dgrid-refresh-complete", function () {
+                self.set("_defaultSelectedContent", self.get("selectedContentLinks"));
+            }));
         },
 
         startup: function () {

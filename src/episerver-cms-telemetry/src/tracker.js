@@ -13,6 +13,7 @@ const Tracker = {
     },
 
     track(eventName, data) {
+        console.log("track:", eventName, data);
         appInsights.trackEvent({ name: eventName }, data);
     }
 };

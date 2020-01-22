@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "main": "tracker.js",
     "license": "Apache-2.0",
+    "private": true,
     "dependencies": {
         "@babel/core": "^7.7.4",
         "@babel/preset-env": "^7.7.4",

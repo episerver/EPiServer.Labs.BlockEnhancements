@@ -241,6 +241,9 @@ https://nuget.episerver.com/package/?id=EPiServer.Labs.BlockEnhancements
 All publish actions will be tracked by telemetry in an event with the name `publish`. The default data being sent will include what type of publish command it is and if it's a page or block that's being published. Each different publish action might add additional data to the `publish` event if needed.
 
 * A publish action using the publish menu will have the command type `default` and no additional telemetry data.
+* A publish action using Inline Edit dialog will have the command type `inline-edit-form` and no additional telemetry data.
+* A publish action using ContentArea context item menu will have the command type `content-area` and no additional telemetry data.
+* A publish action using Assets Pane items context menu will have the command type `assets-pane` and no additional telemetry data.
 
 ### Please note
 > Episerver Labs projects are meant to provide the developer community with pre-release features with the purpose of showcasing ongoing work and getting feedback in early stages of development.

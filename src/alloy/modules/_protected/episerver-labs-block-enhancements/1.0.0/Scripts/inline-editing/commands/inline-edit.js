@@ -60,7 +60,9 @@ define([
                 var isDirty = false;
                 var contentData = this.model.content || this.model;
                 var hasPublishAccessRights = ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Publish);
-                var inlinePublishCommand = new InlinePublish();
+                var inlinePublishCommand = new InlinePublish({
+                    commandType: "inline-edit-form"
+                });
 
                 function canPublish() {
                     return inlinePublishCommand.get("isAvailable") && inlinePublishCommand.get("canExecute");

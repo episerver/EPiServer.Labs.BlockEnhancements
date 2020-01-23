@@ -190,23 +190,26 @@ To turn off one or more feature, use the `BlockEnhancementsOptions` options clas
  
 ```csharp
 [InitializableModule]
-public class CustomBlockEnhancementsModule : IInitializableHttpModule
+[ModuleDependency(typeof(FrameworkInitialization))]
+public class CustomBlockEnhancementsModule : IConfigurableModule
 {
-    public void Initialize(InitializationEngine context)
+    public void ConfigureContainer(ServiceConfigurationContext context)
     {
-        var options = ServiceLocator.Current.GetInstance<BlockEnhancementsOptions>();
-        options.InlineEditing = false;
-        options.PublishWithLocalContentItems = true;
-        options.ContentDraftView = true;
-        options.InlinePublish = false;
-        options.StatusIndicator = false;
-        options.ContentAreaBrowse = true;
-        options.InlineCreate = true;
+        context.Services.Configure<BlockEnhancementsOptions>(options =>
+        {
+            options.InlineEditing = false;
+            options.PublishWithLocalContentItems = true;
+            options.ContentDraftView = true;
+            options.InlinePublish = false;
+            options.StatusIndicator = false;
+            options.ContentAreaBrowse = true;
+            options.InlineCreate = true;
+        });
     }
 
-    public void Uninitialize(InitializationEngine context)  {  }
+    public void Initialize(InitializationEngine context) { }
 
-    public void InitializeHttpEvents(HttpApplication application) {  }
+    public void Uninitialize(InitializationEngine context) { }
 }
  ```
  

@@ -7,5 +7,7 @@ define([
     InlinePublish,
     _InlineCommandMixin
 ) {
-    return declare([InlinePublish, _InlineCommandMixin]);
+    return declare([InlinePublish, _InlineCommandMixin], {
+        commandType: "assets-pane"
+    });
 });

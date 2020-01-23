@@ -14,7 +14,9 @@ define([
         }
         var removeCommandIndex = commandsOwner.commands.indexOf(removeCommand);
 
-        var inlinePublish = new InlinePublish();
+        var inlinePublish = new InlinePublish({
+            commandType: "content-area"
+        });
         commandsOwner.commands.splice(removeCommandIndex, 0, inlinePublish);
         commandsOwner.own(inlinePublish);
 

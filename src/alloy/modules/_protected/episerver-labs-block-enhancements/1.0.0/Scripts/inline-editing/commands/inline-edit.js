@@ -64,7 +64,9 @@ define([
 
                 var _this = this;
                 var isDirty = false;
-                var inlinePublishCommand = new InlinePublish();
+                var inlinePublishCommand = new InlinePublish({
+                    commandType: "inline-edit-form"
+                });
 
                 function canPublish() {
                     return inlinePublishCommand.get("isAvailable") && inlinePublishCommand.get("canExecute");

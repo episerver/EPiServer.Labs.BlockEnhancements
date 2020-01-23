@@ -13,6 +13,10 @@ const Tracker = {
     },
 
     track(eventName, data) {
+        // appInsights is undefined if initialize has not been called.
+        if (!appInsights) {
+            return;
+        }
         console.log("track:", eventName, data);
         appInsights.trackEvent({ name: eventName }, data);
     }

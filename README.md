@@ -213,6 +213,19 @@ public class CustomBlockEnhancementsModule : IConfigurableModule
 }
 ```
 
+## Telemetry opt-in
+
+> NOTE: Telemetry is automatically enabled in DXC environment and can not be opted-out.
+
+In non-DXC environments telemetry is not enabled by default. To opt-in to telemetry, add the following code to your initialization module.
+
+```csharp
+public void ConfigureContainer(ServiceConfigurationContext context)
+{
+    context.Services.Configure<TelemetryOptions>(options => options.OptedIn = true);
+}
+```
+
 ## Install
 
 ```Install-Package EPiServer.Labs.BlockEnhancements```

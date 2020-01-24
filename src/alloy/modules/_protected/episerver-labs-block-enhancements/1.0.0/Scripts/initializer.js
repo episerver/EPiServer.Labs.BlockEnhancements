@@ -45,7 +45,7 @@ define([
                 createNewInitializer();
             }
 
-            telemetryInitializer();
+            telemetryInitializer(options);
         }
     });
 });

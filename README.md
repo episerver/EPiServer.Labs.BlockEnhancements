@@ -239,6 +239,10 @@ and maybe not pursue when developing new features for CMS UI. We assure that the
 
 ### Tracked events
 
+#### feature-options
+
+The data being sent include which features are turned on or off.
+
 #### publish
 
 All publish actions will be tracked by telemetry in an event with the name `publish`. 

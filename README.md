@@ -241,8 +241,13 @@ and maybe not pursue when developing new features for CMS UI. We assure that the
 
 #### publish
 
-All publish actions will be tracked by telemetry in an event with the name `publish`. The default data being sent will include what type of publish command it is and if it's a page or block that's being published. Each different publish action might add additional data to the `publish` event if needed.
+All publish actions will be tracked by telemetry in an event with the name `publish`. 
 
+The default data being sent will include the following `customDimensions`:
+* `command-type`: Specifies the feature from which the action originated
+* `content-type`: Specifies whether it's a page or a block that's being published
+
+Publish actions:
 * A publish action using the publish menu will have the command type `default` and no additional telemetry data.
 * A publish action using Inline Edit dialog will have the command type `inline-edit-form` and no additional telemetry data.
 * A publish action using ContentArea context item menu will have the command type `content-area` and no additional telemetry data.

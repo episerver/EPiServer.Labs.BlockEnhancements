@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Security.Principal;
-using System.Text;
 using System.Threading.Tasks;
 using EPiServer.Framework.Serialization.Json.Internal;
 using EPiServer.Labs.BlockEnhancements.Telemetry;
@@ -24,11 +23,6 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
 
         public TelemetryConfigStoreTest()
         {
-            var hashHandler = new Mock<IHashHandler>();
-            hashHandler
-                .Setup(_ => _.GenerateStringHash(It.IsAny<byte[]>()))
-                .Returns((byte[] data) => "hashed-" + Encoding.Unicode.GetString(data) + "=");
-
             _principalAccessor = Mock.Of<IPrincipalAccessor>();
             _principalAccessor.Principal = new GenericPrincipal(new GenericIdentity("username"), null);
 
@@ -49,16 +43,14 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
             _telemetryConfigStore = new TelemetryConfigStore(_telemetryOptions, _licensingOptions, _principalAccessor, moduleTable.Object, new JsonObjectSerializer())
             {
                 GetRequestAsync = (string url) => Task.FromResult(_httpResponseMessage),
-                HashHandler = hashHandler.Object
             };
         }
 
         [Fact]
         public async void HashString_ShouldTrimTrailingEquals()
         {
-            _licensingOptions.LicenseKey = "=";
             var result = await _telemetryConfigStore.Get();
-            Assert.Equal("hashed-", result.GetData<TelemetryConfigModel>().Client);
+            Assert.False(result.GetData<TelemetryConfigModel>().Client.EndsWith("="));
         }
 
         [Fact]
@@ -101,7 +93,7 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
         {
             _licensingOptions.LicenseKey = "key";
             var result = await _telemetryConfigStore.Get();
-            Assert.Equal("hashed-key", result.GetData<TelemetryConfigModel>().Client);
+            Assert.Equal("6Xs43pBpSkS2IjoYdY5NgQIWAY6gZwK7IQ2/BQB4I2umzGflnF0Ck1yAK3dRYN0vaqnaVGaNczOzJnUJWLE2Hg", result.GetData<TelemetryConfigModel>().Client);
         }
 
         [Fact]
@@ -110,7 +102,7 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
             _licensingOptions.LicenseKey = null;
             _telemetryConfigStore.LoadLicense = (string licenseFilePath) => new LicenseData { LicensedCompany = "company" };
             var result = await _telemetryConfigStore.Get();
-            Assert.Equal("hashed-company", result.GetData<TelemetryConfigModel>().Client);
+            Assert.Equal("dR3n/AJAZiZtVmBnrJrEn+a9mlZiZjYSGrhEEFYiAl8vbA1HduH80e0oQJLdVgewrDIPZZLxUIgTayhaLT8ONQ", result.GetData<TelemetryConfigModel>().Client);
         }
 
         [Fact]
@@ -166,7 +158,7 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
         {
             _telemetryConfigStore.LoadEmailFromProfile = (string username) => null;
             var result = await _telemetryConfigStore.Get();
-            Assert.Equal("hashed-username", result.GetData<TelemetryConfigModel>().User);
+            Assert.Equal("KWAvYvtBvfvt5uSeb6LCxmsoDv7hgRO7q2Ad2snnk3u9/Hhpdm+ntJn0VAbz/OKUoLO30C7T4IHF/LQRxON2jw", result.GetData<TelemetryConfigModel>().User);
         }
 
         [Fact]
@@ -174,7 +166,7 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
         {
             _telemetryConfigStore.LoadEmailFromProfile = (string username) => "user@domain.com";
             var result = await _telemetryConfigStore.Get();
-            Assert.Equal("hashed-user@domain.com", result.GetData<TelemetryConfigModel>().User);
+            Assert.Equal("+whYti3ku/zuRSJ4qsqGfHjtVkAesvlZpFkNJLSKGtGLgp6wHvpRuhGSGb/FPINjdNyY6KjukoaRiJbeHyh5Bg", result.GetData<TelemetryConfigModel>().User);
         }
 
         [Fact]
@@ -189,7 +181,7 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
         {
             _telemetryConfigStore.GetRequestAsync = url =>
             {
-                Assert.Contains("client=hashed-LicenseKey", url);
+                Assert.Contains("client=VWBImW05ulqZaZtOwhh5gV3JA5lPvfmhz3hFAITGce2ae0uBKy9tmyiow9D7DWa7lPpB0UCW%2bV%2bAj%2bRLBqIL1g", url);
                 return Task.FromResult(_httpResponseMessage);
             };
             await _telemetryConfigStore.Get();
@@ -200,7 +192,7 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
         {
             _telemetryConfigStore.GetRequestAsync = url =>
             {
-                Assert.Contains("user=hashed-username", url);
+                Assert.Contains("user=KWAvYvtBvfvt5uSeb6LCxmsoDv7hgRO7q2Ad2snnk3u9%2fHhpdm%2bntJn0VAbz%2fOKUoLO30C7T4IHF%2fLQRxON2jw", url);
                 return Task.FromResult(_httpResponseMessage);
             };
             await _telemetryConfigStore.Get();

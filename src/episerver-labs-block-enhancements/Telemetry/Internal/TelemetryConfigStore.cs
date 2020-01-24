@@ -1,4 +1,4 @@
-using EPiServer.Framework.Serialization;
+﻿using EPiServer.Framework.Serialization;
 using EPiServer.Licensing;
 using EPiServer.Security;
 using EPiServer.Shell.Modules;
@@ -37,8 +37,6 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
             _principalAccessor = principalAccessor;
             _moduleTable = moduleTable;
             _objectSerializer = objectSerializer;
-
-            HashHandler = new SiteSecurity();
         }
 
         [HttpGet]
@@ -145,7 +143,12 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
             {
                 return null;
             }
-            return HashHandler.GenerateStringHash(Encoding.Unicode.GetBytes(data)).TrimEnd('=');
+
+            using (var sha512 = SHA512.Create())
+            {
+                var hash = sha512.ComputeHash(Encoding.Unicode.GetBytes(data));
+                return Convert.ToBase64String(hash).TrimEnd('=');
+            }
         }
 
         // Delegate get request to allow mocking in unit tests.
@@ -156,9 +159,6 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
                 return await client.GetAsync(requestUri).ConfigureAwait(false);
             }
         };
-
-        // Allow mocking the generated hash in unit tests.
-        internal IHashHandler HashHandler { get; set; }
 
         // Delegate license loading to allow mocking in unit tests.
         internal Func<string, LicenseData> LoadLicense = (string licenseFilePath) =>

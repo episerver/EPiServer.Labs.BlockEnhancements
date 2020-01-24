@@ -100,7 +100,7 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
         /// </returns>
         private async Task<IDictionary<string, object>> GetTelemetryConfiguration(TelemetryConfigModel telemetryConfigModel)
         {
-            var endpointUrl = new Uri("https://episervercmsui.azurewebsites.net/api/telemetryconfig");
+            var endpointUrl = new Uri("https://cmsui.episerver.net/api/telemetryconfig");
             var uriBuilder = new UriBuilder(endpointUrl);
             var query = HttpUtility.ParseQueryString(uriBuilder.Query);
             query.Add("client", telemetryConfigModel.Client);

@@ -18,22 +18,26 @@ define([
                 return originalExecute.apply(this, arguments);
             }
 
-            return when(originalExecute.apply(this, arguments)).then(function () {
-                var isPage = this.model.contentData.capabilities.isPage;
-                var isBlock = this.model.contentData.capabilities.isBlock;
+            function trackPublishCommand () {
+                    var isPage = this.model.contentData.capabilities.isPage;
+                    var isBlock = this.model.contentData.capabilities.isBlock;
 
-                // dont track if it's not a block or a page
-                if (!isPage && !isBlock){
-                    return;
-                }
+                    // dont track if it's not a block or a page
+                    if (!isPage && !isBlock) {
+                        return;
+                    }
 
-                var additionalData = this._getTrackingData && this._getTrackingData();
+                    var additionalData = this._getTrackingData && this._getTrackingData();
 
-                tracker.track("publish", Object.assign({
-                    "command-type": this.commandType,
-                    "content-type": isPage ? "page" : "block"
-                }, additionalData));
-            }.bind(this));
+                    tracker.track("publish", Object.assign({
+                        "command-type": this.commandType,
+                        "content-type": isPage ? "page" : "block"
+                    }, additionalData));
+            }
+
+            var result = originalExecute.apply(this, arguments);
+            when(result).then(trackPublishCommand.bind(this));
+            return result;
         }
 
         _ChangeContentStatus.prototype.execute.nom = "execute"

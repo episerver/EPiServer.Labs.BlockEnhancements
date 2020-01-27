@@ -111,13 +111,22 @@ define([
                     "smart-publish.no-item-selected": selectedContentLinks.length === 0
                 };
                 return self._getContentsToPublish(selectedContentLinks).then(function (selectedContents) {
-                    self._publishBlocks(selectedContents).then(function (publishResults) {
+                    return self._publishBlocks(selectedContents).then(function (publishResults) {
                         var success = "Successfully published ";
                         var contentMessage = "<strong>" + self.model.contentData.name + "</strong>";
                         var publishedItems = publishResults.filter(function (result) {
                             return result[0];
                         });
                         var publishCount = publishedItems.length;
+
+                        if (publishCount === 0) {
+                            self._trackingData["smart-publish.result"] = "nothing";
+                        } else if (publishCount === selectedContents.length) {
+                            self._trackingData["smart-publish.result"] = "all";
+                        } else {
+                            self._trackingData["smart-publish.result"] = "partial";
+                        }
+
                         whenAll(publishedItems.map(function (result) {
                             return self._pageDataStore.refresh(result[1].id);
                         })).then(function () {

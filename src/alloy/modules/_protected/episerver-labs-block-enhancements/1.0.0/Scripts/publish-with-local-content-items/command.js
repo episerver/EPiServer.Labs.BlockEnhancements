@@ -49,13 +49,6 @@ define([
 
         forceReload: true,
 
-        trackCommand: true,
-        commandType: "smart",
-        _trackingData: {},
-        _getTrackingData: function () {
-            return this._trackingData;
-        },
-
         postscript: function () {
             this.inherited(arguments);
 
@@ -103,15 +96,16 @@ define([
                 setFocusOnConfirmButton: true
             });
 
-            return confirmation.then(function () {
+            var deferred = new Deferred();
+            confirmation.then(function () {
                 var selectedContentLinks = contentItemsList.get("selectedContentLinks") || [];
                 var defaultSelectedContent = contentItemsList.get("_defaultSelectedContent") || [];
-                self._trackingData = {
+                var trackingData = {
                     "smart-publish.is-default-selected": defaultSelectedContent.length === selectedContentLinks.length,
                     "smart-publish.no-item-selected": selectedContentLinks.length === 0
                 };
-                return self._getContentsToPublish(selectedContentLinks).then(function (selectedContents) {
-                    return self._publishBlocks(selectedContents).then(function (publishResults) {
+                self._getContentsToPublish(selectedContentLinks).then(function (selectedContents) {
+                    self._publishBlocks(selectedContents).then(function (publishResults) {
                         var success = "Successfully published ";
                         var contentMessage = "<strong>" + self.model.contentData.name + "</strong>";
                         var publishedItems = publishResults.filter(function (result) {
@@ -120,11 +114,11 @@ define([
                         var publishCount = publishedItems.length;
 
                         if (publishCount === 0) {
-                            self._trackingData["smart-publish.result"] = "nothing";
+                            trackingData["smart-publish.result"] = "nothing";
                         } else if (publishCount === selectedContents.length) {
-                            self._trackingData["smart-publish.result"] = "all";
+                            trackingData["smart-publish.result"] = "all";
                         } else {
-                            self._trackingData["smart-publish.result"] = "partial";
+                            trackingData["smart-publish.result"] = "partial";
                         }
 
                         whenAll(publishedItems.map(function (result) {
@@ -140,9 +134,10 @@ define([
                             } else {
                                 dialogService.alert("No content items were published");
                             }
+                            deferred.resolve(trackingData);
                             return;
                         }
-                        return when(self.inherited(args)).then(function (result) {
+                        when(self.inherited(args)).then(function (result) {
                             callback(result.oldId);
                             var pageSuccessMessage = success + contentMessage;
                             if (publishCount > 0) {
@@ -150,14 +145,21 @@ define([
                             } else {
                                 dialogService.alert(pageSuccessMessage);
                             }
-                        }).otherwise(function () {
+                            deferred.resolve(trackingData);
+                        }).otherwise(function (e) {
                             dialogService.alert("Content publish failed");
+                            deferred.reject(trackingData);
                         });
                     });
                 });
             }, function () {
-                return confirmation;
+                // cancelling dialog window should not be tracked
+                deferred.reject({
+                    userCanceled: true
+                });
             });
+
+            return deferred.promise;
         },
 
         _publishBlocks: function (contentsToPublish) {

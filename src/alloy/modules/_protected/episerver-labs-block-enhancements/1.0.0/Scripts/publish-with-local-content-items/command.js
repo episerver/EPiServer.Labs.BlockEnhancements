@@ -117,13 +117,9 @@ define([
                             } else {
                                 dialogService.alert(pageSuccessMessage);
                             }
-                        }).otherwise(function (e) {
+                        }).otherwise(function () {
                             dialogService.alert("Content publish failed");
-                            console.error(e);
                         });
-                    }).otherwise(function (e) {
-                        dialogService.alert("Content publish failed");
-                        console.error(e);
                     });
                 });
             }).otherwise(function () {});

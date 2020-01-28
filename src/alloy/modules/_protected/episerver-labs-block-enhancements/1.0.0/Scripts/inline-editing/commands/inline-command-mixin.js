@@ -69,7 +69,7 @@ define([
                         heading: self.errorMessageHeading,
                         description: error
                     });
-                    return;
+                    return false;
                 }
 
                 var query = {
@@ -91,10 +91,11 @@ define([
                             }
                         },
                         validationErrors);
-                    return;
+                    return false;
                 }
 
                 dialogService.alert(self.errorMessageHeading);
+                return false;
             }
 
             var messages = this.messageService.query({contextId: this.model.contentData.contentLink});
@@ -107,9 +108,11 @@ define([
                 this._contentDataStore.refresh(this.model.contentData.contentLink).then(function () {
                     topic.publish("/refresh/ui");
                 });
+                return true;
             }.bind(this)).otherwise(showErrorMessage)
-                .always(function () {
+                .always(function (result) {
                     this.set("isAvailable", false);
+                    return result;
                 }.bind(this));
         },
 

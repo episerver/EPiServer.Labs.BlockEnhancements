@@ -13,7 +13,6 @@ define([
     "epi-cms/contentediting/ContentActionSupport",
     "epi-cms/contentediting/command/_ChangeContentStatus",
     "episerver-labs-block-enhancements/publish-with-local-content-items/content-dependencies",
-    "episerver-labs-block-enhancements/tracker",
     "epi/i18n!epi/cms/nls/episerver.cms.contentediting.toolbar.buttons",
     "epi/i18n!epi/cms/nls/episerverlabs.blockenhancements"
 ], function (
@@ -31,7 +30,6 @@ define([
     ContentActionSupport,
     _ChangeContentStatus,
     ContentDependencies,
-    tracker,
     resources,
     labsResources
 ) {
@@ -58,16 +56,6 @@ define([
         },
 
         _execute: function () {
-
-            var isPage = this.model.contentData.capabilities.isPage;
-            var isBlock = this.model.contentData.capabilities.isBlock;
-            if (isPage || isBlock){
-                tracker.track("publish", {
-                    "command-type": "smart-command-click",
-                    "content-type": isPage ? "page" : "block"
-                });
-            }
-
             var self = this;
             var args = arguments;
 

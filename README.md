@@ -11,6 +11,7 @@ The list of current features is as following:
 * [Inline publishing](#inline-publish)
 * [Content Draft View](#content-draft-view)
 * [Inline Create](#inline-create)
+* [Telemetry opt-in](#telemetry-opt-in)
 
 All of those features work together, but you can decide which ones are enabled, by [Configuring enabled features](#configuring-enabled-features)
 
@@ -237,34 +238,77 @@ https://nuget.episerver.com/package/?id=EPiServer.Labs.BlockEnhancements
 In a quest to understand our users more and effectivize our resources so that we can deliver the best user experience possible, we've decided to gather some useful telemetry so that we can make more informed decisions on what we should improve, support
 and maybe not pursue when developing new features for CMS UI. We assure that the data we collect is completely anonymized and will only be used internally for making decisions on improving the user experience.
 
-### Telemetry Config
+If you allow us to learn more about what we should be building, please make sure these two URL's are not blocked:
 
-The server will make an initial request in order to retrieve the telemetry config that will be used. This request includes:
-* Hashed client id
-* Hashed user id
-* CMS version
+* Live Configuration: `https://cmsui.episerver.net/api/telemetryconfig`
+* Tracking: `https://dc.services.visualstudio.com/v2/track` (this can change on Microsoft's discretion)
 
-### Tracked events
+### Live configuration
 
-#### feature-options
+When opted in, the server will make an initial GET request to `https://cmsui.episerver.net/api/telemetryconfig` in order to retrieve the telemetry config that will be used.
 
-The data being sent include which features are turned on or off.
+The *request* includes the following as queries (see "Taxonomy of custom events" section for details):
 
-#### publish
+* `user`: String, an anonymized user id.
+* `client`: String, anonymized client id.
+* `version`: String, of the CMS version.
 
-All publish actions will be tracked by telemetry in an event with the name `publish`. 
+The *response* is a [JSON AppInsights configuration object](https://github.com/microsoft/ApplicationInsights-JS/blob/master/README.md#configuration) to allow for telemetry configuration changes live. It will always include:
 
-The default data being sent will include the following `customDimensions`:
-* `command-type`: Specifies the feature from which the action originated
-* `content-type`: Specifies whether it's a page or a block that's being published
+* `instrumentationKey`: In case the AppInsights resource is re-deployed and the key changes.
 
-Publish actions:
-* A publish action using the publish menu will have the command type `default` and no additional telemetry data.
-* A publish action using Inline Edit dialog will have the command type `inline-edit-form` and no additional telemetry data.
-* A publish action using ContentArea context item menu will have the command type `content-area` and no additional telemetry data.
-* A publish action using Assets Pane items context menu will have the command type `assets-pane` and no additional telemetry data.
-* A publish action using smart publish will have the command type `smart`, and with `smart-publish.result`, `smart-publish.is-default-selected` and `smart-publish.no-item-selected` as additional telemetry data.
-* Click on the smart publish command will have the command type `smart-command-click` and no additional telemetry data.
+Examples of configuration options currently not used but are reasons to have this service:
+
+* `disableTelemetry`: In case telemetry needs to be turned off. Such as a catastrophic failure.
+* `samplingPercentage`: Tweak the sampling size to control cost.
+
+> You can [visit the URL](https://cmsui.episerver.net/api/telemetryconfig) to see this object live.
+
+### Taxonomy of custom events
+
+#### Always included
+
+Every tracking event includes [standard Application Insights dimensions](https://docs.microsoft.com/en-us/azure/azure-monitor/app/api-custom-events-metrics#trackevent). The [authenticated user and client ID](https://docs.microsoft.com/en-us/azure/azure-monitor/app/api-custom-events-metrics#authenticated-users) are set as:
+
+* `user_AuthenticatedId`: String, a SHA512 hash without salt, using user email if available and username otherwise. To anonymize user but allow tracking between products.
+* `user_AccountId`: String, a SHA512 hash without salt, using the License key. To allow for grouping of users.
+
+> See the anonymization code [here.](https://github.com/episerver/EPiServer.Labs.BlockEnhancements/blob/master/src/episerver-labs-block-enhancements/Telemetry/Internal/TelemetryConfigStore.cs)
+
+These `customDimensions` are added:
+
+* `versions`: All installed add-ons and their versions. The value is an object, and will always include these keys:
+    * `cms`: String, for the CMS version. E.g. `11.11.0.0`.
+    * `episerver-labs-block-enhancements`: String, for this add-on version. E.g. `0.6.3.0`.
+    * `shell`: String, for the CMS Shell version. E.g. `11.11.0.0`.
+
+#### `feature-options`
+
+Includes keys in `customDimensions` that correspond to a feature, and the value is a `boolean` (where `true` means the feature is enabled):
+
+* `contentAreaBrowse`: Extra button in the content area that [displays the content selector](assets/docsimages/create_new_nested_block.gif) for [Inline Create](#inline-create).
+* `contentDraftView`: [Content Draft View](#content-draft-view)
+* `inlineCreate`: [Inline Create](#inline-create)
+* `inlineEditing`: [Inline block editing](#inline-block-editing)
+* `inlinePublish`: [Inline publishing](#inline-publish)
+* `publishWithLocalContentItems`: [Smart publish](#smart-publish)
+* `statusIndicator`: [Showing block status on content area](#showing-block-status-on-content-area)
+
+#### `publish`
+
+Includes the following `customDimensions`:
+
+* `publish-result`: Boolean, `true` if the publish was successful. For Smart Publish this is the main content, and it can succeed while the children fail (see `smart-publish.published`).
+* `content-type`: String, `"page" | "block"`, specifies whether it's a page or a block that's being published.
+* `command-type`: String, specifies one of the following features which originated the action:
+    * `"default"`: Regular block and page publishes from CMS UI.
+    * `"inline-edit-form"`: Publish from the Inline Edit form.
+    * `"content-area"`: Publish from the Content Area content context menu.
+    * `"assets-pane"`: Publish from the Assets Pane item context menu.
+    * `"smart"`: Publish with the "Smart Publish" button in the Publish Menu, and includes additional `customDimensions`:
+        * `smart-publish.available`: Number, count of default selected content in the Smart Publish confirmation dialog.
+        * `smart-publish.selected`: Number, count of user selected content in the Smart Publish confirmation dialog.
+        * `smart-publish.published`: Number, count of successfully published content.
 
 ### Please note
 > Episerver Labs projects are meant to provide the developer community with pre-release features with the purpose of showcasing ongoing work and getting feedback in early stages of development.

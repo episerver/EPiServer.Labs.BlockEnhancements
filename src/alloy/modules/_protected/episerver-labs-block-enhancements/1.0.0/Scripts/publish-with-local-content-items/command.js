@@ -88,10 +88,7 @@ define([
             confirmation.then(function () {
                 var selectedContentLinks = contentItemsList.get("selectedContentLinks") || [];
                 var defaultSelectedContent = contentItemsList.get("_defaultSelectedContent") || [];
-                var trackingData = {
-                    "smart-publish.is-default-selected": defaultSelectedContent.length === selectedContentLinks.length,
-                    "smart-publish.no-item-selected": selectedContentLinks.length === 0
-                };
+
                 self._getContentsToPublish(selectedContentLinks).then(function (selectedContents) {
                     self._publishBlocks(selectedContents).then(function (publishResults) {
                         var success = "Successfully published ";
@@ -101,13 +98,11 @@ define([
                         });
                         var publishCount = publishedItems.length;
 
-                        if (publishCount === 0) {
-                            trackingData["smart-publish.result"] = "nothing";
-                        } else if (publishCount === selectedContents.length) {
-                            trackingData["smart-publish.result"] = "all";
-                        } else {
-                            trackingData["smart-publish.result"] = "partial";
-                        }
+                        var trackingData = {
+                            "smart-publish.available": defaultSelectedContent.length,
+                            "smart-publish.selected": selectedContentLinks.length,
+                            "smart-publish.published": publishCount
+                        };
 
                         whenAll(publishedItems.map(function (result) {
                             return self._pageDataStore.refresh(result[1].id);

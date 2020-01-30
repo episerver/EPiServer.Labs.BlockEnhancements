@@ -22,6 +22,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A1272902
 		setup.cmd = setup.cmd
 		site.cmd = site.cmd
 		version.cs = version.cs
+		gulpfile.js = gulpfile.js
+		karma.conf.js = karma.conf.js
+		test.cmd = test.cmd
+		VersionUpdate.ps1 = VersionUpdate.ps1
+		build-tracker.cmd = build-tracker.cmd
+		package.json = package.json
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiServer.Labs.BlockEnhancements", "src\episerver-labs-block-enhancements\EPiServer.Labs.BlockEnhancements.csproj", "{7D3CB0B4-BF55-4577-ABF2-D83F8EA5D49F}"

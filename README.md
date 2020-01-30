@@ -237,6 +237,13 @@ https://nuget.episerver.com/package/?id=EPiServer.Labs.BlockEnhancements
 In a quest to understand our users more and effectivize our resources so that we can deliver the best user experience possible, we've decided to gather some useful telemetry so that we can make more informed decisions on what we should improve, support
 and maybe not pursue when developing new features for CMS UI. We assure that the data we collect is completely anonymized and will only be used internally for making decisions on improving the user experience.
 
+### Telemetry Config
+
+The server will make an initial request in order to retrieve the telemetry config that will be used. This request includes:
+* Hashed client id
+* Hashed user id
+* CMS version
+
 ### Tracked events
 
 #### feature-options

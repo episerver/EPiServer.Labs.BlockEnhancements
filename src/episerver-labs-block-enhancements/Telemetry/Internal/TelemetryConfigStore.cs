@@ -103,10 +103,7 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
             var query = HttpUtility.ParseQueryString(uriBuilder.Query);
             query.Add("client", telemetryConfigModel.Client);
             query.Add("user", telemetryConfigModel.User);
-            foreach (var version in telemetryConfigModel.Versions)
-            {
-                query.Add(version.Key, version.Value);
-            }
+            query.Add("version", telemetryConfigModel.Versions["CMS"]);
 
             uriBuilder.Query = query.ToString();
             var url = uriBuilder.Uri.ToString();

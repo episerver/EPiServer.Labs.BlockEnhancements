@@ -29,7 +29,7 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
             var moduleTable = new Mock<ModuleTable>();
             moduleTable
                 .Setup(_ => _.GetModules())
-                .Returns(new[] { new ShellModule("module-name", null, null) });
+                .Returns(new[] { new ShellModule("CMS", null, null) });
 
             _telemetryOptions = new TelemetryOptions { OptedIn = true };
             _licensingOptions = new LicensingOptions
@@ -173,7 +173,7 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
         public async void GetVersions_ShouldSetVersions_AsDictionary()
         {
             var result = await _telemetryConfigStore.Get();
-            Assert.Contains("module-name", result.GetData<TelemetryConfigModel>().Versions);
+            Assert.Contains("CMS", result.GetData<TelemetryConfigModel>().Versions);
         }
 
         [Fact]
@@ -203,7 +203,7 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
         {
             _telemetryConfigStore.GetRequestAsync = url =>
             {
-                Assert.Contains("module-name=0.0", url);
+                Assert.Contains("version=0.0", url);
                 return Task.FromResult(_httpResponseMessage);
             };
             await _telemetryConfigStore.Get();

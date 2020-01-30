@@ -1,6 +1,6 @@
 var testFiles = [];
 var testFileRegex = /_specs\.js$/;
-Object.keys(window.__karma__.files).forEach(function (file) {    
+Object.keys(window.__karma__.files).forEach(function (file) {
     if (testFileRegex.test(file)) {
         testFiles.push(file);
     }
@@ -26,7 +26,8 @@ var dojoConfig = {
         { name: "epi", location: "/base/out/dtk/epi" },
         { name: "epi-cms", location: "/base/out/dtk/epi-cms" },
         { name: "episerver-labs-block-enhancements", location: "/base/src/alloy/modules/_protected/episerver-labs-block-enhancements/1.0.0/Scripts" },
-        { name: "mocks", location: "/base/src/EPiServer.Labs.BlockEnhancements.Test/Mocks" }
+        { name: "mocks", location: "/base/src/EPiServer.Labs.BlockEnhancements.Test/Mocks" },
+        { name: "tdd", location: "/base/src/EPiServer.Labs.BlockEnhancements.Test/tdd"}
     ]
 };
 

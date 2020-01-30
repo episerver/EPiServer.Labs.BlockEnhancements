@@ -11,12 +11,14 @@ module.exports = function (config) {
         files: [
             "src/EPiServer.Labs.BlockEnhancements.Test/dojoConfig.js",
             { pattern: "src/EPiServer.Labs.BlockEnhancements.Test/**/*.js", included: false, watched: true },
-            // Load all files to be tested but don't include them since they will be loaded dynamically.                        
+            // Load all files to be tested but don't include them since they will be loaded dynamically.
+            { pattern: "src/**/*.html", included: false, watched: true },
+            { pattern: "src/**/*.css", included: false, watched: true },
             { pattern: "out/dtk/**/*.css", included: false, watched: false },
             { pattern: "out/dtk/**/*.js", included: false, watched: false },
             { pattern: "out/dtk/**/*.html", included: false, watched: false },
             { pattern: "out/dtk/**/*.gif", included: false, watched: false },
-            { pattern: "src/alloy/modules/_protected/episerver-labs-block-enhancements/1.0.0/Scripts/**/*.js", included: false, watched: true}                        
+            { pattern: "src/alloy/modules/_protected/episerver-labs-block-enhancements/1.0.0/Scripts/**/*.js", included: false, watched: true}
         ],
         frameworks: ["dojo", "mocha", "chai-as-promised", "chai-sinon", "chai"],
         reporters: ["mocha"],
@@ -28,7 +30,7 @@ module.exports = function (config) {
                 ignoreLeaks: true // Tiny seems to leak "mce-data-1c5oo1d1t, tinymce, tinyMCE"
             }
         },
-        singleRun: false,        
+        singleRun: false,
 
         preprocessors: {
             // source files, that you wanna generate coverage for

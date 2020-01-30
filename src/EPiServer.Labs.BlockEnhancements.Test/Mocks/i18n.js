@@ -21,6 +21,15 @@ define([], function () {
         },
         "episerver.cms.form.emailvalidation": {
             invalidmessage: ""
+        },
+        "episerver.cms.contentediting.toolbar.buttons": {
+            publish: { },
+            sendforreview: {}
+        },
+        "episerverlabs.blockenhancements": {
+            command: { }
+        },
+        "episerverlabs.blockenhancements.inlinecommands.inlinepublish": {
         }
     };
 

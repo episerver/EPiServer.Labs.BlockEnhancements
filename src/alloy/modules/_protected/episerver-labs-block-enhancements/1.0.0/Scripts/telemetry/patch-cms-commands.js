@@ -52,15 +52,6 @@ define([
 
         var originalSmartPublishExecute = SmartPublishCommand.prototype.execute;
         SmartPublishCommand.prototype.execute = function () {
-            var isPage = this.model.contentData.capabilities.isPage;
-            var isBlock = this.model.contentData.capabilities.isBlock;
-            if (isPage || isBlock){
-                tracker.track("publish", {
-                    "command-type": "smart-command-click",
-                    "content-type": isPage ? "page" : "block"
-                });
-            }
-
             var result = originalSmartPublishExecute.apply(this, arguments);
             when(result).then(function (trackingData) {
                 trackPublishCommand(true, this.model, "smart", trackingData);

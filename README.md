@@ -298,14 +298,14 @@ Includes keys in `customDimensions` that correspond to a feature, and the value 
 
 Includes the following `customDimensions`:
 
-* `publish-result`: Boolean, `true` if the publish was successful. For Smart Publish this is the main content, and it can succeed while the children fail (see `smart-publish.published`).
+* `publish-result`: Boolean, `true` if the publish was successful. For Smart Publish this is the main content. If the main content is not changed, the result is `true`. It can succeed while the children fail (see `smart-publish.published`).
 * `content-type`: String, `"page" | "block"`, specifies whether it's a page or a block that's being published.
 * `command-type`: String, specifies one of the following features which originated the action:
     * `"default"`: Regular block and page publishes from CMS UI.
     * `"inline-edit-form"`: Publish from the Inline Edit form.
     * `"content-area"`: Publish from the Content Area content context menu.
     * `"assets-pane"`: Publish from the Assets Pane item context menu.
-    * `"smart"`: Publish with the "Smart Publish" button in the Publish Menu, and includes additional `customDimensions`:
+    * `"smart"`: Publish with the "Smart Publish" button in the Publish Menu, and includes additional `customMeasurements`:
         * `smart-publish.available`: Number, count of default selected content in the Smart Publish confirmation dialog.
         * `smart-publish.selected`: Number, count of user selected content in the Smart Publish confirmation dialog.
         * `smart-publish.published`: Number, count of successfully published content.

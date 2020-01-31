@@ -233,6 +233,14 @@ public void ConfigureContainer(ServiceConfigurationContext context)
 
 https://nuget.episerver.com/package/?id=EPiServer.Labs.BlockEnhancements
 
+## Development (if you would like to help in development)
+
+```console
+>> build\tools\nuget.exe restore
+>> setup.cmd
+>> site.cmd
+```
+
 ## Telemetry information
 
 In a quest to understand our users more and effectivize our resources so that we can deliver the best user experience possible, we've decided to gather some useful telemetry so that we can make more informed decisions on what we should improve, support

@@ -9,7 +9,7 @@ const gulp = require("gulp"),
 
 module.exports = (dtkHelper) => {
 
-    gulp.task("extract", [], (done) => {
+    gulp.task("extract", (done) => {
         // Resolve the path to the dtk zip file.
         const dtkZipFile = path.resolve(glob.sync("packages/EPiServer.CMS.UI.Sources*/tools/*.zip")[0]);
         const destination = dtkHelper.dtkPath;

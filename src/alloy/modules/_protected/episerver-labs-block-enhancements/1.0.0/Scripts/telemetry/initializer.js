@@ -7,8 +7,11 @@ define([
         dependency.resolve("epi.storeregistry")
             .get("episerver.labs.blockenhancements.telemetry")
             .get().then(function (telemetry) {
-                tracker.initialize(telemetry.configuration, telemetry.versions, telemetry.user, telemetry.client);
-                tracker.track("feature-options", options);
+                // Prevent errors when initializing tracker without the instrumentationKey
+                if (telemetry.configuration && telemetry.configuration.instrumentationKey) {
+                    tracker.initialize(telemetry.configuration, telemetry.versions, telemetry.user, telemetry.client);
+                    tracker.track("feature-options", options);
+                }
             });
 
         patchCmsCommands();

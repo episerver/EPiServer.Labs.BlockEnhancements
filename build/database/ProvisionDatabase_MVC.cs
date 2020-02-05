@@ -63,9 +63,9 @@ namespace AlloyTemplates.App_Code
             if (UIUserProvider.GetUser(userName) == null)
             {
                 var email = string.Format("epic-{0}@mailinator.com", userName);
-                IEnumerable<string> erros;
+                IEnumerable<string> errors;
                 UIUserCreateStatus status;
-                var user = UIUserProvider.CreateUser(userName, passWord, email, null, null, true, out status, out erros);
+                var user = UIUserProvider.CreateUser(userName, passWord, email, null, null, true, out status, out errors);
                 UIRoleProvider.AddUserToRoles(user.Username, roleNames);
 
                 var profile = EPiServerProfile.Get(user.Username);
@@ -94,35 +94,35 @@ namespace AlloyTemplates.App_Code
         }
 
 
-        public UIUserProvider GetDeafultUserProvider()
+        public UIUserProvider GetDefaultUserProvider()
         {
             UIUserProvider userProvider = null;
             try
             {
-                // Owin is not configured that becuase we have catch (membership provider  there is not problem)
+                // Owin is not configured that because we have catch (membership provider  there is not problem)
                 ServiceLocator.Current.TryGetExistingInstance<UIUserProvider>(out userProvider);
                 return userProvider;
             }
             catch { }
 
-            // in the case of aspnet identity the rpovider is not in the service locator before owin is sets up then we create own.
+            // in the case of aspnet identity the provider is not in the service locator before owin is sets up then we create own.
             var userManager = new ApplicationUserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext<ApplicationUser>("EPiServerDB")));
             userProvider = new ApplicationUserProvider<ApplicationUser>(() => userManager);
             return userProvider;
         }
 
-        public UIRoleProvider GetDeafultRoleProvider()
+        public UIRoleProvider GetDefaultRoleProvider()
         {
             UIRoleProvider roleProvider = null;
             try
             {
-                // Owin is not configured that becuase we have catch (membership provider  there is not problem)
+                // Owin is not configured that because we have catch (membership provider  there is not problem)
                 ServiceLocator.Current.TryGetExistingInstance<UIRoleProvider>(out roleProvider);
                 return roleProvider;
             }
             catch { }
 
-            // in the case of aspnet identity the rpovider is not in the service locator before owin is sets up then we create own.
+            // in the case of aspnet identity the provider is not in the service locator before owin is sets up then we create own.
             var userManager = new ApplicationUserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext<ApplicationUser>("EPiServerDB")));
             var roleManager = new ApplicationRoleManager<ApplicationUser>(new RoleStore<IdentityRole>(new ApplicationDbContext<ApplicationUser>("EPiServerDB")));
             roleProvider = new ApplicationRoleProvider<ApplicationUser>(() => userManager, () => roleManager);
@@ -133,7 +133,7 @@ namespace AlloyTemplates.App_Code
         {
             get
             {
-                return _userProvider ?? (_userProvider = GetDeafultUserProvider());
+                return _userProvider ?? (_userProvider = GetDefaultUserProvider());
             }
         }
 
@@ -141,7 +141,7 @@ namespace AlloyTemplates.App_Code
         {
             get
             {
-                return _roleProvider ?? (_roleProvider = GetDeafultRoleProvider());
+                return _roleProvider ?? (_roleProvider = GetDefaultRoleProvider());
             }
         }
 

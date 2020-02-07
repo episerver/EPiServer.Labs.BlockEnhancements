@@ -4,5 +4,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("episerver-labs")]
 [assembly: AssemblyProduct("block-enhancements")]
 [assembly: ComVisible(false)]
-[assembly: AssemblyVersion("0.6.3")]
-[assembly: AssemblyInformationalVersion("0.6.3-developerbuild")]
+[assembly: AssemblyVersion("0.7.0")]
+[assembly: AssemblyInformationalVersion("0.7.0-developerbuild")]

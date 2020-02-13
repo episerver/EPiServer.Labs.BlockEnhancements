@@ -131,7 +131,7 @@ namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
         {
             var username = _principalAccessor.CurrentName();
             var email = LoadEmailFromProfile(username);
-            return HashString(email ?? username);
+            return HashString(string.IsNullOrEmpty(email) ? username : email);
         }
 
         private string HashString(string data)

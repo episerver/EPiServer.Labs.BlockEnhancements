@@ -162,6 +162,14 @@ namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
         }
 
         [Fact]
+        public async void GetUserHash_WhenProfileEmail_IsEmpty_ShouldSetUser_AsHashedEmail()
+        {
+            _telemetryConfigStore.LoadEmailFromProfile = (string username) => "";
+            var result = await _telemetryConfigStore.Get();
+            Assert.Equal("KWAvYvtBvfvt5uSeb6LCxmsoDv7hgRO7q2Ad2snnk3u9/Hhpdm+ntJn0VAbz/OKUoLO30C7T4IHF/LQRxON2jw", result.GetData<TelemetryConfigModel>().User);
+        }
+
+        [Fact]
         public async void GetUserHash_WhenProfileEmail_IsNotNull_ShouldSetUser_AsHashedEmail()
         {
             _telemetryConfigStore.LoadEmailFromProfile = (string username) => "user@domain.com";

@@ -278,8 +278,8 @@ Examples of configuration options currently not used but are reasons to have thi
 
 Every tracking event includes [standard Application Insights dimensions](https://docs.microsoft.com/en-us/azure/azure-monitor/app/api-custom-events-metrics#trackevent). The [authenticated user and client ID](https://docs.microsoft.com/en-us/azure/azure-monitor/app/api-custom-events-metrics#authenticated-users) are set as:
 
-* `user_AuthenticatedId`: String, a SHA512 hash without salt, using user email if available and username otherwise. To anonymize user but allow tracking between products.
-* `user_AccountId`: String, a SHA512 hash without salt, using the License key. To allow for grouping of users.
+* `ai.user.authUserId`: String, a SHA512 hash without salt, using user email if available and username otherwise. To anonymize user but allow tracking between products.
+* `ai.user.accountId`: String, a SHA512 hash without salt, using the License key. To allow for grouping of users.
 
 > See the anonymization code [here.](https://github.com/episerver/EPiServer.Labs.BlockEnhancements/blob/master/src/episerver-labs-block-enhancements/Telemetry/Internal/TelemetryConfigStore.cs)
 

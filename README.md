@@ -270,6 +270,8 @@ Examples of configuration options currently not used but are reasons to have thi
 * `disableTelemetry`: In case telemetry needs to be turned off. Such as a catastrophic failure.
 * `samplingPercentage`: Tweak the sampling size to control cost.
 
+> The default Application Insights setup auto collects some information and will auto generate some events. You might therefore find some additional event data being sent that is not listed under custom events. You can find more information about what is collected [here](https://github.com/microsoft/ApplicationInsights-JS#setting-up-autocollection).
+
 > You can [visit the URL](https://cmsui.episerver.net/api/telemetryconfig) to see this object live.
 
 ### Taxonomy of custom events

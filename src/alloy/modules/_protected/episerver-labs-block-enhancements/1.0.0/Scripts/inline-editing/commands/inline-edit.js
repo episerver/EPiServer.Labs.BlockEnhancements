@@ -70,7 +70,8 @@ define([
                     if (!dialog) {
                         return;
                     }
-                    var isDirtyLocalBlock = isDirty && _this.model.content.capabilities.isLocalContent;
+                    var capabilities = _this.model.capabilities || _this.model.content.capabilities;
+                    var isDirtyLocalBlock = isDirty && capabilities.isLocalContent;
                     dialog.togglePublishButton(hasPublishAccessRights && (canPublish() || isDirtyLocalBlock));
                     dialog.setPublishLabel(inlinePublishCommand.label);
                 }

@@ -47,6 +47,12 @@ define([
 
             category: "menuWithSeparator",
 
+            postscript: function () {
+                this.inherited(arguments);
+
+                this._pageDataStore = dependency.resolve("epi.storeregistry").get("epi.cms.contentdata");
+            },
+
             _execute: function () {
                 // summary:
                 //    Executes this command; Displays editing dialog
@@ -58,8 +64,6 @@ define([
 
                 var _this = this;
                 var isDirty = false;
-                var contentData = this.model.content || this.model;
-                var hasPublishAccessRights = ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Publish);
                 var inlinePublishCommand = new InlinePublish();
 
                 function canPublish() {
@@ -70,9 +74,8 @@ define([
                     if (!dialog) {
                         return;
                     }
-                    var capabilities = _this.model.capabilities || _this.model.content.capabilities;
-                    var isDirtyLocalBlock = isDirty && capabilities.isLocalContent;
-                    dialog.togglePublishButton(hasPublishAccessRights && (canPublish() || isDirtyLocalBlock));
+                    var isDirtyLocalBlock = isDirty && _this.get("isLocalContent");
+                    dialog.togglePublishButton(_this.get("hasPublishAccessRights") && (canPublish() || isDirtyLocalBlock));
                     dialog.setPublishLabel(inlinePublishCommand.label);
                 }
 
@@ -148,9 +151,21 @@ define([
                 });
             },
 
+            _getContentData: function () {
+                // summary:
+                //      Try to get full contentData object
+                //      Fetch it from store unless already available
+
+                var contentData = this.model.content || this.model;
+                if (!contentData.properties) {
+                    contentData = this._pageDataStore.get(contentData.contentLink);
+                }
+                return contentData;
+            },
+
             _onModelChange: function () {
                 // summary:
-                //		Updates isAvailable after the model has been updated.
+                //      Updates isAvailable after the model has been updated.
 
                 this.inherited(arguments);
 
@@ -161,12 +176,15 @@ define([
 
                 this.set("isAvailable", true);
 
-                var contentData = this.model.content || this.model;
-                var hasAccessRights = ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Edit);
-                var hasProviderSupportForEditing = ContentActionSupport.hasProviderCapability(contentData.providerCapabilityMask, ContentActionSupport.providerCapabilities.Edit);
-                var isReadyToPublish = contentData.status === ContentActionSupport.versionStatus.CheckedIn;
-                var isDeleted = contentData.isDeleted;
-                this.set("canExecute", hasAccessRights && hasProviderSupportForEditing && !isReadyToPublish && !isDeleted);
+                when(this._getContentData()).then(function (contentData) {
+                    var hasAccessRights = ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Edit);
+                    var hasProviderSupportForEditing = ContentActionSupport.hasProviderCapability(contentData.providerCapabilityMask, ContentActionSupport.providerCapabilities.Edit);
+                    var isReadyToPublish = contentData.status === ContentActionSupport.versionStatus.CheckedIn;
+                    var isDeleted = contentData.isDeleted;
+                    this.set("canExecute", hasAccessRights && hasProviderSupportForEditing && !isReadyToPublish && !isDeleted);
+                    this.set("hasPublishAccessRights", ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Publish));
+                    this.set("isLocalContent", contentData.capabilities.isLocalContent);
+                }.bind(this));
             }
         });
     });

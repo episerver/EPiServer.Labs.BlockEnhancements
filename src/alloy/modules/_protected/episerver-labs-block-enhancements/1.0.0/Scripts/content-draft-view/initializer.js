@@ -1,16 +1,20 @@
 define([
     "dojo/topic",
+    "dojo/aspect",
     "epi/dependency",
     "epi-cms/core/ContentReference",
     "epi-cms/widget/overlay/_OverlayItemInfoMixin",
     "episerver-labs-block-enhancements/content-draft-view/command-provider",
+    "epi-cms/contentediting/PropertyRenderer",
     "xstyle/css!episerver-labs-block-enhancements/content-draft-view/styles.css"
 ], function (
     topic,
+    aspect,
     dependency,
     ContentReference,
     _OverlayItemInfoMixin,
-    CommandProvider
+    CommandProvider,
+    PropertyRenderer
 ) {
     var isDraftViewEnabled = false;
 
@@ -27,11 +31,6 @@ define([
         var originalPostCreate = _OverlayItemInfoMixin.prototype.postCreate;
         _OverlayItemInfoMixin.prototype.postCreate = function () {
             originalPostCreate.apply(this, arguments);
-
-            this.own(
-                topic.subscribe("/epi/setcommondraftview", function (isInDraftView) {
-                    isDraftViewEnabled = isInDraftView;
-                }));
 
             var _this = this;
 
@@ -56,8 +55,36 @@ define([
         };
     }
 
+    function patchPropertyRenderer() {
+        var originalPostCreate = PropertyRenderer.prototype.render;
+        PropertyRenderer.prototype.render = function () {
+            if (!this.patchPropertyRendererUpdated) {
+                this.patchPropertyRendererUpdated = true;
+
+                var self = this;
+                //this.own( // PropertyRenderer doesn't have Destroyable mixin
+                    aspect.around(this._xhrHandler, "xhrPost", function (original) {
+                        return function (postData) {
+                            if (isDraftViewEnabled) {
+                                postData.url = postData.url + "&commondrafts=true";
+                            }
+                            return original.apply(self._xhrHandler, [postData]);
+                        };
+                    })
+                //);
+            }
+
+            return originalPostCreate.apply(this, arguments);
+        };
+    }
+
+    topic.subscribe("/epi/setcommondraftview", function (isInDraftView) {
+        isDraftViewEnabled = isInDraftView;
+    });
+
     return function () {
         registerCommandProvider();
         patchOverlay();
+        patchPropertyRenderer();
     };
 });

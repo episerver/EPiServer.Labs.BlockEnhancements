@@ -37,22 +37,19 @@ define([
         ContentAreaEditor.prototype.buildRendering = function() {
             originalBuildRendering.apply(this, arguments);
 
-            this.own(aspect.after(this._dndTarget, "onDropData", function(dndData) {
-            var contents = dndData.filter(function(d) {
-                return d.data && d.data.contentLink;
-            }).map(function(d) {
-                return d.data;
-            });
-            latestContentResolver(contents).then(function(contentsHashMap) {
+            this.own(aspect.after(this.model, "addChild", function(item) {
+                // Set content property when an item is added to ContentArea
+                // Early exit if contentLink is missing.
+                if(!item.contentLink) {
+                    return;
+                }
+
+                latestContentResolver([item]).then(function(contentsHashMap) {
+                    var draft = contentsHashMap[new ContentReference(item.contentLink).id];
                     var children = this.model.getChildren();
 
-                    contents.forEach(function(content) {
-                        var child = children.filter(function(c) {
-                            return c.contentLink === content.contentLink;
-                        })[0];
-
-                        if (child) {
-                            var draft = contentsHashMap[new ContentReference(content.contentLink).id];
+                    children.forEach(function(child) {
+                        if(child.contentLink === item.contentLink) {
                             child.set("content", draft);
                         }
                     });
@@ -80,17 +77,5 @@ define([
                 }.bind(this))
             );
         };
-
-        var originalTransformValueToModels = ContentAreaViewModel.prototype._transformValueToModels;
-
-        ContentAreaViewModel.prototype._transformValueToModels = function(value) {
-            originalTransformValueToModels.apply(this, arguments);
-            latestContentResolver(value).then(function(contentsHashMap) {
-                this.getChildren().forEach(function(child) {
-                    var draft = contentsHashMap[new ContentReference(child.contentLink).id];
-                    child.set("content", draft);
-                }.bind(this));
-            }.bind(this));
-        };
     };
-})
+});

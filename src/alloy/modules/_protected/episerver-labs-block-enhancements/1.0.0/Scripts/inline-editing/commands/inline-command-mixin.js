@@ -105,9 +105,15 @@ define([
 
             return this.inherited(arguments).then(function () {
                 dialogService.alert("<strong>" + this.model.contentData.name + "</strong> " + self.successMessage);
-                this._contentDataStore.refresh(this.model.contentData.contentLink).then(function () {
+                var contentReference = new ContentReference(this.model.contentData.contentLink);
+                // Refresh the data in the store only if it's been published before
+                if (contentReference.workId) {
+                    this._contentDataStore.refresh(contentReference.toString()).then(function () {
+                        topic.publish("/refresh/ui");
+                    });
+                } else {
                     topic.publish("/refresh/ui");
-                });
+                }
                 return true;
             }.bind(this)).otherwise(showErrorMessage)
                 .always(function (result) {

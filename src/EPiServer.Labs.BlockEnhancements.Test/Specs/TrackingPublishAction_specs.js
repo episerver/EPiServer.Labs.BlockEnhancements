@@ -4,13 +4,15 @@ define([
     "dojo/Deferred",
     "epi/dependency",
     "epi-cms/contentediting/command/Publish",
-    "episerver-labs-block-enhancements/inline-editing/commands/inline-publish"
+    "episerver-labs-block-enhancements/inline-editing/commands/inline-publish",
+    "episerver-labs-block-enhancements/publish-with-local-content-items/command"
 ], (
     stubModule,
     Deferred,
     dependency,
     PublishCommand,
-    InlinePublishCommand
+    InlinePublishCommand,
+    SmartPublishCommand
 ) => {
     describe("Publish Actions Tracking", () => {
         const trackFn = sinon.stub();
@@ -27,6 +29,9 @@ define([
                 get: function () {
                     return {};
                 }
+            });
+
+            dependency.register("epi.cms.ProjectService", {
             });
 
             return stubModule("episerver-labs-block-enhancements/telemetry/patch-cms-commands", {
@@ -137,22 +142,78 @@ define([
         });
 
         describe("Smart publish command", () => {
+            let smartPublishCommand, mockDialogService;
+
+            beforeEach(() => {
+                mockDialogService = {
+                    alert: sinon.stub(),
+                    confirmation: () => {
+                        const res = new Deferred();
+                        res.resolve();
+                        return res.promise;
+                    }
+                };
+                
+                let ContentDependenciesMock = function () {
+                    this.get = function () {
+                        return [];
+                    };
+                };
+
+                const pageDataStore = {
+                    get: () => {}
+                };
+
+                smartPublishCommand = new SmartPublishCommand({
+                    _dialogService: mockDialogService,
+                    _ContentDependenciesClass: ContentDependenciesMock,
+                    _pageDataStore: pageDataStore
+                });
+
+                smartPublishCommand.set("canExecute", true);
+                smartPublishCommand.set("isAvailable", true);
+
+                smartPublishCommand.model = {
+                    contentData: {
+                        capabilities: {
+                            isPage: true
+                        },
+                        transitions: [{
+                            name: "publish"
+                        }]
+                    }
+                };
+            });
 
             describe("when publish successed", () => {
 
+                beforeEach(() => {
+                    smartPublishCommand.model.changeContentStatus = () => {
+                        const res = new Deferred();
+                        res.resolve({ id: "10" });
+                        return res.promise;
+                    };
+                });
+
                 it("it should call tracker with publish-result dimension `true`", () => {
                     //TODO: test smart publish success scenario
-
-                    expect(1).to.equals(1);
+                    smartPublishCommand.execute();
+                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publish-result", true));
                 });
             });
 
             describe("when publish failed", () => {
+                beforeEach(() => {
+                    smartPublishCommand.model.changeContentStatus = () => {
+                        const res = new Deferred();
+                        res.reject();
+                        return res.promise;
+                    };
+                });
 
                 it("it should call tracker with publish-result dimension `false`", () => {
-                    //TODO: test smart publish fail scenario
-
-                    expect(1).to.equals(1);
+                    smartPublishCommand.execute();
+                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publish-result", false));
                 });
             });
         });

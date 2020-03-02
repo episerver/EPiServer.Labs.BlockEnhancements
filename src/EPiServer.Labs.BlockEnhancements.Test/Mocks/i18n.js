@@ -27,7 +27,8 @@ define([], function () {
             sendforreview: {}
         },
         "episerverlabs.blockenhancements": {
-            command: { }
+            command: { },
+			dialog: {}
         },
         "episerverlabs.blockenhancements.inlinecommands.inlinepublish": {
         }

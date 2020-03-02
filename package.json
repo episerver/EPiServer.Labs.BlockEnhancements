@@ -26,7 +26,6 @@
     "commander": "^4.1.0",
     "gulp": "^4.0.2",
     "gulp-unzip": "^1.1.0",
-    "gulp-util": "^3.0.8",
     "karma": "^4.4.1",
     "karma-chai": "^0.1.0",
     "karma-chai-as-promised": "^0.1.2",

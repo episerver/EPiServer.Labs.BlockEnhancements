@@ -4,8 +4,7 @@ const gulp = require("gulp"),
     path = require("path"),
     glob = require("glob"),
     fs = require("fs"),
-    unzip = require("gulp-unzip"),
-    gutil = require("gulp-util");
+    unzip = require("gulp-unzip");
 
 module.exports = (dtkHelper) => {
 
@@ -16,7 +15,7 @@ module.exports = (dtkHelper) => {
 
         fs.stat(destination, (err, stat) => {
             if (stat && stat.isDirectory()) {
-                gutil.log(gutil.colors.cyan(dtkZipFile, "has already been decompressed to: ", destination));
+                console.log(dtkZipFile, "has already been decompressed to: ", destination);
                 done();
 
                 return;

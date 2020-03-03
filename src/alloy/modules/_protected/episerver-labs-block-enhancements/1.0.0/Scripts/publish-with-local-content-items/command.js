@@ -47,8 +47,13 @@ define([
 
         forceReload: true,
 
+        _ContentDependenciesClass: null,
+
         postscript: function () {
             this.inherited(arguments);
+
+            this._dialogService = this._dialogService || dialogService;
+            this._ContentDependenciesClass = this._ContentDependenciesClass || ContentDependencies;
 
             this._store = dependency.resolve("epi.storeregistry").get("episerver.labs.blockenhancements");
             this._pageDataStore = dependency.resolve("epi.storeregistry").get("epi.cms.contentdata");
@@ -69,12 +74,12 @@ define([
             }).length !== 0;
 
 
-            var contentItemsList = new ContentDependencies({
+            var contentItemsList = new this._ContentDependenciesClass({
                 contentLink: self.model.contentData.contentLink,
                 mode: "confirm"
             });
 
-            var confirmation = dialogService.confirmation({
+            var confirmation = this._dialogService.confirmation({
                 description: labsResources.dialog.confirmation,
                 dialogClass: "epi-dialog-smartPublish",
                 content: contentItemsList,
@@ -113,9 +118,9 @@ define([
                         if (!isPublishCommandAvailable) {
                             if (publishCount > 0) {
                                 callback(self.model.contentData.contentLink);
-                                dialogService.alert(success + dependenciesSuccessMessage);
+                                self._dialogService.alert(success + dependenciesSuccessMessage);
                             } else {
-                                dialogService.alert("No content items were published");
+                                self._dialogService.alert("No content items were published");
                             }
                             deferred.resolve(trackingData);
                             return;
@@ -124,13 +129,13 @@ define([
                             callback(result.oldId);
                             var pageSuccessMessage = success + contentMessage;
                             if (publishCount > 0) {
-                                dialogService.alert(pageSuccessMessage + " and " + dependenciesSuccessMessage);
+                                self._dialogService.alert(pageSuccessMessage + " and " + dependenciesSuccessMessage);
                             } else {
-                                dialogService.alert(pageSuccessMessage);
+                                self._dialogService.alert(pageSuccessMessage);
                             }
                             deferred.resolve(trackingData);
                         }).otherwise(function (e) {
-                            dialogService.alert("Content publish failed");
+                            self._dialogService.alert("Content publish failed");
                             deferred.reject(trackingData);
                         });
                     });

@@ -3,7 +3,8 @@ define([
     "episerver-labs-block-enhancements/tracker",
     "episerver-labs-block-enhancements/telemetry/patch-cms-commands",
     "episerver-labs-block-enhancements/telemetry/get-custom-properties",
-], function (dependency, tracker, patchCmsCommands, getCustomProperties) {
+    "episerver-labs-block-enhancements/telemetry/track-edit-mode"
+], function (dependency, tracker, patchCmsCommands, getCustomProperties, trackEditMode) {
     return function (options) {
         dependency.resolve("epi.storeregistry")
             .get("episerver.labs.blockenhancements.telemetry")
@@ -16,5 +17,6 @@ define([
             });
 
         patchCmsCommands();
+        trackEditMode();
     }
 });

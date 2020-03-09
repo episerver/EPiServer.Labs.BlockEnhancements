@@ -325,6 +325,16 @@ Includes the following `customDimensions`:
         * `smart-publish.selected`: Number, count of user selected content in the Smart Publish confirmation dialog.
         * `smart-publish.published`: Number, count of successfully published content.
 
+#### `editContentSaved`
+
+Includes the following `customDimensions`:
+
+* `"editMode"`: String, `"onpageedit" | "formedit"`, specifies what edit mode is being used.
+
+And also `customMeasurements`:
+
+* `"spentTime"`: Number, how many seconds spent while editing content.
+
 #### Adding new trackers
 
 * Every commit adding or changing a tracking event must include a KQL query in the commit message that can be used to test and validate it.

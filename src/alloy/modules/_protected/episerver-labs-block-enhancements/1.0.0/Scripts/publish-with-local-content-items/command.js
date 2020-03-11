@@ -76,6 +76,7 @@ define([
 
             var contentItemsList = new this._ContentDependenciesClass({
                 contentLink: self.model.contentData.contentLink,
+                canPublish: this.model.contentData.transitions.map(function (transition) { return transition.name }).indexOf("publish") !== -1,
                 mode: "confirm"
             });
 

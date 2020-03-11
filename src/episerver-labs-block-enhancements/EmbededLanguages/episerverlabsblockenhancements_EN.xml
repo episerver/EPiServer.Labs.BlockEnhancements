@@ -8,6 +8,7 @@
           <partofapproval>Is part of an active approval sequence and cannot be published at the moment</partofapproval>
         </command>
         <noitemstopublish>There is nothing to be published</noitemstopublish>
+        <currentcontenttopublish>There are no unpublished content items related to this content. Only the current content item can be published.</currentcontenttopublish>
         <loadingitems>Loading items...</loadingitems>
         <name>Name</name>
         <changed>Changed</changed>

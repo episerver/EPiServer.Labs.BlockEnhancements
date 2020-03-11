@@ -8,6 +8,7 @@
           <partofapproval>Är en del av en aktiv godkännande sekvens och kan inte publiceras just nu</partofapproval>
         </command>
         <noitemstopublish>Det finns inget att publicera</noitemstopublish>
+        <currentcontenttopublish>Det finns inga opublicerade objekt kopplade till detta innehåll. Endast det aktuella objektet kan publiceras.</currentcontenttopublish>
         <loadingitems>Laddar innehåll...</loadingitems>
         <name>Namn</name>
         <changed>Ändrad</changed>

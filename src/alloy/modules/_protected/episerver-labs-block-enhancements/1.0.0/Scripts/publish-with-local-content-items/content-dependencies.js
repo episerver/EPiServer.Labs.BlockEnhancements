@@ -183,7 +183,7 @@ define([
 
         _afterStoreQuery: function (results) {
             var hasItems = results.length > 0;
-            this.noDataMessageNode.innerHTML = labsResources.noitemstopublish;
+            this.noDataMessageNode.innerHTML = this.canPublish ? labsResources.currentcontenttopublish: labsResources.noitemstopublish;
             domClass.toggle(this.noDataNode, "dijitHidden", hasItems);
             domClass.toggle(this.gridNode, "dijitHidden", !hasItems);
         },

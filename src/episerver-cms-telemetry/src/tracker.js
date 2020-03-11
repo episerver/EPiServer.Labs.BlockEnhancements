@@ -3,12 +3,14 @@ import { ApplicationInsights } from "@microsoft/applicationinsights-web";
 let appInsights = null;
 
 const Tracker = {
-    initialize(config, versions, authenticatedUserId, accountId) {
+    initialize(config, customProperties, authenticatedUserId, accountId) {
         appInsights = new ApplicationInsights({ config });
         appInsights.loadAppInsights();
         appInsights.setAuthenticatedUserContext(authenticatedUserId, accountId);
         appInsights.addTelemetryInitializer((envelope) => {
-            envelope.data.versions = versions;
+            for (var key in customProperties) {
+                envelope.data[key] = customProperties[key];
+            }
         });
     },
 

@@ -291,6 +291,11 @@ These `customDimensions` are added:
     * `cms`: String, for the CMS version. E.g. `11.11.0.0`.
     * `episerver-labs-block-enhancements`: String, for this add-on version. E.g. `0.6.3.0`.
     * `shell`: String, for the CMS Shell version. E.g. `11.11.0.0`.
+* `resolutions`: Everything related to screen or window sizes:
+    * `screenWidth`: Number, width of screen.
+    * `screenHeight`: Number, height of screen.
+    * `windowInnerWidth`: Number, inner width of browser window.
+    * `windowInnerHeight`: Number, inner height of browser window.
 
 #### `feature-options`
 

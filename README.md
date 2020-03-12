@@ -320,6 +320,13 @@ Includes the following `customDimensions`:
         * `smart-publish.selected`: Number, count of user selected content in the Smart Publish confirmation dialog.
         * `smart-publish.published`: Number, count of successfully published content.
 
+#### Adding new trackers
+
+* Every commit adding or changing a tracking event must include a KQL query in the commit message that can be used to test and validate it.
+* Event name must be documented in this Readme with its intention.
+    * `publish` events will have the same name but use different data to distinguish between them. Any new publish trackers should add what data it collects to the list in the repo readme.
+    * Names should use `camelCase`.
+
 ### Please note
 > Episerver Labs projects are meant to provide the developer community with pre-release features with the purpose of showcasing ongoing work and getting feedback in early stages of development.
 >

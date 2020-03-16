@@ -109,6 +109,9 @@ define([
                 }.bind(this));
 
                 var onChangeHandle = on(form, "change", function () {
+                    if (isDirty) {
+                        return;
+                    }
                     isDirty = true;
                     updatePublishCommandVisibility();
                 });

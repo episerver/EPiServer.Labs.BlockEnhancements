@@ -29,14 +29,14 @@ namespace EPiServer.Labs.BlockEnhancements
         private readonly ServiceAccessor<SiteDefinition> _currentSiteDefinition;
         private readonly UIDescriptorRegistry _uiDescriptorRegistry;
         private readonly ServiceAccessor<HttpContextBase> _httpContextAccessor;
-        private readonly IApprovalDefinitionRepository _approvalDefinitionRepository;
+        private readonly ApprovalResolver _approvalResolver;
         private readonly LocalizationService _localizationService;
 
         public DependenciesResolver(ContentSoftLinkIndexer contentSoftLinkIndexer, IContentRepository contentRepository,
             LanguageResolver languageResolver, ContentLoaderService contentLoaderService,
             ServiceAccessor<SiteDefinition> currentSiteDefinition, UIDescriptorRegistry uiDescriptorRegistry,
             ServiceAccessor<HttpContextBase> httpContextAccessor,
-            IApprovalDefinitionRepository approvalDefinitionRepository, LocalizationService localizationService)
+            ApprovalResolver approvalResolver, LocalizationService localizationService)
         {
             _contentSoftLinkIndexer = contentSoftLinkIndexer;
             _contentRepository = contentRepository;
@@ -45,7 +45,7 @@ namespace EPiServer.Labs.BlockEnhancements
             _currentSiteDefinition = currentSiteDefinition;
             _uiDescriptorRegistry = uiDescriptorRegistry;
             _httpContextAccessor = httpContextAccessor;
-            _approvalDefinitionRepository = approvalDefinitionRepository;
+            _approvalResolver = approvalResolver;
             _localizationService = localizationService;
         }
 
@@ -55,16 +55,6 @@ namespace EPiServer.Labs.BlockEnhancements
                    versionStatus == ExtendedVersionStatus.CheckedIn ||
                    versionStatus == ExtendedVersionStatus.Rejected ||
                    versionStatus == ExtendedVersionStatus.PreviouslyPublished;
-        }
-
-        private bool IsPartOfActiveApproval(IContent content)
-        {
-            var definition = _approvalDefinitionRepository.ResolveAsync(content.ContentLink).ConfigureAwait(false)
-                .GetAwaiter().GetResult();
-            var isEnabled = definition != null && definition.Definition != null && definition.Definition.IsEnabled;
-            var extendedVersionStatus = content.GetCalculatedStatus();
-            var isReadyToPublish = extendedVersionStatus == ExtendedVersionStatus.CheckedIn;
-            return isEnabled && !isReadyToPublish;
         }
 
         private ContentReference GetUnpublishedVersion(IContent innerContent, CultureInfo preferredCulture)
@@ -97,7 +87,7 @@ namespace EPiServer.Labs.BlockEnhancements
             }
 
             var item = _contentRepository.Get<IContent>(contentVersion.ContentLink);
-            if (IsPartOfActiveApproval(item))
+            if (_approvalResolver.IsPartOfActiveApproval(item))
             {
                 return contentVersion.ContentLink;
             }
@@ -153,7 +143,7 @@ namespace EPiServer.Labs.BlockEnhancements
                     TypeIdentifier = GetTypeIdentifier(referenceContent),
                     TreePath = GetTreePath(referenceContent),
                     Uri = referenceContent.GetUri(),
-                    IsPartOfActiveApproval = IsPartOfActiveApproval(referenceContent)
+                    IsPartOfActiveApproval = _approvalResolver.IsPartOfActiveApproval(referenceContent)
                 };
 
                 if (referenceContent is IChangeTrackable changeTrackable)
@@ -185,7 +175,7 @@ namespace EPiServer.Labs.BlockEnhancements
                         TreePath = GetTreePath(subContentVersion),
                         Uri = subContent.GetUri(),
                         TypeIdentifier = GetTypeIdentifier(subContentVersion),
-                        IsPartOfActiveApproval = IsPartOfActiveApproval(subContentVersion)
+                        IsPartOfActiveApproval = _approvalResolver.IsPartOfActiveApproval(subContentVersion)
                     };
 
                     if (subContentVersion is IChangeTrackable subContentTrackable)

@@ -149,6 +149,7 @@ define([
                 var contentData = latestContents[0];
                 // we want to exit early if the page is already published or the user does not have proper access rights
                 if (!contentData || this.ignoredStatuses.indexOf(contentData.status) !== -1 ||
+                    contentData.isPartOfActiveApproval ||
                     !ContentActionSupport.hasAccessToAction(masterContentData, this.requiredAction) ||
                     (this.skippedAction && ContentActionSupport.hasAccessToAction(masterContentData, this.skippedAction))
                 ) {

@@ -3,7 +3,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using EPiServer.Cms.Shell.UI.Rest;
 using EPiServer.Cms.Shell.UI.Rest.ContentQuery;
-using EPiServer.Cms.Shell.UI.Rest.Models;
 using EPiServer.Cms.Shell.UI.Rest.Projects;
 using EPiServer.Core;
 using EPiServer.Globalization;
@@ -30,7 +29,8 @@ namespace EPiServer.Labs.BlockEnhancements.StatusIndicator
             _currentProject = currentProject;
         }
 
-        public IEnumerable<StructureStoreContentDataModel> GetLatestVersions(IEnumerable<ContentReference> ids, NameValueCollection queryString)
+        public IEnumerable<EnhancedStructureStoreContentDataModel> GetLatestVersions(IEnumerable<ContentReference> ids,
+            NameValueCollection queryString)
         {
             if (ids == null)
             {
@@ -78,7 +78,7 @@ namespace EPiServer.Labs.BlockEnhancements.StatusIndicator
             // The ContentVersionFilter modify content links.
             // We have to use this filter here to make sure that we will use proper links
             return _contentStoreModelCreator
-                .CreateContentDataStoreModels<StructureStoreContentDataModel>(contents, queryParameters).ToList();
+                .CreateContentDataStoreModels<EnhancedStructureStoreContentDataModel>(contents, queryParameters).ToList();
         }
     }
 }

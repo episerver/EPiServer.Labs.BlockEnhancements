@@ -92,6 +92,7 @@ define([
                     })
                     .then(function () {
                         self.set("metadata", self._model.get("metadata"));
+                        return latestContents[0];
                     });
             });
         },

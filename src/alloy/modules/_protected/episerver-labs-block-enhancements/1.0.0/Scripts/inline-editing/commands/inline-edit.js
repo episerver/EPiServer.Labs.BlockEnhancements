@@ -76,8 +76,8 @@ define([
                     if (!dialog) {
                         return;
                     }
-                    var isDirtyLocalBlock = isDirty && _this.get("isLocalContent");
-                    dialog.togglePublishButton(_this.get("hasPublishAccessRights") && (canPublish() || isDirtyLocalBlock));
+                    var isPartOfActiveApproval = _this.get("isPartOfActiveApproval");
+                    dialog.togglePublishButton(_this.get("hasPublishAccessRights") && (!isPartOfActiveApproval && (canPublish() || isDirty)));
                     dialog.setPublishLabel(inlinePublishCommand.label);
                 }
 
@@ -93,8 +93,9 @@ define([
                 var form = new FormContainer({
                     isInlineCreateEnabled: this.isInlineCreateEnabled
                 }, dialog.content, "last");
-                form.set("contentLink", this.model.contentLink).then(function () {
+                form.set("contentLink", this.model.contentLink).then(function (model) {
                     inlinePublishCommand.set("model", this.model);
+                    _this.set("isPartOfActiveApproval", model.isPartOfActiveApproval);
                 }.bind(this));
 
                 var formCreatedHandle = on(form, "FormCreated", function () {
@@ -188,7 +189,6 @@ define([
                     var isDeleted = contentData.isDeleted;
                     this.set("canExecute", hasAccessRights && hasProviderSupportForEditing && !isReadyToPublish && !isDeleted);
                     this.set("hasPublishAccessRights", ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Publish));
-                    this.set("isLocalContent", contentData.capabilities.isLocalContent);
                 }.bind(this));
             }
         });

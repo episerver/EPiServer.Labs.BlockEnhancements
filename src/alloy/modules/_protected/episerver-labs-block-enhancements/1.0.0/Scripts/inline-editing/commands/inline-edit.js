@@ -4,6 +4,7 @@ define([
         "dojo/topic",
         "dojo/when",
         //EPi
+        "epi",
         "epi/dependency",
         "epi/shell/TypeDescriptorManager",
 
@@ -25,6 +26,7 @@ define([
         topic,
         when,
 
+        epi,
         dependency,
         TypeDescriptorManager,
 
@@ -64,6 +66,7 @@ define([
 
                 var _this = this;
                 var isDirty = false;
+                var initialValue = null;
                 var inlinePublishCommand = new InlinePublish({
                     commandType: "inline-edit-form"
                 });
@@ -105,6 +108,7 @@ define([
                     }
 
                     dialog.show();
+                    initialValue = form.get("value");
                     updatePublishCommandVisibility();
 
                 }.bind(this));
@@ -113,7 +117,7 @@ define([
                     if (isDirty) {
                         return;
                     }
-                    isDirty = true;
+                    isDirty = !epi.areEqual(initialValue, form.get("value"));
                     updatePublishCommandVisibility();
                 });
 

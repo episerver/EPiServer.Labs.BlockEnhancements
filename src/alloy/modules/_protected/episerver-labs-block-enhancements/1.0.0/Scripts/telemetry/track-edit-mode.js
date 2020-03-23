@@ -7,10 +7,13 @@ define([
     ContentModelServerSync,
     Tracker
 ) {
-    return function() {
+    return function () {
         var _intervalInSeconds = .5;
         var _lastFocus = 0;
         var _viewName = "";
+
+        var heartbeatInterval = 60;
+        var _heartbeatTimeoutId;
 
         _patchContentModelServerSync();
 
@@ -30,6 +33,8 @@ define([
         function _onViewChanged(type, args, data) {
             _viewName = data.viewName;
             _lastFocus = 0;
+
+            trackHeartbeat("loadPage");
         }
 
         function _onSwitchedEditMode() {
@@ -40,6 +45,8 @@ define([
             // When clicking switching button, the page in Preview is switched to APE
             _viewName = _viewName === "formedit" ? "onpageedit" : "formedit";
             _lastFocus = 0;
+
+            trackHeartbeat("switchMode");
         }
 
         function _onFocus(ctx) {
@@ -60,11 +67,21 @@ define([
             if (_lastFocus === 0)
                 return;
 
-            var secondsSpentEditing = (Date.now() - _lastFocus)/1000;
+            var secondsSpentEditing = (Date.now() - _lastFocus) / 1000;
             if (secondsSpentEditing > _intervalInSeconds) {
                 _handleTracking(secondsSpentEditing);
                 _lastFocus = 0;
             }
+        }
+
+        function trackHeartbeat(commandType) {
+            Tracker.track("editing", {
+                "editMode": _viewName,
+                "commandType": commandType || "heartbeat"
+            });
+
+            clearTimeout(_heartbeatTimeoutId);
+            _heartbeatTimeoutId = setTimeout(trackHeartbeat, heartbeatInterval * 1000);
         }
 
         function _handleTracking(secondsSpentEditing) {

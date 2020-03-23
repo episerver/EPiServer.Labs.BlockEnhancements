@@ -325,6 +325,13 @@ Includes the following `customDimensions`:
         * `smart-publish.selected`: Number, count of user selected content in the Smart Publish confirmation dialog.
         * `smart-publish.published`: Number, count of successfully published content.
 
+#### `editing`
+
+Includes the following `customDimensions`:
+
+* `editMode`: String, `"onpageedit" | "formedit" | "view" | "allpropertiescompare"`, specifies what edit mode is being used.
+* `commandType`: String, `"loadPage" | "switchMode" | "heartbeat"`, specifies how the event is triggered
+
 #### `editContentSaved`
 
 Includes the following `customDimensions`:

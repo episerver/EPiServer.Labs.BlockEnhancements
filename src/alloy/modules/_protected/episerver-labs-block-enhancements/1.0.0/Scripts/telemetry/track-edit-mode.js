@@ -33,9 +33,11 @@ define([
         }
 
         function _onSwitchedEditMode() {
-            if (_viewName !== "onpageedit" && _viewName !== "formedit")
+            if (_viewName !== "onpageedit" && _viewName !== "formedit" && _viewName !== "view") {
                 return;
+            }
 
+            // When clicking switching button, the page in Preview is switched to APE
             _viewName = _viewName === "formedit" ? "onpageedit" : "formedit";
             _lastFocus = 0;
         }

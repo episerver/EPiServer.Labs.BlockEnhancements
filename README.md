@@ -336,11 +336,7 @@ Includes the following `customDimensions`:
 
 Includes the following `customDimensions`:
 
-* `"editMode"`: String, `"onpageedit" | "formedit"`, specifies what edit mode is being used.
-
-And also `customMeasurements`:
-
-* `"spentTime"`: Number, how many seconds spent while editing content.
+* `editMode`: String, `"onpageedit" | "formedit"`, specifies what edit mode is being used.
 
 #### Adding new trackers
 

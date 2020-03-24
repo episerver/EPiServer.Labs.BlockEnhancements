@@ -8,17 +8,17 @@ define([
     Tracker
 ) {
     return function () {
-        var _viewName = "";
+        var viewName = "";
 
         var heartbeatInterval = 60;
-        var _heartbeatTimeoutId;
+        var heartbeatTimeoutId;
 
-        _patchContentModelServerSync();
+        patchContentModelServerSync();
 
-        topic.subscribe("/epi/shell/action/viewchanged", _onViewChanged);
-        topic.subscribe("/epi/cms/action/switcheditmode", _onSwitchedEditMode);
+        topic.subscribe("/epi/shell/action/viewchanged", onViewChanged);
+        topic.subscribe("/epi/cms/action/switcheditmode", onSwitchedEditMode);
 
-        function _patchContentModelServerSync() {
+        function patchContentModelServerSync() {
             var originalPublishContentSavedMessage = ContentModelServerSync.prototype._publishContentSavedMessage;
             ContentModelServerSync.prototype._publishContentSavedMessage = function (result) {
                 trackContentSaved();
@@ -27,36 +27,36 @@ define([
             ContentModelServerSync.prototype._publishContentSavedMessage.nom = "_publishContentSavedMessage";
         }
 
-        function _onViewChanged(type, args, data) {
-            _viewName = data.viewName;
+        function onViewChanged(type, args, data) {
+            viewName = data.viewName;
 
             trackHeartbeat("loadPage");
         }
 
-        function _onSwitchedEditMode() {
-            if (_viewName !== "onpageedit" && _viewName !== "formedit" && _viewName !== "view") {
+        function onSwitchedEditMode() {
+            if (viewName !== "onpageedit" && viewName !== "formedit" && viewName !== "view") {
                 return;
             }
 
             // When clicking switching button, the page in Preview is switched to APE
-            _viewName = _viewName === "formedit" ? "onpageedit" : "formedit";
+            viewName = viewName === "formedit" ? "onpageedit" : "formedit";
 
             trackHeartbeat("switchMode");
         }
 
         function trackHeartbeat(commandType) {
             Tracker.track("editing", {
-                editMode: _viewName,
+                editMode: viewName,
                 commandType: commandType || "heartbeat"
             });
 
-            clearTimeout(_heartbeatTimeoutId);
-            _heartbeatTimeoutId = setTimeout(trackHeartbeat, heartbeatInterval * 1000);
+            clearTimeout(heartbeatTimeoutId);
+            heartbeatTimeoutId = setTimeout(trackHeartbeat, heartbeatInterval * 1000);
         }
 
         function trackContentSaved() {
             Tracker.track("editContentSaved", {
-                editMode: _viewName
+                editMode: viewName
             });
         }
     }

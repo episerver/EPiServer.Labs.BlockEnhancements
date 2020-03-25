@@ -1,10 +1,14 @@
 define([
     "dojo/topic",
     "epi-cms/contentediting/ContentModelServerSync",
+    "epi-cms/contentediting/PageDataController",
+    "episerver-labs-block-enhancements/telemetry/idle-timer",
     "episerver-labs-block-enhancements/tracker"
 ], function (
     topic,
     ContentModelServerSync,
+    PageDataController,
+    idleTimer,
     Tracker
 ) {
     return function () {
@@ -17,6 +21,27 @@ define([
 
         topic.subscribe("/epi/shell/action/viewchanged", onViewChanged);
         topic.subscribe("/epi/cms/action/switcheditmode", onSwitchedEditMode);
+
+        // Bind events on OPE iframe
+        bindIframeEvents();
+        patchPageDataController();
+
+        function patchPageDataController() {
+            var originalIFrameLoaded = PageDataController.prototype._iFrameLoaded;
+            PageDataController.prototype._iFrameLoaded = function () {
+                originalIFrameLoaded.apply(this, arguments);
+                bindIframeEvents()
+            };
+            PageDataController.prototype._iFrameLoaded.nom = "_iFrameLoaded";
+        }
+
+        function bindIframeEvents() {
+            try {
+                idleTimer.bindEvents(window["sitePreview"].document);
+            } catch (e) {
+                // catch error in x-domain scenario
+            }
+        }
 
         function patchContentModelServerSync() {
             var originalPublishContentSavedMessage = ContentModelServerSync.prototype._publishContentSavedMessage;
@@ -45,10 +70,12 @@ define([
         }
 
         function trackHeartbeat(commandType) {
-            Tracker.track("editing", {
-                editMode: viewName,
-                commandType: commandType || "heartbeat"
-            });
+            if (idleTimer.isActive()) {
+                Tracker.track("editing", {
+                    editMode: viewName,
+                    commandType: commandType || "heartbeat"
+                });
+            }
 
             clearTimeout(heartbeatTimeoutId);
             heartbeatTimeoutId = setTimeout(trackHeartbeat, heartbeatInterval * 1000);

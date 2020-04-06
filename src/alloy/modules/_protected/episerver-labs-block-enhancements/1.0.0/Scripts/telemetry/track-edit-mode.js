@@ -1,11 +1,15 @@
 define([
     "dojo/topic",
+    "dojo/when",
+    "epi/dependency",
     "epi-cms/contentediting/ContentModelServerSync",
     "epi-cms/contentediting/PageDataController",
     "episerver-labs-block-enhancements/telemetry/idle-timer",
     "episerver-labs-block-enhancements/tracker"
 ], function (
     topic,
+    when,
+    dependency,
     ContentModelServerSync,
     PageDataController,
     idleTimer,
@@ -21,6 +25,17 @@ define([
 
         topic.subscribe("/epi/shell/action/viewchanged", onViewChanged);
         topic.subscribe("/epi/cms/action/switcheditmode", onSwitchedEditMode);
+
+        // The iframe exists, implies that view has been created. In this case, set viewName and start tracking.
+        if (window["sitePreview"]) {
+            var profile = dependency.resolve("epi.shell.Profile");
+            when(profile.get("_savedView")).then(function (savedView) {
+                if (savedView) {
+                    viewName = savedView;
+                }
+                trackHeartbeat("loadPage");
+            });
+        }
 
         // Bind events on OPE iframe
         bindIframeEvents();

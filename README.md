@@ -330,7 +330,7 @@ Includes the following `customDimensions`:
 Includes the following `customDimensions`:
 
 * `editMode`: String, `"onpageedit" | "formedit" | "view" | "allpropertiescompare"`, specifies what edit mode is being used.
-* `commandType`: String, `"loadPage" | "switchMode" | "heartbeat"`, specifies how the event is triggered
+* `commandType`: String, `"loadPage" | "changeView" | "heartbeat"`, specifies how the event is triggered
 
 #### `editContentSaved`
 

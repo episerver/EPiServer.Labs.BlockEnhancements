@@ -22,7 +22,7 @@ define([
             return item.contentLink;
         });
 
-        return enhancedStore.executeMethod("GetLatestVersions", null, contentLinks).then(function(contents) {
+        return enhancedStore.query({ ids: contentLinks }).then(function(contents) {
             return contents.reduce(function (map, obj) {
                 map[new ContentReference(obj.contentLink).id] = obj;
                 return map;

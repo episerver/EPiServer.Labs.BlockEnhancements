@@ -145,7 +145,7 @@ define([
             var _arguments = arguments;
             var masterContentData = this.model.content || this.model;
 
-            return this._enhancedStore.executeMethod("GetLatestVersions", null, [this.model.contentLink]).then(function (latestContents) {
+            return this._enhancedStore.query({ ids: [this.model.contentLink] }).then(function (latestContents) {
                 var contentData = latestContents[0];
                 // we want to exit early if the page is already published or the user does not have proper access rights
                 if (!contentData || this.ignoredStatuses.indexOf(contentData.status) !== -1 ||

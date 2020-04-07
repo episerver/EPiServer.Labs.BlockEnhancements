@@ -79,7 +79,7 @@ define([
             }
 
             var self = this;
-            return this._enhancedStore.executeMethod("GetLatestVersions", null, [contentLink]).then(function (latestContents) {
+            return this._enhancedStore.query({ ids: [contentLink] }).then(function (latestContents) {
                 return self._getContextStore().query({uri: "epi.cms.contentdata:///" + latestContents[0].contentLink})
                     .then(function (context) {
                         self._context = context;

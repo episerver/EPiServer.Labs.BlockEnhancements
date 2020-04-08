@@ -430,6 +430,7 @@
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\get-tooltip.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\initializer.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\styles.css" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\translate-block-edit-form-container.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\browsable-content-area-mixin.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\content-area-editor.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\content-area.js" />

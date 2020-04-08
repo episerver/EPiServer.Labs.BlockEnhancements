@@ -35,19 +35,19 @@ define([
             this.createContentViewModel.set("autoPublish", autoPublish);
         },
 
-        reloadMetadata: function (parent, contentType) {
+        reloadMetadata: function (parent, contentTypeId) {
             this.createContentViewModel.set({
                 parent: parent,
-                contentTypeId: contentType.id
+                contentTypeId: contentTypeId
             });
 
-            return this.createContentViewModel._getMetadata(parent.contentLink, contentType.id).then(function (metadata) {
+            return this.createContentViewModel._getMetadata(parent.contentLink, contentTypeId).then(function (metadata) {
                 this.set("metadata", metadata);
             }.bind(this));
         },
 
         saveForm: function () {
-            this.createContentViewModel.set("contentName", this.value.name || getName());
+            this.createContentViewModel.set("contentName", this.value.name || this.value.icontent_name || getName());
             this.createContentViewModel.set("properties", this.value);
             this.createContentViewModel.save();
         }

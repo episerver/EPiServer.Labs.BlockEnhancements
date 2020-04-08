@@ -78,7 +78,7 @@ define([
                         editDialog.toggleDisabledSaveButton(true);
                     }));
 
-                    form.reloadMetadata(content, selectedType);
+                    form.reloadMetadata(content, selectedType.id);
 
                     _this.own(on(editDialog, "execute", form.saveForm.bind(form)));
                     editDialog.own(form);

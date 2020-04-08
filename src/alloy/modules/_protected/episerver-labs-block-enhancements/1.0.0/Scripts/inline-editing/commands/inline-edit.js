@@ -8,6 +8,7 @@ define([
         "epi",
         "epi/dependency",
         "epi/shell/TypeDescriptorManager",
+        "epi/shell/DestroyableByKey",
 
         "epi-cms/core/ContentReference",
         "epi-cms/contentediting/ContentActionSupport",
@@ -15,6 +16,7 @@ define([
 
         "episerver-labs-block-enhancements/inline-editing/form-dialog",
         "episerver-labs-block-enhancements/inline-editing/block-edit-form-container",
+        "episerver-labs-block-enhancements/create-new/translate-block-edit-form-container",
         "episerver-labs-block-enhancements/inline-editing/commands/inline-publish",
         "epi/i18n!epi/cms/nls/episerverlabs.blockenhancements.ilineediting",
 
@@ -31,17 +33,19 @@ define([
         epi,
         dependency,
         TypeDescriptorManager,
+        DestroyableByKey,
 
         ContentReference,
         ContentActionSupport,
         _Command,
         FormDialog,
         FormContainer,
+        TranslateFormContainer,
         InlinePublish,
         labsResources
     ) {
 
-        return declare([_Command], {
+        return declare([_Command, DestroyableByKey], {
             // summary:
             //      Show inline block edit dialog
 
@@ -54,7 +58,19 @@ define([
             postscript: function () {
                 this.inherited(arguments);
 
-                this._pageDataStore = dependency.resolve("epi.storeregistry").get("epi.cms.contentdata");
+                this._contentLightStore = dependency.resolve("epi.storeregistry").get("epi.cms.content.light");
+                this.own(topic.subscribe("/epi/cms/content/statuschange/", function (status, contentIdentity) {
+                    if (!this.model || !this.model.contentLink) {
+                        return;
+                    }
+                    var updatedContentId = new ContentReference(contentIdentity.id).id;
+                    var currentModelId = new ContentReference(this.model.contentLink).id;
+                    if (updatedContentId === currentModelId) {
+                        this._contentLightStore.refresh(currentModelId).then(function (contentData) {
+                            this._refreshContentSettings(contentData);
+                        }.bind(this));
+                    }
+                }.bind(this)));
             },
 
             _execute: function () {
@@ -84,6 +100,7 @@ define([
                     var isPartOfActiveApproval = _this.get("isPartOfActiveApproval");
                     dialog.togglePublishButton(_this.get("hasPublishAccessRights") && (!isPartOfActiveApproval && (canPublish() || isDirty)));
                     dialog.setPublishLabel(inlinePublishCommand.label);
+                    dialog.toggleDisabledSaveButton(_this.get("isTranslationNeeded") && !isDirty);
                 }
 
                 var isAvailableHandle = inlinePublishCommand.watch("isAvailable", updatePublishCommandVisibility.bind(this));
@@ -95,16 +112,28 @@ define([
                     dialog.setPublishLabel(inlinePublishCommand.label);
                 }.bind(this));
 
-                var form = new FormContainer({
-                    isInlineCreateEnabled: this.isInlineCreateEnabled
-                }, dialog.content, "last");
-                form.set("contentLink", this.model.contentLink).then(function (model) {
-                    inlinePublishCommand.set("model", this.model);
-                    _this.set("isPartOfActiveApproval", model.isPartOfActiveApproval);
-                }.bind(this));
+                var form;
+
+                if (this.get("isTranslationNeeded")) {
+                    form = new TranslateFormContainer({
+                        isInlineCreateEnabled: this.isInlineCreateEnabled,
+                        isTranslationNeeded: this.isTranslationNeeded
+                    }, dialog.content, "last");
+                    when(this._getContentData()).then(function (contentData) {
+                        form.reloadMetadata(contentData, contentData.contentTypeID);
+                    }.bind(this));
+                } else {
+                    form = new FormContainer({
+                        isInlineCreateEnabled: this.isInlineCreateEnabled
+                    }, dialog.content, "last");
+                    form.set("contentLink", this.model.contentLink).then(function (model) {
+                        inlinePublishCommand.set("model", this.model);
+                        _this.set("isPartOfActiveApproval", model.isPartOfActiveApproval);
+                    }.bind(this));
+                }
 
                 var formCreatedHandle = on(form, "FormCreated", function () {
-                    if (!form._model.canChangeContent()) {
+                    if (form.model && !form._model.canChangeContent()) {
                         dialog.hideSaveButton();
                         dialog.set("closeText", "Close");
                     }
@@ -170,7 +199,8 @@ define([
 
                 var contentData = this.model.content || this.model;
                 if (!contentData.properties) {
-                    contentData = this._pageDataStore.get(contentData.contentLink);
+                    // need to fetch contentData if statusIndicator feature is turned off
+                    contentData = this._contentLightStore.get(contentData.contentLink);
                 }
                 return contentData;
             },
@@ -189,17 +219,21 @@ define([
                 this.set("isAvailable", true);
 
                 when(this._getContentData()).then(function (contentData) {
-                    var hasAccessRights = ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Edit);
-                    var hasProviderSupportForEditing = ContentActionSupport.hasProviderCapability(contentData.providerCapabilityMask, ContentActionSupport.providerCapabilities.Edit);
-                    var isReadyToPublish = contentData.status === ContentActionSupport.versionStatus.CheckedIn;
-                    var isDeleted = contentData.isDeleted;
-                    var missingLanguageBranch = contentData.missingLanguageBranch;
-                    var isTranslationNeeded = missingLanguageBranch && contentData.missingLanguageBranch.isTranslationNeeded;
-                    this.set("label", isTranslationNeeded ? lang.replace(labsResources.inlinetranslate, {missingLanguage: missingLanguageBranch.preferredLanguage}) : labsResources.inlineblockedit);
-                    this.set("isTranslationNeeded", isTranslationNeeded);
-                    this.set("canExecute", hasAccessRights && hasProviderSupportForEditing && !isReadyToPublish && !isDeleted);
-                    this.set("hasPublishAccessRights", ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Publish));
+                    this._refreshContentSettings(contentData);
                 }.bind(this));
+            },
+
+            _refreshContentSettings: function (contentData) {
+                var hasAccessRights = ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Edit);
+                var hasProviderSupportForEditing = ContentActionSupport.hasProviderCapability(contentData.providerCapabilityMask, ContentActionSupport.providerCapabilities.Edit);
+                var isReadyToPublish = contentData.status === ContentActionSupport.versionStatus.CheckedIn;
+                var isDeleted = contentData.isDeleted;
+                var missingLanguageBranch = contentData.missingLanguageBranch;
+                var isTranslationNeeded = missingLanguageBranch && contentData.missingLanguageBranch.isTranslationNeeded;
+                this.set("label", isTranslationNeeded ? lang.replace(labsResources.inlinetranslate, {missingLanguage: missingLanguageBranch.preferredLanguage}) : labsResources.inlineblockedit);
+                this.set("isTranslationNeeded", isTranslationNeeded);
+                this.set("canExecute", hasAccessRights && hasProviderSupportForEditing && !isReadyToPublish && !isDeleted);
+                this.set("hasPublishAccessRights", ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Publish));
             }
         });
     });

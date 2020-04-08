@@ -23,8 +23,13 @@ define([
 
         patchContentModelServerSync();
 
+        // Triggered when changing view component, including Editing/Preview/Compare/ProjectView/ApprovalConfig, etc.
+        // However it's not triggered by editMode switchButton.
+        // Listen to this event for updating viewName.
         topic.subscribe("/epi/shell/action/viewchanged", onViewChanged);
-        topic.subscribe("/epi/cms/action/switcheditmode", onSwitchedEditMode);
+
+        // Triggered when changing editMode. Listen to this event for tracking APE/OPE.
+        topic.subscribe("/epi/shell/action/changeview/updatestate", onEditModeChanged);
 
         // The iframe exists, implies that view has been created. In this case, set viewName and start tracking.
         if (window["sitePreview"]) {
@@ -68,24 +73,16 @@ define([
         }
 
         function onViewChanged(type, args, data) {
-            viewName = data.viewName;
-
-            trackHeartbeat("loadPage");
+            viewName = data.viewName || "";
         }
 
-        function onSwitchedEditMode() {
-            if (viewName !== "onpageedit" && viewName !== "formedit" && viewName !== "view") {
-                return;
-            }
-
-            // When clicking switching button, the page in Preview is switched to APE
-            viewName = viewName === "formedit" ? "onpageedit" : "formedit";
-
-            trackHeartbeat("switchMode");
+        function onEditModeChanged(data) {
+            viewName = data.viewName || "";
+            trackHeartbeat("changeView");
         }
 
         function trackHeartbeat(commandType) {
-            if (idleTimer.isActive()) {
+            if (idleTimer.isActive() && viewName) {
                 Tracker.track("editing", {
                     editMode: viewName,
                     commandType: commandType || "heartbeat"

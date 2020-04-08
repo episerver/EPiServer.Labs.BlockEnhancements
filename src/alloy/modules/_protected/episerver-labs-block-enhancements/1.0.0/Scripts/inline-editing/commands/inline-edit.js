@@ -1,5 +1,6 @@
 define([
         "dojo/_base/declare",
+        "dojo/_base/lang",
         "dojo/on",
         "dojo/topic",
         "dojo/when",
@@ -22,6 +23,7 @@ define([
 
     function (
         declare,
+        lang,
         on,
         topic,
         when,
@@ -191,6 +193,10 @@ define([
                     var hasProviderSupportForEditing = ContentActionSupport.hasProviderCapability(contentData.providerCapabilityMask, ContentActionSupport.providerCapabilities.Edit);
                     var isReadyToPublish = contentData.status === ContentActionSupport.versionStatus.CheckedIn;
                     var isDeleted = contentData.isDeleted;
+                    var missingLanguageBranch = contentData.missingLanguageBranch;
+                    var isTranslationNeeded = missingLanguageBranch && contentData.missingLanguageBranch.isTranslationNeeded;
+                    this.set("label", isTranslationNeeded ? lang.replace(labsResources.inlinetranslate, {missingLanguage: missingLanguageBranch.preferredLanguage}) : labsResources.inlineblockedit);
+                    this.set("isTranslationNeeded", isTranslationNeeded);
                     this.set("canExecute", hasAccessRights && hasProviderSupportForEditing && !isReadyToPublish && !isDeleted);
                     this.set("hasPublishAccessRights", ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Publish));
                 }.bind(this));

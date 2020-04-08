@@ -24,6 +24,7 @@
           <browseexistingitems>browse existing content</browseexistingitems>
           <doubleclicktoinlineedit>Double click to inline edit</doubleclicktoinlineedit>
           <inlineblockedit>Inline block edit</inlineblockedit>
+          <inlinetranslate>Create {missingLanguage} language version</inlinetranslate>
         </ilineediting>
         <inlinecommands>
           <inlinepublish>

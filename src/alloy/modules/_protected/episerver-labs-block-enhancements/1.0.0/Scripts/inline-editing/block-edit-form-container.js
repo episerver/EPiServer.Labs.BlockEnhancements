@@ -115,6 +115,14 @@ define([
             });
         },
 
+        _disableNonLanguageSpecificProperties: function (metadata) {
+            metadata.properties.forEach(function (property) {
+                if (!property.settings.isLanguageSpecific) {
+                    property.showForEdit = false;
+                }
+            }.bind(this));
+        },
+
         _setMetadataAttr: function (metadata) {
             var settings = metadata.customEditorSettings.inlineBlock;
 
@@ -123,6 +131,10 @@ define([
             }
             if (!settings.showCategoryProperty) {
                 this._hideProperty(metadata, "icategorizable_category");
+            }
+
+            if (this.get("isTranslationNeeded")) {
+                this._disableNonLanguageSpecificProperties(metadata);
             }
 
             var hiddenGroups = settings.hiddenGroups.map(function (x) {

@@ -291,6 +291,11 @@ These `customDimensions` are added:
     * `cms`: String, for the CMS version. E.g. `11.11.0.0`.
     * `episerver-labs-block-enhancements`: String, for this add-on version. E.g. `0.6.3.0`.
     * `shell`: String, for the CMS Shell version. E.g. `11.11.0.0`.
+* `resolutions`: Everything related to screen or window sizes:
+    * `screenWidth`: Number, width of screen.
+    * `screenHeight`: Number, height of screen.
+    * `windowInnerWidth`: Number, inner width of browser window.
+    * `windowInnerHeight`: Number, inner height of browser window.
 
 #### `feature-options`
 
@@ -320,12 +325,25 @@ Includes the following `customDimensions`:
         * `smart-publish.selected`: Number, count of user selected content in the Smart Publish confirmation dialog.
         * `smart-publish.published`: Number, count of successfully published content.
 
+#### `editing`
+
+Includes the following `customDimensions`:
+
+* `editMode`: String, `"onpageedit" | "formedit" | "view" | "allpropertiescompare"`, specifies what edit mode is being used.
+* `commandType`: String, `"loadPage" | "changeView" | "heartbeat"`, specifies how the event is triggered
+
+#### `editContentSaved`
+
+Includes the following `customDimensions`:
+
+* `editMode`: String, `"onpageedit" | "formedit"`, specifies what edit mode is being used.
+
 #### Adding new trackers
 
 * Every commit adding or changing a tracking event must include a KQL query in the commit message that can be used to test and validate it.
 * Event name must be documented in this Readme with its intention.
     * `publish` events will have the same name but use different data to distinguish between them. Any new publish trackers should add what data it collects to the list in the repo readme.
-    * Names should use `camelCase`.
+    * Names should use `camelCase`. We stop using `kebab-case`, which is being used in `publish`, because it's harder to write KQL with it.
 
 ### Please note
 > Episerver Labs projects are meant to provide the developer community with pre-release features with the purpose of showcasing ongoing work and getting feedback in early stages of development.

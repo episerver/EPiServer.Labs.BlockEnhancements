@@ -98,9 +98,10 @@ define([
                         return;
                     }
                     var isPartOfActiveApproval = _this.get("isPartOfActiveApproval");
-                    dialog.togglePublishButton(_this.get("hasPublishAccessRights") && (!isPartOfActiveApproval && (canPublish() || isDirty)));
+                    var isTranslationNeeded = _this.get("isTranslationNeeded");
+                    dialog.togglePublishButton(!isTranslationNeeded && _this.get("hasPublishAccessRights") && (!isPartOfActiveApproval && (canPublish() || isDirty)));
                     dialog.setPublishLabel(inlinePublishCommand.label);
-                    dialog.toggleDisabledSaveButton(_this.get("isTranslationNeeded") && !isDirty);
+                    dialog.toggleDisabledSaveButton(isTranslationNeeded && !isDirty);
                 }
 
                 var isAvailableHandle = inlinePublishCommand.watch("isAvailable", updatePublishCommandVisibility.bind(this));

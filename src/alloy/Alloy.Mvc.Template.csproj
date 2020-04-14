@@ -140,6 +140,9 @@
     <Reference Include="EPiServer.ImageLibrary, Version=11.10.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.10.0\lib\net461\EPiServer.ImageLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="EPiServer.Labs.ConfigurationManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPiServer.Labs.ConfigurationManager.0.1.0\lib\net45\EPiServer.Labs.ConfigurationManager.dll</HintPath>
+    </Reference>
     <Reference Include="EPiServer.Licensing, Version=11.10.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.Framework.11.10.0\lib\net461\EPiServer.Licensing.dll</HintPath>
     </Reference>
@@ -430,6 +433,7 @@
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\get-tooltip.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\initializer.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\styles.css" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\translate-block-edit-form-container.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\browsable-content-area-mixin.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\content-area-editor.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\content-area.js" />
@@ -548,6 +552,8 @@
     <Content Include="modules\_protected\Shell\Shell.zip" />
     <Content Include="modules\_protected\CMS\web.config" />
     <Content Include="modules\_protected\CMS\CMS.zip" />
+    <Content Include="modules\_protected\episerver-labs-configuration-manager\web.config" />
+    <Content Include="modules\_protected\episerver-labs-configuration-manager\episerver-labs-configuration-manager.zip" />
     <None Include="modules\_protected\EPiServer.Forms.UI\EPiServer.Forms.UI.zip" />
     <None Include="modules\_protected\EPiServer.Forms.UI\module.config" />
     <None Include="modules\_protected\EPiServer.Forms\EPiServer.Forms.zip" />

@@ -48,6 +48,10 @@ define([
             this.definitionConsumer.setItemProperty(this._okButtonName, "class", "dijitHidden");
         },
 
+        toggleDisabledSaveButton: function (shouldDisable) {
+            this.definitionConsumer.setItemProperty(this._okButtonName, "disabled", shouldDisable ? "disabled" : "");
+        },
+
         togglePublishButton: function (visible) {
             if (visible) {
                 this.definitionConsumer.setItemProperty(this._publishButtonName, "class", "epi-success publish-button");
@@ -55,7 +59,7 @@ define([
                 this.definitionConsumer.setItemProperty(this._publishButtonName, "class", "dijitHidden");
             }
         },
-        
+
         setPublishLabel: function (label) {
             this.definitionConsumer.setItemProperty(this._publishButtonName, "label", label);
         },

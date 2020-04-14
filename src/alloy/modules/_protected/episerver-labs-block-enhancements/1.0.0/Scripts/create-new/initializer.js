@@ -50,6 +50,7 @@ define([
                 localAsset: true,
                 parentLink: content.contentLink,
                 onContentTypeSelected: function (selectedType) {
+                    var isDirty = false;
                     var editDialog = new FormDialog({
                         title: shared["new"] + " " + selectedType.localizedName
                     });
@@ -63,12 +64,21 @@ define([
                         addToDestination: model
                     }, editDialog.content, "last");
 
+                    editDialog.own(on(form, "change", function () {
+                        if (isDirty) {
+                            return;
+                        }
+                        isDirty = true;
+                        editDialog.toggleDisabledSaveButton(false);
+                    }));
+
                     editDialog.own(on(form, "FormCreated", function () {
                         editDialog.show();
                         editDialog.togglePublishButton(false);
+                        editDialog.toggleDisabledSaveButton(true);
                     }));
 
-                    form.reloadMetadata(content, selectedType);
+                    form.reloadMetadata(content, selectedType.id);
 
                     _this.own(on(editDialog, "execute", form.saveForm.bind(form)));
                     editDialog.own(form);

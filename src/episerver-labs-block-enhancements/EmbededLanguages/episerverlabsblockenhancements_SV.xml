@@ -24,6 +24,7 @@
           <browseexistingitems>välj innehåll</browseexistingitems>
           <doubleclicktoinlineedit>Dubbelklicka för att redigera inline</doubleclicktoinlineedit>
           <inlineblockedit>Redigera inline</inlineblockedit>
+          <inlinetranslate>Skapa {missingLanguage} språkversion</inlinetranslate>
         </ilineediting>
         <inlinecommands>
           <inlinepublish>

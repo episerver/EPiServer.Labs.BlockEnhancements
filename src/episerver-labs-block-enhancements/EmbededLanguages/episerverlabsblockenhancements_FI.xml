@@ -22,6 +22,7 @@
           <browseexistingitems>valitse sisällöt</browseexistingitems>
           <doubleclicktoinlineedit>Tuplaklikkaa muokkaaksesi tässä näkymässä</doubleclicktoinlineedit>
           <inlineblockedit>Muokkaa lohkoa</inlineblockedit>
+          <inlinetranslate>Luo {missingLanguage} kieliversio</inlinetranslate>
         </ilineediting>
         <inlinecommands><inlinepublish><error>Julkaisu onnistui</error><success>julkaistiin onnistuneesti</success></inlinepublish><inlinereadytopublish><error>Ei voitu merkitä valmiiksi julkaistavaksi</error><success>merkittiin valmiiksi julkaistavaksi onnistuneesti</success></inlinereadytopublish></inlinecommands>
       </blockenhancements>

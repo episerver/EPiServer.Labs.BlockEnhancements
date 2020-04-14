@@ -12,6 +12,7 @@ The list of current features is as following:
 * [Content Draft View](#content-draft-view)
 * [Inline Create](#inline-create)
 * [Telemetry opt-in](#telemetry-opt-in)
+* [Translate](#translate)
 
 All of those features work together, but you can decide which ones are enabled, by [Configuring enabled features](#configuring-enabled-features)
 
@@ -250,6 +251,18 @@ If you allow us to learn more about what we should be building, please make sure
 
 * Live Configuration: `https://cmsui.episerver.net/api/telemetryconfig`
 * Tracking: `https://dc.services.visualstudio.com/v2/track` (this can change on Microsoft's discretion)
+
+## Translate
+
+In case that a content item does not exist in the current edit language a new command will be presented instead of the default 'inline-edit'.
+
+In is the equivalent of navigating to the content item and clicking 'Translate' button in the Publishing Menu.
+
+The new command lets the user to stay in the current context at all times:
+
+![Translate](assets/docsimages/translate.gif)
+
+One the content is is translated all other "inline" commands like "inline-edit" and "inline-publish" become available.
 
 ### Live configuration
 

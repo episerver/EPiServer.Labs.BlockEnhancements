@@ -29,6 +29,4 @@ node_modules/
 *.nupkg
 episerver-labs-block-enhancements.zip
 
-episerver-labs-configuration-manager
-
 out/

@@ -9,8 +9,7 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
     /// <summary>
     /// Module used to register <see cref="BlocksEditingMetadataExtender"/>
     /// </summary>
-    [ModuleDependency(typeof(Shell.UI.InitializationModule))]
-    [ModuleDependency(typeof(Web.InitializationModule))]
+    [InitializableModule]
     [ModuleDependency(typeof(Cms.Shell.InitializableModule))]
     public class InlineBlocksInitializableModule : IInitializableModule
     {

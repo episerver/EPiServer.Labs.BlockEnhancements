@@ -4,7 +4,7 @@ using EPiServer.Framework.Initialization;
 using EPiServer.Initialization;
 using EPiServer.ServiceLocation;
 
-namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
+namespace Episerver.Telemetry.UI.Internal
 {
     [ModuleDependency(typeof(CmsCoreInitialization))]
     internal class TelemetryInitialization : IConfigurableModule

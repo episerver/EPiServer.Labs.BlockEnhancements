@@ -3,15 +3,14 @@ using System.Net.Http;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using EPiServer.Framework.Serialization.Json.Internal;
-using EPiServer.Labs.BlockEnhancements.Telemetry;
-using EPiServer.Labs.BlockEnhancements.Telemetry.Internal;
 using EPiServer.Licensing;
 using EPiServer.Security;
 using EPiServer.Shell.Modules;
+using Episerver.Telemetry.UI.Internal;
 using Moq;
 using Xunit;
 
-namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
+namespace Episerver.Telemetry.UI.Tests.Telemetry.Internal
 {
     public class TelemetryConfigStoreTest
     {

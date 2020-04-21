@@ -35,7 +35,7 @@ define([
             });
 
             return stubModule("episerver-labs-block-enhancements/telemetry/patch-cms-commands", {
-                "episerver-labs-block-enhancements/tracker": {
+                "episerver-telemetry-ui/tracker": {
                     track: trackFn
                 }
             }).then(function (module) {

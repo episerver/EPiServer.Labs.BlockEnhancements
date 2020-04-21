@@ -1,9 +1,8 @@
 ﻿using System.Collections.Specialized;
-using EPiServer.Labs.BlockEnhancements.Telemetry;
-using EPiServer.Labs.BlockEnhancements.Telemetry.Internal;
+using Episerver.Telemetry.UI.Internal;
 using Xunit;
 
-namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry.Internal
+namespace Episerver.Telemetry.UI.Tests.Telemetry.Internal
 {
     public class TelemetryOptionsTransformTest
     {

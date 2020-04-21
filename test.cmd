@@ -8,7 +8,7 @@ IF "%1"=="Release" (set CONFIGURATION=Release) ELSE (set CONFIGURATION=Debug)
 ECHO Testing in %CONFIGURATION%
 
 ECHO Running c# tests
-CALL dotnet test src/EPiServer.Labs.BlockEnhancements.Test/EPiServer.Labs.BlockEnhancements.Test.csproj --no-build --verbosity normal
+CALL dotnet test src/EpiServer.Telemetry.UI.Tests/EpiServer.Telemetry.UI.Tests.csproj --no-build --verbosity normal
 IF %errorlevel% NEQ 0 EXIT /B %errorlevel%
 
 REM Run karma tests

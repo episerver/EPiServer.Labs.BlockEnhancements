@@ -10,7 +10,7 @@ module.exports = () => {
                 filename: "tracker.js",
                 libraryTarget: "amd",
                 libraryExport: "default",
-                path: path.resolve(__dirname, "./../alloy/modules/_protected/episerver-labs-block-enhancements/1.0.0/Scripts")
+                path: path.resolve(__dirname, "./../alloy/modules/_protected/episerver-telemetry-ui/1.0.0/Scripts")
             },
             module: {
                 rules: [
@@ -36,7 +36,7 @@ module.exports = () => {
                 filename: "tracker.js.uncompressed.js",
                 libraryTarget: "amd",
                 libraryExport: "default",
-                path: path.resolve(__dirname, "./../alloy/modules/_protected/episerver-labs-block-enhancements/1.0.0/Scripts")
+                path: path.resolve(__dirname, "./../alloy/modules/_protected/episerver-telemetry-ui/1.0.0/Scripts")
             },
             module: {
                 rules: [

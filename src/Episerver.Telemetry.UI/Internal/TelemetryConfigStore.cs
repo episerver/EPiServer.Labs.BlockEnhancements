@@ -1,10 +1,4 @@
-﻿using EPiServer.Framework.Serialization;
-using EPiServer.Licensing;
-using EPiServer.Security;
-using EPiServer.Shell.Modules;
-using EPiServer.Shell.Services.Rest;
-using EPiServerProfile = EPiServer.Personalization.EPiServerProfile;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -13,8 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using EPiServer.Framework.Serialization;
+using EPiServer.Licensing;
+using EPiServer.Security;
+using EPiServer.Shell.Modules;
+using EPiServer.Shell.Services.Rest;
+using EPiServerProfile = EPiServer.Personalization.EPiServerProfile;
 
-namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
+namespace Episerver.Telemetry.UI.Internal
 {
     [RestStore("telemetryconfig")]
     public class TelemetryConfigStore : RestControllerBase

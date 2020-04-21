@@ -1,7 +1,6 @@
-﻿using EPiServer.Labs.BlockEnhancements.Telemetry;
-using Xunit;
+﻿using Xunit;
 
-namespace EPiServer.Labs.BlockEnhancements.Test.Telemetry
+namespace Episerver.Telemetry.UI.Tests.Telemetry
 {
     public class TelemetryOptionsTest
     {

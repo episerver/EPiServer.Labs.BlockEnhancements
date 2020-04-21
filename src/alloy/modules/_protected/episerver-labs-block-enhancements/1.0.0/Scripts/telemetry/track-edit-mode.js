@@ -4,8 +4,8 @@ define([
     "epi/dependency",
     "epi-cms/contentediting/ContentModelServerSync",
     "epi-cms/contentediting/PageDataController",
-    "episerver-labs-block-enhancements/telemetry/idle-timer",
-    "episerver-labs-block-enhancements/tracker"
+    "episerver-telemetry-ui/idle-timer",
+    "episerver-telemetry-ui/tracker"
 ], function (
     topic,
     when,

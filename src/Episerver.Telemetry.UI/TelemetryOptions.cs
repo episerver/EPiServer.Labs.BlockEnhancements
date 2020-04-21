@@ -1,6 +1,6 @@
 ﻿using EPiServer.ServiceLocation;
 
-namespace EPiServer.Labs.BlockEnhancements.Telemetry
+namespace Episerver.Telemetry.UI
 {
     [Options]
     public class TelemetryOptions

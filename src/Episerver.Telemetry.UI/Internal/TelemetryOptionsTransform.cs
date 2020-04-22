@@ -1,7 +1,7 @@
 ﻿using System.Collections.Specialized;
 using System.Configuration;
 
-namespace EPiServer.Labs.BlockEnhancements.Telemetry.Internal
+namespace Episerver.Telemetry.UI.Internal
 {
     internal class TelemetryOptionsTransform
     {

@@ -1,6 +1,6 @@
 ﻿using EPiServer.Shell.Services.Rest;
 
-namespace EPiServer.Labs.BlockEnhancements.Test
+namespace Episerver.Telemetry.UI.Tests
 {
     public static class RestResultExtensions
     {

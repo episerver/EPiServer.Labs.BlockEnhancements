@@ -18,6 +18,7 @@ module.exports = function (config) {
             { pattern: "out/dtk/**/*.js", included: false, watched: false },
             { pattern: "out/dtk/**/*.html", included: false, watched: false },
             { pattern: "out/dtk/**/*.gif", included: false, watched: false },
+            { pattern: "src/alloy/modules/_protected/episerver-telemetry-ui/1.0.0/Scripts/**/*.js", included: false, watched: true},
             { pattern: "src/alloy/modules/_protected/episerver-labs-block-enhancements/1.0.0/Scripts/**/*.js", included: false, watched: true}
         ],
         frameworks: ["dojo", "mocha", "chai-as-promised", "chai-sinon", "chai"],
@@ -36,6 +37,7 @@ module.exports = function (config) {
             // source files, that you wanna generate coverage for
             // do not include tests or libraries
             // (these files will be instrumented by Istanbul)
+            "src/alloy/modules/_protected/episerver-telemetry-ui/1.0.0/Scripts/**/*.js": ["coverage"],
             "src/alloy/modules/_protected/episerver-labs-block-enhancements/1.0.0/Scripts/**/*.js": ["coverage"]
         },
 

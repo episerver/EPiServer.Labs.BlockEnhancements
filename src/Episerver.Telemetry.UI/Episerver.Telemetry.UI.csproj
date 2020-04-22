@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7D3CB0B4-BF55-4577-ABF2-D83F8EA5D49F}</ProjectGuid>
+    <ProjectGuid>{72EBA180-C0F0-4615-991F-FF6BB367ACEC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EPiServer.Labs.BlockEnhancements</RootNamespace>
-    <AssemblyName>EPiServer.Labs.BlockEnhancements</AssemblyName>
+    <RootNamespace>Episerver.Telemetry.UI</RootNamespace>
+    <AssemblyName>Episerver.Telemetry.UI</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -48,9 +48,6 @@
     <Reference Include="EPiServer.Cms.AspNet, Version=11.10.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.10.0\lib\net461\EPiServer.Cms.AspNet.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Cms.Shell.UI, Version=11.11.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.11.0\lib\net461\EPiServer.Cms.Shell.UI.dll</HintPath>
-    </Reference>
     <Reference Include="EPiServer.Configuration, Version=11.10.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.10.0\lib\net461\EPiServer.Configuration.dll</HintPath>
     </Reference>
@@ -84,26 +81,11 @@
     <Reference Include="EPiServer.Shell, Version=11.11.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.11.0\lib\net461\EPiServer.Shell.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Shell.UI, Version=11.11.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.11.0\lib\net461\EPiServer.Shell.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="EPiServer.UI, Version=11.11.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.11.0\lib\net461\EPiServer.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="EPiServer.Web.WebControls, Version=11.10.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.10.0\lib\net461\EPiServer.Web.WebControls.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="StructureMap, Version=3.1.9.463, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\structuremap-signed.3.1.9.463\lib\net40\StructureMap.dll</HintPath>
-    </Reference>
-    <Reference Include="StructureMap.Net4, Version=3.1.9.463, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\structuremap-signed.3.1.9.463\lib\net40\StructureMap.Net4.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -140,7 +122,6 @@
     </Reference>
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -167,50 +148,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\version.cs">
-      <Link>Properties\version.cs</Link>
-    </Compile>
-    <Compile Include="ApprovalResolver.cs" />
-    <Compile Include="BlockEnhancementsModuleViewModel.cs" />
-    <Compile Include="BlockEnhancementsStore.cs" />
-    <Compile Include="ContentDraftView\ContentDraftView.cs" />
-    <Compile Include="ContentDraftView\CustomContentAreaLoader.cs" />
-    <Compile Include="ContentDraftView\ContentDraftViewInitializer.cs" />
-    <Compile Include="ContentExtensions.cs" />
-    <Compile Include="DependenciesResolver.cs" />
-    <Compile Include="InlineBlocksEditing\BlocksEditingMetadataExtender.cs" />
-    <Compile Include="InlineBlocksEditing\ContentAreaDescriptor.cs" />
-    <Compile Include="InlineBlocksEditing\InlineBlockEditSettingsAttribute.cs" />
-    <Compile Include="InlineBlocksEditing\InlineBlocksInitialization.cs" />
+    <Compile Include="Internal\TelemetryConfigModel.cs" />
+    <Compile Include="Internal\TelemetryConfigStore.cs" />
+    <Compile Include="Internal\TelemetryInitialization.cs" />
+    <Compile Include="Internal\TelemetryOptionsTransform.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StatusIndicator\EnhancedStructureStoreModelTransform.cs" />
-    <Compile Include="StatusIndicator\IsLocalContent.cs" />
-    <Compile Include="StatusIndicator\LatestContentResolver.cs" />
-    <Compile Include="StatusIndicator\ProjectContentResolver.cs" />
-    <Compile Include="TimeAgoFormatter.cs" />
+    <Compile Include="TelemetryOptions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="EmbededLanguages\episerverlabsblockenhancements_EN.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="EmbededLanguages\episerverlabsblockenhancements_SV.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="EmbededLanguages\episerverlabsblockenhancements_FI.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Episerver.Telemetry.UI\Episerver.Telemetry.UI.csproj">
-      <Project>{72eba180-c0f0-4615-991f-ff6bb367acec}</Project>
-      <Name>Episerver.Telemetry.UI</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

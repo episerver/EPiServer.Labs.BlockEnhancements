@@ -19,11 +19,5 @@ define([
                 })
             )
         );
-
-        registry.add("episerver.labs.blockenhancements.telemetry", 
-            new JsonRest({
-                target: routes.getRestPath({ moduleArea: "episerver-labs-block-enhancements", storeName: "telemetryconfig" })
-            })
-        );
     }
 });

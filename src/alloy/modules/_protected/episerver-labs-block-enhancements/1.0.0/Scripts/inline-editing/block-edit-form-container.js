@@ -124,7 +124,12 @@ define([
         },
 
         _setMetadataAttr: function (metadata) {
-            var settings = metadata.customEditorSettings.inlineBlock;
+            var settings = (metadata.customEditorSettings || {}).inlineBlock;
+
+            if (!settings) {
+                console.warn("Metadata was not initialized properly");
+                settings = {};
+            }
 
             if (!settings.showNameProperty) {
                 this._hideProperty(metadata, "icontent_name");

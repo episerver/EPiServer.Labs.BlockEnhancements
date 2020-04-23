@@ -12,8 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A1272902
 		.editorconfig = .editorconfig
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
-		build-tracker.cmd = build-tracker.cmd
 		build.cmd = build.cmd
+		build\tasks\extract-telemetry-ui.js = build\tasks\extract-telemetry-ui.js
+		build\tasks\extract.js = build\tasks\extract.js
 		gulpfile.js = gulpfile.js
 		iisexpress.cmd = iisexpress.cmd
 		karma.conf.js = karma.conf.js
@@ -34,10 +35,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiServer.Labs.BlockEnhance
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiServer.Labs.BlockEnhancements.Test", "src\EPiServer.Labs.BlockEnhancements.Test\EPiServer.Labs.BlockEnhancements.Test.csproj", "{602884E4-A777-4211-88E3-8779FD83C3AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Episerver.Telemetry.UI.Tests", "src\Episerver.Telemetry.UI.Tests\Episerver.Telemetry.UI.Tests.csproj", "{AAA884E4-A777-4211-88E3-8779FD83C3AA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Episerver.Telemetry.UI", "src\Episerver.Telemetry.UI\Episerver.Telemetry.UI.csproj", "{72EBA180-C0F0-4615-991F-FF6BB367ACEC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,14 +53,6 @@ Global
 		{602884E4-A777-4211-88E3-8779FD83C3AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{602884E4-A777-4211-88E3-8779FD83C3AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{602884E4-A777-4211-88E3-8779FD83C3AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AAA884E4-A777-4211-88E3-8779FD83C3AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AAA884E4-A777-4211-88E3-8779FD83C3AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AAA884E4-A777-4211-88E3-8779FD83C3AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AAA884E4-A777-4211-88E3-8779FD83C3AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{72EBA180-C0F0-4615-991F-FF6BB367ACEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{72EBA180-C0F0-4615-991F-FF6BB367ACEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{72EBA180-C0F0-4615-991F-FF6BB367ACEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{72EBA180-C0F0-4615-991F-FF6BB367ACEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,8 +61,6 @@ Global
 		{3D79ADE5-DADB-47D2-933D-E98F9773AFAD} = {F856CAEC-B3F9-4320-B39D-E8F2EB8F6111}
 		{7D3CB0B4-BF55-4577-ABF2-D83F8EA5D49F} = {F856CAEC-B3F9-4320-B39D-E8F2EB8F6111}
 		{602884E4-A777-4211-88E3-8779FD83C3AA} = {F856CAEC-B3F9-4320-B39D-E8F2EB8F6111}
-		{72EBA180-C0F0-4615-991F-FF6BB367ACEC} = {F856CAEC-B3F9-4320-B39D-E8F2EB8F6111}
-		{AAA884E4-A777-4211-88E3-8779FD83C3AA} = {F856CAEC-B3F9-4320-B39D-E8F2EB8F6111}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {31F10C96-F924-4A0A-9B12-36A09C66A0B3}

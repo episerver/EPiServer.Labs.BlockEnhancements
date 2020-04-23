@@ -57,6 +57,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="dojoConfig.js" />
     <Content Include="Specs\TrackingPublishAction_specs.js" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

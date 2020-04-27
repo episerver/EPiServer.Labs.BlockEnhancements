@@ -206,11 +206,5 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Episerver.Telemetry.UI\Episerver.Telemetry.UI.csproj">
-      <Project>{72eba180-c0f0-4615-991f-ff6bb367acec}</Project>
-      <Name>Episerver.Telemetry.UI</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

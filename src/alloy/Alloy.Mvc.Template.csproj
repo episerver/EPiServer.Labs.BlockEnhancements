@@ -166,6 +166,9 @@
     <Reference Include="EPiServer.Shell.UI, Version=11.11.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.11.0\lib\net461\EPiServer.Shell.UI.dll</HintPath>
     </Reference>
+    <Reference Include="Episerver.Telemetry.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPiServer.Telemetry.UI.1.0.0\lib\net45\Episerver.Telemetry.UI.dll</HintPath>
+    </Reference>
     <Reference Include="EPiServer.UI, Version=11.11.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.11.0\lib\net461\EPiServer.UI.dll</HintPath>
     </Reference>
@@ -473,9 +476,6 @@
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\telemetry\track-edit-mode.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\module.config" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\web.config" />
-    <Content Include="modules\_protected\episerver-telemetry-ui\1.0.0\Scripts\get-custom-properties.js" />
-    <Content Include="modules\_protected\episerver-telemetry-ui\1.0.0\Scripts\idle-timer.js" />
-    <Content Include="modules\_protected\episerver-telemetry-ui\1.0.0\Scripts\initializer.js" />
     <Content Include="Resources\LanguageFiles\PropertyNames_sv.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -557,8 +557,8 @@
     <Content Include="modules\_protected\CMS\CMS.zip" />
     <Content Include="modules\_protected\episerver-labs-configuration-manager\web.config" />
     <Content Include="modules\_protected\episerver-labs-configuration-manager\episerver-labs-configuration-manager.zip" />
-    <Content Include="modules\_protected\episerver-telemetry-ui\module.config" />
     <Content Include="modules\_protected\episerver-telemetry-ui\web.config" />
+    <Content Include="modules\_protected\episerver-telemetry-ui\episerver-telemetry-ui.zip" />
     <None Include="modules\_protected\EPiServer.Forms.UI\EPiServer.Forms.UI.zip" />
     <None Include="modules\_protected\EPiServer.Forms.UI\module.config" />
     <None Include="modules\_protected\EPiServer.Forms\EPiServer.Forms.zip" />
@@ -642,10 +642,6 @@
     <ProjectReference Include="..\episerver-labs-block-enhancements\EPiServer.Labs.BlockEnhancements.csproj">
       <Project>{7D3CB0B4-BF55-4577-ABF2-D83F8EA5D49F}</Project>
       <Name>EPiServer.Labs.BlockEnhancements</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Episerver.Telemetry.UI\Episerver.Telemetry.UI.csproj">
-      <Project>{72eba180-c0f0-4615-991f-ff6bb367acec}</Project>
-      <Name>Episerver.Telemetry.UI</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

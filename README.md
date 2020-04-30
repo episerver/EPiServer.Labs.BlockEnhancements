@@ -351,6 +351,13 @@ Includes the following `customDimensions`:
 
 * `editMode`: String, `"onpageedit" | "formedit"`, specifies what edit mode is being used.
 
+#### `buttonClick`
+
+Includes the following `customDimensions`:
+
+* `action`: String, `"openSmartPublish"Dialogue`, specify what kind of action the button is doing.
+* `contentType`: String, `"page" | "block"`, specifies what content type we have during the click.
+
 #### Adding new trackers
 
 * Every commit adding or changing a tracking event must include a KQL query in the commit message that can be used to test and validate it.

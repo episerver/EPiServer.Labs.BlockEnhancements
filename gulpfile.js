@@ -14,5 +14,6 @@ let dtkHelper = new DtkHelper("out", program.configuration);
 
 // Import all build tasks
 require("./build/tasks/extract")(dtkHelper);
+require("./build/tasks/extract-telemetry-ui")(dtkHelper);
 
-gulp.task("setup", gulp.parallel("extract"));
+gulp.task("setup", gulp.parallel("extract", "extract-telemetry-ui"));

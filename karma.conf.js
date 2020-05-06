@@ -36,6 +36,7 @@ module.exports = function (config) {
             // source files, that you wanna generate coverage for
             // do not include tests or libraries
             // (these files will be instrumented by Istanbul)
+            "src/alloy/modules/_protected/episerver-telemetry-ui/**/*.js": ["coverage"],
             "src/alloy/modules/_protected/episerver-labs-block-enhancements/1.0.0/Scripts/**/*.js": ["coverage"]
         },
 

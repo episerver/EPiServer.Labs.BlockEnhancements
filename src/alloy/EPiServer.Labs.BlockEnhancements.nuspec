@@ -9,7 +9,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Collection of useful enhancements around Block Publishing process.</description>
     <releaseNotes/>
-    <copyright>Copyright 2019</copyright>
+    <copyright>Copyright 2020</copyright>
     <tags>content block blocks labs enhancements publishing publish local</tags>
     <licenseUrl>https://raw.githubusercontent.com/episerver/episerver.labs.blockenhancements/master/LICENSE</licenseUrl>
     <iconUrl>http://www.episerver.com/Framework/Styles/Images/Products/Content.png</iconUrl>
@@ -17,6 +17,7 @@
     <dependencies>
       <dependency id="EPiServer.CMS.Core" version="[11.10.0,12.0)" />
       <dependency id="EPiServer.CMS.UI" version="[11.11.0,12.0)" />
+      <dependency id="EPiServer.Telemetry.UI" version="[1.0.1,2.0)" />
     </dependencies>
   </metadata>
   <files>

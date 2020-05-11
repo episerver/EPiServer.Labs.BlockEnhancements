@@ -2,14 +2,16 @@ define([
     "dojo/when",
     "epi-cms/contentediting/command/Publish",
     "episerver-labs-block-enhancements/publish-with-local-content-items/command",
-    "episerver-telemetry-ui/tracker"
+    "episerver-telemetry-ui/tracker-factory"
 ], function (
     when,
     PublishCommand,
     SmartPublishCommand,
-    tracker) {
+    trackerFactory) {
     return function () {
         PublishCommand.prototype.commandType = "default";
+
+        var tracker = trackerFactory.getTracker("cms", "edit");
 
         function trackPublishCommand (publishResult, model, commandType, additionalData) {
             var isPage = model.contentData.capabilities.isPage;

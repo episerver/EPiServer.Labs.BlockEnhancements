@@ -35,8 +35,12 @@ define([
             });
 
             return stubModule("episerver-labs-block-enhancements/telemetry/patch-cms-commands", {
-                "episerver-telemetry-ui/tracker": {
-                    track: trackFn
+                "episerver-telemetry-ui/tracker-factory": {
+                    getTracker: function () {
+                        return {
+                            track: trackFn
+                        }
+                    }
                 }
             }).then(function (module) {
                 module();
@@ -153,7 +157,7 @@ define([
                         return res.promise;
                     }
                 };
-                
+
                 let ContentDependenciesMock = function () {
                     this.get = function () {
                         return [];

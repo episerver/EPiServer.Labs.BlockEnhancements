@@ -25,6 +25,15 @@
     margin: 0;
 }
 
+.inline-edit-dialog .epi-form-container__section__row {
+    overflow-x: auto;
+}
+
+.inline-edit-dialog *::-webkit-scrollbar {
+    height: 9px;
+    width: 9px;
+}
+
 .inline-edit-dialog .epi-formsHeaderContainer {
     margin-bottom: 0;
 }

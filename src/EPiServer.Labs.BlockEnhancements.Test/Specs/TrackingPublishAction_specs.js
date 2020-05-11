@@ -74,9 +74,9 @@ define([
                     };
                 });
 
-                it("it should call tracker with publish-result dimension `true`", () => {
+                it("it should call tracker with publishResult dimension `true`", () => {
                     publishCommand.execute();
-                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publish-result", true));
+                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publishResult", true));
                 });
             });
 
@@ -89,9 +89,9 @@ define([
                     };
                 });
 
-                it("it should call tracker with publish-result dimension `false`", () => {
+                it("it should call tracker with publishResult dimension `false`", () => {
                     publishCommand.execute();
-                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publish-result", false));
+                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publishResult", false));
                 });
             });
         });
@@ -123,9 +123,9 @@ define([
                     };
                 });
 
-                it("it should call tracker with publish-result dimension `true`", () => {
+                it("it should call tracker with publishResult dimension `true`", () => {
                     publishCommand.execute();
-                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publish-result", true));
+                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publishResult", true));
                 });
             });
 
@@ -138,9 +138,9 @@ define([
                     };
                 });
 
-                it("it should call tracker with publish-result dimension `false`", () => {
+                it("it should call tracker with publishResult dimension `false`", () => {
                     publishCommand.execute();
-                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publish-result", false));
+                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publishResult", false));
                 });
             });
         });
@@ -199,10 +199,10 @@ define([
                     };
                 });
 
-                it("it should call tracker with publish-result dimension `true`", () => {
+                it("it should call tracker with publishResult dimension `true`", () => {
                     //TODO: test smart publish success scenario
                     smartPublishCommand.execute();
-                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publish-result", true));
+                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publishResult", true));
                 });
             });
 
@@ -215,9 +215,9 @@ define([
                     };
                 });
 
-                it("it should call tracker with publish-result dimension `false`", () => {
+                it("it should call tracker with publishResult dimension `false`", () => {
                     smartPublishCommand.execute();
-                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publish-result", false));
+                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publishResult", false));
                 });
             });
         });

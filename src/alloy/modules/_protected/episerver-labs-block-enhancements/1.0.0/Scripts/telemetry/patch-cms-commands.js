@@ -23,9 +23,9 @@ define([
             }
 
             tracker.track("publish", Object.assign({
-                "command-type": commandType,
-                "content-type": isPage ? "page" : "block",
-                "publish-result": publishResult
+                commandType: commandType,
+                contentType: isPage ? "page" : "block",
+                publishResult: publishResult
             }, additionalData));
         }
 

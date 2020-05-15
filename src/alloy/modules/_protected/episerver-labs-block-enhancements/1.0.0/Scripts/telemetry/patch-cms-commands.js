@@ -11,7 +11,7 @@ define([
     return function () {
         PublishCommand.prototype.commandType = "default";
 
-        var tracker = trackerFactory.getTracker("cms", "edit");
+        var tracker = trackerFactory.getTracker("cms");
 
         function trackPublishCommand (publishResult, model, commandType, additionalData) {
             var isPage = model.contentData.capabilities.isPage;
@@ -57,7 +57,7 @@ define([
             var isPage = this.model.contentData.capabilities.isPage;
             var isBlock = this.model.contentData.capabilities.isBlock;
             if (isPage || isBlock){
-                tracker.track("buttonClick", {
+                tracker.track("click", {
                     action: "openSmartPublishDialogue",
                     contentType: isPage ? "page" : "block"
                 });

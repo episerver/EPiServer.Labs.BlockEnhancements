@@ -46,7 +46,6 @@ define([
             this.messageService = this.messageService || dependency.resolve("epi.shell.MessageService");
             this._contentVersionStore = dependency.resolve("epi.storeregistry").get("epi.cms.contentversion");
             this._contentDataStore = dependency.resolve("epi.storeregistry").get("epi.cms.contentdata");
-            this._enhancedStore = dependency.resolve("epi.storeregistry").get("episerver.labs.blockenhancements");
 
             this.own(topic.subscribe("/epi/cms/content/statuschange/", function (status, contentIdentity) {
                 if (!this.model || !this.model.contentLink) {
@@ -58,6 +57,17 @@ define([
                     this._onModelChange();
                 }
             }.bind(this)));
+        },
+
+        _getEnhancedStore: function () {
+            if (this._enhancedStore) {
+                return this._enhancedStore;
+            }
+            try {
+                this._enhancedStore = dependency.resolve("epi.storeregistry").get("episerver.labs.blockenhancements");
+            } catch (e) {
+                this._enhancedStore = null;
+            }
         },
 
         _execute: function () {
@@ -144,7 +154,12 @@ define([
 
             var _arguments = arguments;
 
-            return this._enhancedStore.query({ ids: [this.model.contentLink], keepversion: true }).then(function (latestContents) {
+            var store = this._getEnhancedStore();
+            if (!store) {
+                return;
+            }
+
+            return store.query({ ids: [this.model.contentLink], keepversion: true }).then(function (latestContents) {
                 var contentData = latestContents[0];
                 // we want to exit early if the page is already published or the user does not have proper access rights
                 if (!contentData || this.ignoredStatuses.indexOf(contentData.status) !== -1 ||

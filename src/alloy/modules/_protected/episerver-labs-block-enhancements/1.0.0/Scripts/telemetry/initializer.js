@@ -1,14 +1,13 @@
 define([
-    "episerver-telemetry-ui/tracker-factory",
+    "episerver-labs-block-enhancements/telemetry/tracker",
     "episerver-labs-block-enhancements/telemetry/patch-cms-commands"
 ], function (
-    trackerFactory,
+    tracker,
     patchCmsCommands
 ) {
     return function (options) {
         patchCmsCommands();
 
-        var tracker = trackerFactory.getTracker("cms");
         tracker.track("featureOptions", options);
     };
 });

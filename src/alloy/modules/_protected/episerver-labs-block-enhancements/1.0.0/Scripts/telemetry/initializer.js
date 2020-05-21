@@ -8,6 +8,6 @@ define([
     return function (options) {
         patchCmsCommands();
 
-        tracker.track("featureOptions", options);
+        tracker.trackEvent("featureOptions", options);
     };
 });

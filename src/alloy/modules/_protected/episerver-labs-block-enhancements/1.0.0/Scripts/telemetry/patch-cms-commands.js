@@ -20,7 +20,7 @@ define([
                 return;
             }
 
-            tracker.track("publish", Object.assign({
+            tracker.trackEvent("publish", Object.assign({
                 commandType: commandType,
                 contentType: isPage ? "page" : "block",
                 publishResult: publishResult
@@ -55,7 +55,7 @@ define([
             var isPage = this.model.contentData.capabilities.isPage;
             var isBlock = this.model.contentData.capabilities.isBlock;
             if (isPage || isBlock){
-                tracker.track("click", {
+                tracker.trackEvent("click", {
                     action: "openSmartPublishDialogue",
                     contentType: isPage ? "page" : "block"
                 });

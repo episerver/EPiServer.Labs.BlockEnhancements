@@ -17,13 +17,13 @@
     <dependencies>
       <dependency id="EPiServer.CMS.Core" version="[11.10.0,12.0)" />
       <dependency id="EPiServer.CMS.UI" version="[11.11.0,12.0)" />
-      <dependency id="EPiServer.Telemetry.UI" version="[1.0.4,2.0)" />
+      <dependency id="EPiServer.Telemetry.UI" version="[1.0.1,2.0)" />
     </dependencies>
   </metadata>
   <files>
-    <file src="bin\EPiServer.Labs.BlockEnhancements.dll" target="lib\net45\" />
-    <file src="modules\_protected\episerver-labs-block-enhancements\episerver-labs-block-enhancements.zip" target="content\modules\_protected\episerver-labs-block-enhancements\" />
-    <file src="modules\_protected\episerver-labs-block-enhancements\web.config" target="content\modules\_protected\episerver-labs-block-enhancements\" />
-    <file src="web.config.transform" target="content" />
+    <file src="src\episerver-labs-block-enhancements\bin\$configuration$\EPiServer.Labs.BlockEnhancements.dll" target="lib\net45\" />    
+    <file src="src\alloy\modules\_protected\episerver-labs-block-enhancements\episerver-labs-block-enhancements.zip" target="content\modules\_protected\episerver-labs-block-enhancements\" />
+    <file src="src\alloy\modules\_protected\episerver-labs-block-enhancements\web.config" target="content\modules\_protected\episerver-labs-block-enhancements\" />
+    <file src="build\packaging\web.config.transform" target="content" />
   </files>
 </package>

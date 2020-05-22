@@ -646,7 +646,7 @@
   </Target>
   <Import Project="$(SolutionDir)\build\Templates.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\episerver-labs-block-enhancements\EPiServer.Labs.BlockEnhancements.csproj">
+    <ProjectReference Include="..\EPiServer.Labs.BlockEnhancements\EPiServer.Labs.BlockEnhancements.csproj">
       <Project>{7D3CB0B4-BF55-4577-ABF2-D83F8EA5D49F}</Project>
       <Name>EPiServer.Labs.BlockEnhancements</Name>
     </ProjectReference>

@@ -21,9 +21,9 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="src\episerver-labs-block-enhancements\bin\$configuration$\EPiServer.Labs.BlockEnhancements.dll" target="lib\net45\" />    
-    <file src="src\alloy\modules\_protected\episerver-labs-block-enhancements\episerver-labs-block-enhancements.zip" target="content\modules\_protected\episerver-labs-block-enhancements\" />
-    <file src="src\alloy\modules\_protected\episerver-labs-block-enhancements\web.config" target="content\modules\_protected\episerver-labs-block-enhancements\" />
+    <file src="src\EPiServer.Labs.BlockEnhancements\bin\$configuration$\EPiServer.Labs.BlockEnhancements.dll" target="lib\net45\" />    
+    <file src="src\AlloyMvcTemplates\modules\_protected\episerver-labs-block-enhancements\episerver-labs-block-enhancements.zip" target="content\modules\_protected\episerver-labs-block-enhancements\" />
+    <file src="src\AlloyMvcTemplates\modules\_protected\episerver-labs-block-enhancements\web.config" target="content\modules\_protected\episerver-labs-block-enhancements\" />
     <file src="build\packaging\web.config.transform" target="content" />
   </files>
 </package>

@@ -28,7 +28,7 @@ if (!$version) {
 
 Write-Host "Creating nuget with $fileVersionMatch version and $version client assets version"
 
-Set-Location src\alloy\modules\_protected\episerver-labs-block-enhancements
+Set-Location src\AlloyMvcTemplates\modules\_protected\episerver-labs-block-enhancements
 ZipCurrentModule -moduleName episerver-labs-block-enhancements
 Set-Location $workingDirectory
 Start-Process -NoNewWindow -Wait -FilePath $nuget -ArgumentList "pack", "$workingDirectory\build\packaging\EPiServer.Labs.BlockEnhancements.nuspec", "-Version $assemblyFileVersion", "-Properties configuration=Release", "-BasePath ./", "-Verbosity detailed"

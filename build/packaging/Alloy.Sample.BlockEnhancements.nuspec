@@ -16,15 +16,15 @@
     <file src="build\packaging\transforms\*.transform" target="setup"/>
     <file src="build\packaging\*.sql" target="setup"/>
     <file src="packages\episerver.cms.core.*\tools\EPiServer.Cms.Core.sql" target="setup\sql"/>
-    <file src="src\episerver-labs-block-enhancements\bin\$configuration$\EPiServer.Labs.BlockEnhancements.*" target="wwwroot\bin" />
-    <file src="src\Alloy\bin\*.*" target="wwwroot\bin" exclude="src\Alloy\bin\EPiServer.Labs.BlockEnhancements.*"/>
-    <file src="src\Alloy\ClientResources\**\*.*" target="wwwroot\ClientResources" />
-    <file src="src\Alloy\Resources\**\*.*" target="wwwroot\Resources" />
-    <file src="src\Alloy\Static\**\*.*" target="wwwroot\Static" />
-    <file src="src\Alloy\Views\**\*.*" target="wwwroot\Views" />
-    <file src="src\Alloy\modules\**\*.*" target="wwwroot\modules" exclude="src\Alloy\modules\_protected\episerver-labs-block-enhancements\1.0.0\**\*.*;src\Alloy\modules\_protected\episerver-labs-block-enhancements\module.config" />
-    <file src="src\Alloy\*.config" target="wwwroot" exclude="license.config"/>
-    <file src="src\Alloy\*.asax" target="wwwroot"/>
-    <file src="src\Alloy\*.ico" target="wwwroot"/>
+    <file src="src\EPiServer.Labs.BlockEnhancements\bin\$configuration$\EPiServer.Labs.BlockEnhancements.*" target="wwwroot\bin" />
+    <file src="src\AlloyMvcTemplates\bin\*.*" target="wwwroot\bin" exclude="src\AlloyMvcTemplates\bin\EPiServer.Labs.BlockEnhancements.*"/>
+    <file src="src\AlloyMvcTemplates\ClientResources\**\*.*" target="wwwroot\ClientResources" />
+    <file src="src\AlloyMvcTemplates\Resources\**\*.*" target="wwwroot\Resources" />
+    <file src="src\AlloyMvcTemplates\Static\**\*.*" target="wwwroot\Static" />
+    <file src="src\AlloyMvcTemplates\Views\**\*.*" target="wwwroot\Views" />
+    <file src="src\AlloyMvcTemplates\modules\**\*.*" target="wwwroot\modules" exclude="src\AlloyMvcTemplates\modules\_protected\episerver-labs-block-enhancements\1.0.0\**\*.*;src\AlloyMvcTemplates\modules\_protected\episerver-labs-block-enhancements\module.config" />
+    <file src="src\AlloyMvcTemplates\*.config" target="wwwroot" exclude="license.config"/>
+    <file src="src\AlloyMvcTemplates\*.asax" target="wwwroot"/>
+    <file src="src\AlloyMvcTemplates\*.ico" target="wwwroot"/>
   </files>
 </package>

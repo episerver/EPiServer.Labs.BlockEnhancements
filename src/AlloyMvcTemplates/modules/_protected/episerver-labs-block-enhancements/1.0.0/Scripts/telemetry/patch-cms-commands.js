@@ -2,7 +2,7 @@ define([
     "dojo/when",
     "epi-cms/contentediting/command/Publish",
     "episerver-labs-block-enhancements/publish-with-local-content-items/command",
-    "episerver-telemetry-ui/tracker"
+    "episerver-labs-block-enhancements/telemetry/tracker"
 ], function (
     when,
     PublishCommand,
@@ -20,10 +20,10 @@ define([
                 return;
             }
 
-            tracker.track("publish", Object.assign({
-                "command-type": commandType,
-                "content-type": isPage ? "page" : "block",
-                "publish-result": publishResult
+            tracker.trackEvent("publish", Object.assign({
+                commandType: commandType,
+                contentType: isPage ? "page" : "block",
+                publishResult: publishResult
             }, additionalData));
         }
 
@@ -55,7 +55,7 @@ define([
             var isPage = this.model.contentData.capabilities.isPage;
             var isBlock = this.model.contentData.capabilities.isBlock;
             if (isPage || isBlock){
-                tracker.track("buttonClick", {
+                tracker.trackEvent("click", {
                     action: "openSmartPublishDialogue",
                     contentType: isPage ? "page" : "block"
                 });

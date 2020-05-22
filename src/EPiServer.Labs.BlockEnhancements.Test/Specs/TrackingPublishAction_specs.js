@@ -15,7 +15,7 @@ define([
     SmartPublishCommand
 ) => {
     describe("Publish Actions Tracking", () => {
-        const trackFn = sinon.stub();
+        const trackEventFn = sinon.stub();
 
         before(function () {
 
@@ -35,8 +35,8 @@ define([
             });
 
             return stubModule("episerver-labs-block-enhancements/telemetry/patch-cms-commands", {
-                "episerver-telemetry-ui/tracker": {
-                    track: trackFn
+                "episerver-labs-block-enhancements/telemetry/tracker": {
+                    trackEvent: trackEventFn
                 }
             }).then(function (module) {
                 module();
@@ -70,9 +70,9 @@ define([
                     };
                 });
 
-                it("it should call tracker with publish-result dimension `true`", () => {
+                it("it should call tracker with publishResult dimension `true`", () => {
                     publishCommand.execute();
-                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publish-result", true));
+                    expect(trackEventFn).to.have.been.calledWith("publish", sinon.match.has("publishResult", true));
                 });
             });
 
@@ -85,9 +85,9 @@ define([
                     };
                 });
 
-                it("it should call tracker with publish-result dimension `false`", () => {
+                it("it should call tracker with publishResult dimension `false`", () => {
                     publishCommand.execute();
-                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publish-result", false));
+                    expect(trackEventFn).to.have.been.calledWith("publish", sinon.match.has("publishResult", false));
                 });
             });
         });
@@ -119,9 +119,9 @@ define([
                     };
                 });
 
-                it("it should call tracker with publish-result dimension `true`", () => {
+                it("it should call tracker with publishResult dimension `true`", () => {
                     publishCommand.execute();
-                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publish-result", true));
+                    expect(trackEventFn).to.have.been.calledWith("publish", sinon.match.has("publishResult", true));
                 });
             });
 
@@ -134,9 +134,9 @@ define([
                     };
                 });
 
-                it("it should call tracker with publish-result dimension `false`", () => {
+                it("it should call tracker with publishResult dimension `false`", () => {
                     publishCommand.execute();
-                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publish-result", false));
+                    expect(trackEventFn).to.have.been.calledWith("publish", sinon.match.has("publishResult", false));
                 });
             });
         });
@@ -153,7 +153,7 @@ define([
                         return res.promise;
                     }
                 };
-                
+
                 let ContentDependenciesMock = function () {
                     this.get = function () {
                         return [];
@@ -195,10 +195,10 @@ define([
                     };
                 });
 
-                it("it should call tracker with publish-result dimension `true`", () => {
+                it("it should call tracker with publishResult dimension `true`", () => {
                     //TODO: test smart publish success scenario
                     smartPublishCommand.execute();
-                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publish-result", true));
+                    expect(trackEventFn).to.have.been.calledWith("publish", sinon.match.has("publishResult", true));
                 });
             });
 
@@ -211,9 +211,9 @@ define([
                     };
                 });
 
-                it("it should call tracker with publish-result dimension `false`", () => {
+                it("it should call tracker with publishResult dimension `false`", () => {
                     smartPublishCommand.execute();
-                    expect(trackFn).to.have.been.calledWith("publish", sinon.match.has("publish-result", false));
+                    expect(trackEventFn).to.have.been.calledWith("publish", sinon.match.has("publishResult", false));
                 });
             });
         });

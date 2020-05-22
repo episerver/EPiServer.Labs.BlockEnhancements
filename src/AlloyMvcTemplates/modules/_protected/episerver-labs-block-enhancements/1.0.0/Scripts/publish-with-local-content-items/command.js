@@ -105,9 +105,9 @@ define([
                         var publishCount = publishedItems.length;
 
                         var trackingData = {
-                            "smart-publish.available": defaultSelectedContent.length,
-                            "smart-publish.selected": selectedContentLinks.length,
-                            "smart-publish.published": publishCount
+                            smartPublish_available: defaultSelectedContent.length,
+                            smartPublish_selected: selectedContentLinks.length,
+                            smartPublish_published: publishCount
                         };
 
                         whenAll(publishedItems.map(function (result) {

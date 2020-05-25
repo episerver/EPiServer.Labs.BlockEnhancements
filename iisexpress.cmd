@@ -1,1 +1,1 @@
-CALL "C:\Program Files\IIS Express\iisexpress.exe" /path:%~dp0src\alloy
+CALL "C:\Program Files\IIS Express\iisexpress.exe" /path:%~dp0src\AlloyMvcTemplates

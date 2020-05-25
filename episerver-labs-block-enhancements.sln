@@ -29,6 +29,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{A1272902
 		test.cmd = test.cmd
 		version.cs = version.cs
 		VersionUpdate.ps1 = VersionUpdate.ps1
+		build\packaging\Alloy.Sample.BlockEnhancements.nuspec = build\packaging\Alloy.Sample.BlockEnhancements.nuspec
+		build\packaging\EPiServer.Labs.BlockEnhancements.nuspec = build\packaging\EPiServer.Labs.BlockEnhancements.nuspec
+		build\packaging\run-deploy-template-site.ps1 = build\packaging\run-deploy-template-site.ps1
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPiServer.Labs.BlockEnhancements", "src\EPiServer.Labs.BlockEnhancements\EPiServer.Labs.BlockEnhancements.csproj", "{7D3CB0B4-BF55-4577-ABF2-D83F8EA5D49F}"

@@ -53,8 +53,6 @@ define([
 
             iconClass: "epi-iconPen",
 
-            category: "menuWithSeparator",
-
             postscript: function () {
                 this.inherited(arguments);
 
@@ -233,8 +231,10 @@ define([
                 var isTranslationNeeded = missingLanguageBranch && contentData.missingLanguageBranch.isTranslationNeeded;
                 this.set("label", isTranslationNeeded ? lang.replace(labsResources.inlinetranslate, {missingLanguage: missingLanguageBranch.preferredLanguage}) : labsResources.inlineblockedit);
                 this.set("isTranslationNeeded", isTranslationNeeded);
-                this.set("canExecute", hasAccessRights && hasProviderSupportForEditing && !isReadyToPublish && !isDeleted);
+                var canExecute = hasAccessRights && hasProviderSupportForEditing && !isReadyToPublish && !isDeleted;
+                this.set("canExecute", canExecute);
                 this.set("hasPublishAccessRights", ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Publish));
+                this.set("category", canExecute ? "menuWithSeparator" : "")
             }
         });
     });

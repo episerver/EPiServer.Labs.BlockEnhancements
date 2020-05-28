@@ -28,8 +28,8 @@
         </ilineediting>
         <inlinecommands>
           <inlinepublish>
-            <error>Publicerades framgångsrikt</error>
-            <success>markerades som redo att publiceras framgångsrikt</success>
+            <error>Innehållspublicering misslyckades</error>
+            <success>publicerades framgångsrikt</success>
           </inlinepublish>
           <inlinereadytopublish>
             <error>Det gick inte att markera som redo att publicera</error>

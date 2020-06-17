@@ -97,7 +97,7 @@ define([
                     var isTranslationNeeded = _this.get("isTranslationNeeded");
                     dialog.togglePublishButton(!isTranslationNeeded && _this.get("hasPublishAccessRights") && (!isPartOfActiveApproval && (canPublish() || form.get("isDirty"))));
                     dialog.setPublishLabel(inlinePublishCommand.label);
-                    dialog.toggleDisabledSaveButton(isTranslationNeeded && !form.get("isDirty"));
+                    dialog.toggleDisabledSaveButton(!form.get("isDirty"));
                 }
 
                 var isAvailableHandle = inlinePublishCommand.watch("isAvailable", updatePublishCommandVisibility.bind(this));

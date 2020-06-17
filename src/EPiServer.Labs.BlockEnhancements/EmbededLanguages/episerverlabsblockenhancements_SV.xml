@@ -4,7 +4,7 @@
     <episerverlabs>
       <blockenhancements>
         <command>
-          <label>Smart publicera</label>
+          <label>Publicera sida och block</label>
           <partofapproval>Är en del av en aktiv godkännande sekvens och kan inte publiceras just nu</partofapproval>
         </command>
         <noitemstopublish>Det finns inget att publicera</noitemstopublish>

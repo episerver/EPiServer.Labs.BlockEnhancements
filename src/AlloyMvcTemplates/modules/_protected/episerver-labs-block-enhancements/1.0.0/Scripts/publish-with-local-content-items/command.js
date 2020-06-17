@@ -182,7 +182,7 @@ define([
 
             this.inherited(arguments);
             this.projectService.getCurrentProjectId().then(function (isProjectActive) {
-                if (isProjectActive) {
+                if (isProjectActive || !this.model) {
                     this.set("isAvailable", false);
                 } else {
                     var contentData = this.model.contentData || this.model;

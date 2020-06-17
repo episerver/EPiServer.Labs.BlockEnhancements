@@ -1,11 +1,13 @@
 define([
     "dojo/_base/declare",
     "epi/shell/widget/dialog/Dialog",
-    "epi/i18n!epi/cms/nls/episerverlabs.blockenhancements.ilineediting.dialog"
+    "epi/i18n!epi/cms/nls/episerverlabs.blockenhancements.ilineediting.dialog",
+    "epi/i18n!epi/cms/nls/episerver.cms.contentediting.toolbar.buttons"
 ], function (
     declare,
     Dialog,
-    res
+    res,
+    coreResources
 ) {
     return declare([Dialog], {
         // summary:
@@ -30,7 +32,7 @@ define([
             this._publishButtonName = "publish";
             var cancelButton = {
                 name: this._publishButtonName,
-                label: " ",
+                label: coreResources.publish.label,
                 title: null,
                 settings: {
                     "class": "epi-success publish-button"
@@ -58,10 +60,6 @@ define([
             } else {
                 this.definitionConsumer.setItemProperty(this._publishButtonName, "class", "dijitHidden");
             }
-        },
-
-        setPublishLabel: function (label) {
-            this.definitionConsumer.setItemProperty(this._publishButtonName, "label", label);
         },
 
         _setCloseTextAttr: function (label) {

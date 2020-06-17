@@ -102,7 +102,7 @@ define([
 
                 var isAvailableHandle = inlinePublishCommand.watch("isAvailable", updatePublishCommandVisibility.bind(this));
                 var canExecuteHandle = inlinePublishCommand.watch("canExecute", updatePublishCommandVisibility.bind(this));
-                var labelHandle = inlinePublishCommand.watch("label", function (value) {
+                var labelHandle = inlinePublishCommand.watch("label", function () {
                     if (!dialog) {
                         return;
                     }

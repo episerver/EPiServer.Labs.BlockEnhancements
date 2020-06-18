@@ -1,8 +1,8 @@
 define([
-    "episerver-labs-block-enhancements/inline-editing/commands/inline-publish",
+    "episerver-labs-block-enhancements/inline-editing/commands/contentarea-inline-publish",
     "episerver-labs-block-enhancements/inline-editing/commands/inline-send-for-review"
 ], function (
-    InlinePublish,
+    ContentAreaInlinePublish,
     InlineSendForReview
 ) {
     return function updateCommands(commandsOwner) {
@@ -14,9 +14,7 @@ define([
         }
         var removeCommandIndex = commandsOwner.commands.indexOf(removeCommand);
 
-        var inlinePublish = new InlinePublish({
-            commandType: "content-area"
-        });
+        var inlinePublish = new ContentAreaInlinePublish();
         commandsOwner.commands.splice(removeCommandIndex, 0, inlinePublish);
         commandsOwner.own(inlinePublish);
 

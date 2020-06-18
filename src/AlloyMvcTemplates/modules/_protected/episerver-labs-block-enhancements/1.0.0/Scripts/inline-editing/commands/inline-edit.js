@@ -96,19 +96,11 @@ define([
                     var isPartOfActiveApproval = _this.get("isPartOfActiveApproval");
                     var isTranslationNeeded = _this.get("isTranslationNeeded");
                     dialog.togglePublishButton(!isTranslationNeeded && _this.get("hasPublishAccessRights") && (!isPartOfActiveApproval && (canPublish() || form.get("isDirty"))));
-                    dialog.setPublishLabel(inlinePublishCommand.label);
                     dialog.toggleDisabledSaveButton(!form.get("isDirty"));
                 }
 
                 var isAvailableHandle = inlinePublishCommand.watch("isAvailable", updatePublishCommandVisibility.bind(this));
                 var canExecuteHandle = inlinePublishCommand.watch("canExecute", updatePublishCommandVisibility.bind(this));
-                var labelHandle = inlinePublishCommand.watch("label", function () {
-                    if (!dialog) {
-                        return;
-                    }
-                    dialog.setPublishLabel(inlinePublishCommand.label);
-                }.bind(this));
-
                 var form;
 
                 if (this.get("isTranslationNeeded")) {
@@ -178,7 +170,6 @@ define([
                     publishHandle.remove();
                     isAvailableHandle.remove();
                     canExecuteHandle.remove();
-                    labelHandle.remove();
                 });
             },
 

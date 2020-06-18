@@ -215,7 +215,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-    <ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="EmbededLanguages\episerverlabsblockenhancements_NO.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

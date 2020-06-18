@@ -2,7 +2,9 @@ define([
     "dojo/_base/declare",
     "dojo/topic",
     "dojo/on",
+    "dojo/Evented",
     "epi/dependency",
+    "epi",
     "epi/UriParser",
     "epi-cms/contentediting/ContentActionSupport",
     "epi-cms/contentediting/ContentViewModel",
@@ -13,16 +15,27 @@ define([
     declare,
     topic,
     on,
+    Evented,
     dependency,
+    epi,
     UriParser,
     ContentActionSupport,
     ContentViewModel,
     tooltipPatch,
     FormContainer) {
 
-    return declare([FormContainer], {
+    return declare([FormContainer, Evented], {
         contentLink: null,
         isInlineCreateEnabled: null,
+        isDirty: false,
+        initialValue: null,
+
+        _onIsDirty: function () {
+            var isDirty = !epi.areEqual(this.get("initialValue"), this.get("value"));
+
+            this.set("isDirty", isDirty);
+            this.emit("isDirty", isDirty);
+        },
 
         postCreate: function () {
             this.inherited(arguments);
@@ -31,7 +44,14 @@ define([
             this.own(on(this, "FormCreated", function () {
                 this.own(on(this.form.domNode.firstElementChild, "scroll", function () {
                     tooltipPatch.hideAll();
-                }))
+                }));
+
+                this.onChange = this._onIsDirty.bind(this);
+
+                this.own(on(this, "change", this._onIsDirty.bind(this)));
+                this.own(on(this.domNode, "change", this._onIsDirty.bind(this)));
+                this.own(on(this.domNode, "keyup", this._onIsDirty.bind(this)));
+                this.initialValue = this.get("value");
             }.bind(this)));
         },
 

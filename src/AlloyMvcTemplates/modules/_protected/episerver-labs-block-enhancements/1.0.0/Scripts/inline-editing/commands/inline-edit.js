@@ -81,8 +81,6 @@ define([
                 });
 
                 var _this = this;
-                var isDirty = false;
-                var initialValue = null;
                 var inlinePublishCommand = new InlinePublish({
                     commandType: "inline-edit-form"
                 });
@@ -97,14 +95,14 @@ define([
                     }
                     var isPartOfActiveApproval = _this.get("isPartOfActiveApproval");
                     var isTranslationNeeded = _this.get("isTranslationNeeded");
-                    dialog.togglePublishButton(!isTranslationNeeded && _this.get("hasPublishAccessRights") && (!isPartOfActiveApproval && (canPublish() || isDirty)));
+                    dialog.togglePublishButton(!isTranslationNeeded && _this.get("hasPublishAccessRights") && (!isPartOfActiveApproval && (canPublish() || form.get("isDirty"))));
                     dialog.setPublishLabel(inlinePublishCommand.label);
-                    dialog.toggleDisabledSaveButton(isTranslationNeeded && !isDirty);
+                    dialog.toggleDisabledSaveButton(!form.get("isDirty"));
                 }
 
                 var isAvailableHandle = inlinePublishCommand.watch("isAvailable", updatePublishCommandVisibility.bind(this));
                 var canExecuteHandle = inlinePublishCommand.watch("canExecute", updatePublishCommandVisibility.bind(this));
-                var labelHandle = inlinePublishCommand.watch("label", function (value) {
+                var labelHandle = inlinePublishCommand.watch("label", function () {
                     if (!dialog) {
                         return;
                     }
@@ -138,24 +136,17 @@ define([
                     }
 
                     dialog.show();
-                    initialValue = form.get("value");
                     updatePublishCommandVisibility();
 
                 }.bind(this));
 
-                var onChangeHandle = on(form, "change", function () {
-                    if (isDirty) {
-                        return;
-                    }
-                    isDirty = !epi.areEqual(initialValue, form.get("value"));
-                    updatePublishCommandVisibility();
-                });
+                var onChangeHandle = on(form, "isDirty", updatePublishCommandVisibility.bind(form));
 
                 var executeHandle = on(dialog, "execute", form.saveForm.bind(form));
 
                 var publishHandle = on(dialog, "Publish", function () {
                     var deferred = true;
-                    if (isDirty) {
+                    if (form.get("isDirty")) {
                         deferred = form.saveForm();
                     }
                     when(deferred).then(function () {

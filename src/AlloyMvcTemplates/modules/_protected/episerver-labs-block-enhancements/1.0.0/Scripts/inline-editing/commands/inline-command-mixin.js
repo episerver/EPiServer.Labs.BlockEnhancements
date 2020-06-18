@@ -65,6 +65,7 @@ define([
             }
             try {
                 this._enhancedStore = dependency.resolve("epi.storeregistry").get("episerver.labs.blockenhancements");
+                return this._enhancedStore;
             } catch (e) {
                 this._enhancedStore = null;
             }

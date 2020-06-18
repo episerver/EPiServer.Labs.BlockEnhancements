@@ -4,7 +4,7 @@
     <episerverlabs>
       <blockenhancements>
         <command>
-          <label>Älykäs julkaisu</label>
+          <label>Julkaise sivu ja lohkot</label>
           <partofapproval>On osa aktiivista hyväksymistyönkulkua eikä voida tällä hetkellä julkaista</partofapproval>
         </command>
         <noitemstopublish>Ei ole julkaistavaa</noitemstopublish>

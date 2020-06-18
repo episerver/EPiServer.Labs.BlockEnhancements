@@ -4,7 +4,7 @@
     <episerverlabs>
       <blockenhancements>
         <command>
-          <label>Smart Publish</label>
+          <label>Publish Page and Blocks</label>
           <partofapproval>Is part of an active approval sequence and cannot be published at the moment</partofapproval>
         </command>
         <noitemstopublish>There is nothing to be published</noitemstopublish>

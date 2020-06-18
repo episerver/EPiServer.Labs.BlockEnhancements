@@ -93,9 +93,9 @@ define([
                     if (!dialog) {
                         return;
                     }
-                    var isPartOfActiveApproval = _this.get("isPartOfActiveApproval");
-                    var isTranslationNeeded = _this.get("isTranslationNeeded");
-                    dialog.togglePublishButton(!isTranslationNeeded && _this.get("hasPublishAccessRights") && (!isPartOfActiveApproval && (canPublish() || form.get("isDirty"))));
+
+                    dialog.togglePublishButton(!_this.get("isTranslationNeeded") && _this.get("hasPublishAccessRights") && !_this.get("isPartOfActiveApproval"));
+                    dialog.toggleDisabledPublishButton(!(canPublish() || form.get("isDirty")));
                     dialog.toggleDisabledSaveButton(!form.get("isDirty"));
                 }
 
@@ -117,6 +117,8 @@ define([
                     }, dialog.content, "last");
                     form.set("contentLink", this.model.contentLink).then(function (model) {
                         inlinePublishCommand.set("model", this.model);
+                        inlinePublishCommand._onModelChange();
+                        updatePublishCommandVisibility();
                         _this.set("isPartOfActiveApproval", model.isPartOfActiveApproval);
                     }.bind(this));
                 }

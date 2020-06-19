@@ -62,6 +62,10 @@ define([
             }
         },
 
+        toggleDisabledPublishButton: function (shouldDisable) {
+            this.definitionConsumer.setItemProperty(this._publishButtonName, "disabled", shouldDisable ? "disabled" : "");
+        },
+
         _setCloseTextAttr: function (label) {
             this.definitionConsumer.setItemProperty(this._cancelButtonName, "label", label);
         },

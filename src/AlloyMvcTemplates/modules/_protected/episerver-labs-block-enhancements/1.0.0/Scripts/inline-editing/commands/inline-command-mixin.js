@@ -65,6 +65,7 @@ define([
             }
             try {
                 this._enhancedStore = dependency.resolve("epi.storeregistry").get("episerver.labs.blockenhancements");
+                return this._enhancedStore;
             } catch (e) {
                 this._enhancedStore = null;
             }
@@ -167,11 +168,11 @@ define([
                     !ContentActionSupport.hasAccessToAction(contentData, this.requiredAction) ||
                     (this.skippedAction && ContentActionSupport.hasAccessToAction(contentData, this.skippedAction))
                 ) {
-                    this.set("isAvailable", false);
+                    this._setCommandVisibility(false);
                     return;
                 }
 
-                this.set("isAvailable", true);
+                this._setCommandVisibility(true);
 
                 if (this._viewModel) {
                     this._viewModel.destroy();
@@ -185,6 +186,10 @@ define([
 
                 this.inherited(_arguments);
             }.bind(this));
+        },
+
+        _setCommandVisibility: function (visible) {
+            this.set("isAvailable", visible);
         }
     });
 });

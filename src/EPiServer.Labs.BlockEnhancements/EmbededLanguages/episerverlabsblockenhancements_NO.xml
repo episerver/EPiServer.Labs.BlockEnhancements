@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<languages>
+  <language name="Norsk" id="no">
+    <episerverlabs>
+      <blockenhancements>
+        <command>
+          <label>Smart publisering</label>
+          <partofapproval>Er en del av en aktiv godkjenningssekvens og kan ikke publiseres akkurat nå</partofapproval>
+        </command>
+        <noitemstopublish>Det er ingenting å publisere</noitemstopublish>
+        <currentcontenttopublish>Det finnes ingen upubliserte elementer koblet til dette innholdet. Kun det aktuelle elementer kan publiseres.</currentcontenttopublish>
+        <loadingitems>Laster innhold...</loadingitems>
+        <name>Navn</name>
+        <changed>Endret</changed>
+        <by>Av</by>
+        <dialog>
+          <title>Bekreft at du publiserer siden og det relaterte innholdet</title>
+          <confirmation>Det finnes upubliserte elementer brukt av dette innholdet.&lt;br/&gt; Velg de som du vil publisere samtidig.</confirmation>
+        </dialog>
+        <ilineediting>
+          <dialog>
+            <save>Lagre</save>
+          </dialog>
+          <browseexistingitems>velg innhold</browseexistingitems>
+          <doubleclicktoinlineedit>Dobbelklikk for å redigere inline</doubleclicktoinlineedit>
+          <inlineblockedit>Rediger inline</inlineblockedit>
+          <inlinetranslate>Opprett {missingLanguage} språkversjon</inlinetranslate>
+        </ilineediting>
+        <inlinecommands>
+          <inlinepublish>
+            <error>Innholdspublisering mislykkes</error>
+            <success>ble publisert</success>
+          </inlinepublish>
+          <inlinereadytopublish>
+            <error>Det gikk ikke å merke som klar for publisering</error>
+            <success>ble merket som klar for publisering</success>
+          </inlinereadytopublish>
+        </inlinecommands>
+      </blockenhancements>
+    </episerverlabs>
+  </language>
+</languages>

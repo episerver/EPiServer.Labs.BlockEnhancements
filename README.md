@@ -16,7 +16,7 @@ The list of current features is as following:
 
 All of those features work together, but you can decide which ones are enabled, by [Configuring enabled features](#configuring-enabled-features)
 
-## Smart publish
+## Publish Page and Blocks
 
 This is an extra command available in the global menu. It traverses current content dependency graph and lists all draft versions of blocks that could be published simultaneously.
 

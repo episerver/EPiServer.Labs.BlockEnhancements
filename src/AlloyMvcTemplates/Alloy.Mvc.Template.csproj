@@ -564,8 +564,8 @@
     <Content Include="modules\_protected\CMS\CMS.zip" />
     <Content Include="modules\_protected\episerver-labs-configuration-manager\web.config" />
     <Content Include="modules\_protected\episerver-labs-configuration-manager\episerver-labs-configuration-manager.zip" />
-    <Content Include="modules\_protected\episerver-telemetry-ui\web.config" />
     <Content Include="modules\_protected\episerver-telemetry-ui\episerver-telemetry-ui.zip" />
+    <Content Include="modules\_protected\episerver-telemetry-ui\web.config" />
     <None Include="modules\_protected\EPiServer.Forms.UI\EPiServer.Forms.UI.zip" />
     <None Include="modules\_protected\EPiServer.Forms.UI\module.config" />
     <None Include="modules\_protected\EPiServer.Forms\EPiServer.Forms.zip" />

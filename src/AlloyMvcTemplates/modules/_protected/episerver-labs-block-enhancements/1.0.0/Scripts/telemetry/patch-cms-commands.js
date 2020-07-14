@@ -1,11 +1,13 @@
 define([
     "dojo/when",
     "epi-cms/contentediting/command/Publish",
+    "epi-cms/project/command/PublishProject",
     "episerver-labs-block-enhancements/publish-with-local-content-items/command",
     "episerver-labs-block-enhancements/telemetry/tracker"
 ], function (
     when,
     PublishCommand,
+    PublishProjectCommand,
     SmartPublishCommand,
     tracker) {
     return function () {
@@ -49,6 +51,19 @@ define([
         };
 
         PublishCommand.prototype.execute.nom = "execute";
+
+        var originalPublishProjectExecute = PublishProjectCommand.prototype.execute;
+        PublishProjectCommand.prototype.execute = function () {
+            originalPublishProjectExecute.apply(this, arguments);
+
+            // Track how many items are being published (which are only those marked as Ready to publish)
+            tracker.trackEvent("publish", Object.assign({
+                commandType: "project",
+                itemsCount: this.model.selectedProject.itemStatusCount.checkedin
+            }));
+        }
+
+        PublishProjectCommand.prototype.execute.nom = "execute";
 
         var originalSmartPublishExecute = SmartPublishCommand.prototype.execute;
         SmartPublishCommand.prototype.execute = function () {

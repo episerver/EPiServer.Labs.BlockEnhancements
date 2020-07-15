@@ -29,7 +29,12 @@ var dojoConfig = {
         { name: "episerver-labs-block-enhancements", location: "/base/src/AlloyMvcTemplates/modules/_protected/episerver-labs-block-enhancements/1.0.0/Scripts" },
         { name: "mocks", location: "/base/src/EPiServer.Labs.BlockEnhancements.Test/Mocks" },
         { name: "tdd", location: "/base/src/EPiServer.Labs.BlockEnhancements.Test/tdd"}
-    ]
+    ],
+    map: {
+        "*": {
+            "epi/i18n": "mocks/i18n"
+        }
+    }
 };
 
 

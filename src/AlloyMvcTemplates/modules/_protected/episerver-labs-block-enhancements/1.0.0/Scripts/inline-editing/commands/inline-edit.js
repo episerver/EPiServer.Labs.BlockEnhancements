@@ -85,17 +85,13 @@ define([
                     commandType: "inline-edit-form"
                 });
 
-                function canPublish() {
-                    return inlinePublishCommand.get("isAvailable") && inlinePublishCommand.get("canExecute");
-                }
-
                 function updatePublishCommandVisibility() {
                     if (!dialog) {
                         return;
                     }
 
                     dialog.togglePublishButton(!_this.get("isTranslationNeeded") && _this.get("hasPublishAccessRights") && !_this.get("isPartOfActiveApproval"));
-                    dialog.toggleDisabledPublishButton(!(canPublish() || form.get("isDirty")));
+                    dialog.toggleDisabledPublishButton(!(inlinePublishCommand.canPublish() || form.get("isDirty")));
                     dialog.toggleDisabledSaveButton(!form.get("isDirty"));
                 }
 
@@ -139,26 +135,8 @@ define([
                 var executeHandle = on(dialog, "execute", form.saveForm.bind(form));
 
                 var publishHandle = on(dialog, "Publish", function () {
-                    var deferred = true;
-                    if (form.get("isDirty")) {
-                        deferred = form.saveForm();
-                    }
-                    when(deferred).then(function () {
-                        var prePublishDeferred = true;
-                        // check if the Publish became available after the form was saved
-                        if (!canPublish()) {
-                            // if it did, then we have to manually refresh its model to get most recent availability flags
-                            prePublishDeferred = inlinePublishCommand._onModelChange();
-                        }
-                        when(prePublishDeferred).then(function () {
-                            if (canPublish()) {
-                                inlinePublishCommand.execute().then(function () {
-                                    dialog.hide();
-                                });
-                            } else {
-                                dialog.hide();
-                            }
-                        });
+                    inlinePublishCommand.tryToSaveAndPublish(form).then(function () {
+                        dialog.hide();
                     });
                 });
 

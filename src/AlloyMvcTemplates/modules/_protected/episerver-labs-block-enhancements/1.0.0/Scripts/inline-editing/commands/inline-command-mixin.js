@@ -115,7 +115,7 @@ define([
             }, this);
 
             return this.inherited(arguments).then(function () {
-                dialogService.alert("<strong>" + this.model.contentData.name + "</strong> " + self.successMessage);
+                this.showMessage("<strong>" + this.model.contentData.name + "</strong> " + self.successMessage);
                 var contentReference = new ContentReference(this.model.contentData.contentLink);
                 // Refresh the data in the store only if it's been published before
                 if (contentReference.workId) {
@@ -190,6 +190,10 @@ define([
 
         _setCommandVisibility: function (visible) {
             this.set("isAvailable", visible);
+        },
+
+        showMessage: function (message) {
+            dialogService.alert(message);
         }
     });
 });

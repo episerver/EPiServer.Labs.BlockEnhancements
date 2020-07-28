@@ -1,6 +1,7 @@
 define([
     "dojo/_base/declare",
     "dojo/topic",
+    "dojo/Deferred",
     "dojo/when",
     "epi/dependency",
     "episerver-labs-block-enhancements/inline-editing/block-edit-form-container",
@@ -9,6 +10,7 @@ define([
 ], function (
     declare,
     topic,
+    Deferred,
     when,
     dependency,
     BlockEditFormContainer,
@@ -58,12 +60,24 @@ define([
         },
 
         saveForm: function () {
+            var deferred = new Deferred();
+            var saveHandle = this.createContentViewModel.on("saveSuccess", function () {
+                saveHandle.remove();
+                errorHandle.remove();
+                deferred.resolve();
+            });
+            var errorHandle = this.createContentViewModel.on("saveError", function () {
+                saveHandle.remove();
+                errorHandle.remove();
+                deferred.resolve();
+            });
             var contentName = this.value.name || this.value.icontent_name || this.get("masterContentName") || getName();
             this.createContentViewModel.set("contentName", contentName);
             this.createContentViewModel.set("properties", this.value);
             this.createContentViewModel.set("languageBranch", this.createContentViewModel.parent.missingLanguageBranch.preferredLanguage);
             this.createContentViewModel.set("masterLanguageVersionId", this.createContentViewModel.parent.contentLink);
             this.createContentViewModel.save();
+            return deferred.promise;
         }
     });
 });

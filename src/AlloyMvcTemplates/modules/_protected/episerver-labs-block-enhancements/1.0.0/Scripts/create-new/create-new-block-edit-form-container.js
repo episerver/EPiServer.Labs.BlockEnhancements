@@ -1,10 +1,12 @@
 define([
     "dojo/_base/declare",
+    "dojo/Deferred",
     "episerver-labs-block-enhancements/inline-editing/block-edit-form-container",
     "epi-cms/contentediting/viewmodel/CreateContentViewModel",
     "dojo/date/locale"
 ], function (
     declare,
+    Deferred,
     BlockEditFormContainer,
     CreateContentViewModel,
     locale) {
@@ -47,9 +49,23 @@ define([
         },
 
         saveForm: function () {
+            var deferred = new Deferred();
+
+            var saveHandle = this.createContentViewModel.on("saveSuccess", function () {
+                saveHandle.remove();
+                errorHandle.remove();
+                deferred.resolve();
+            });
+            var errorHandle = this.createContentViewModel.on("saveError", function () {
+                saveHandle.remove();
+                errorHandle.remove();
+                deferred.resolve();
+            });
+
             this.createContentViewModel.set("contentName", this.value.name || this.value.icontent_name || getName());
             this.createContentViewModel.set("properties", this.value);
             this.createContentViewModel.save();
+            return deferred.promise;
         }
     });
 });

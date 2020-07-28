@@ -47,9 +47,23 @@ define([
         },
 
         saveForm: function () {
+            var deferred = new Deferred();
+
+            var saveHandle = this.createContentViewModel.on("saveSuccess", function () {
+                saveHandle.remove();
+                errorHandle.remove();
+                deferred.resolve();
+            });
+            var errorHandle = this.createContentViewModel.on("saveError", function () {
+                saveHandle.remove();
+                errorHandle.remove();
+                deferred.resolve();
+            });
+
             this.createContentViewModel.set("contentName", this.value.name || this.value.icontent_name || getName());
             this.createContentViewModel.set("properties", this.value);
             this.createContentViewModel.save();
+            return deferred.promise;
         }
     });
 });

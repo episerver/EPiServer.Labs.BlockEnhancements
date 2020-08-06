@@ -1,4 +1,4 @@
-﻿using EPiServer.Framework;
+using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
 using EPiServer.Labs.BlockEnhancements;
 using EPiServer.ServiceLocation;
@@ -18,7 +18,10 @@ namespace AlloyTemplates.Business.Initialization
                 options.ContentDraftView = true;
                 options.InlinePublish = true;
                 options.StatusIndicator = true;
-                options.ContentAreaBrowse = true;
+                options.ContentAreaSettings = new ContentAreaSettings
+                {
+                    ContentAreaBrowse = true
+                };
                 options.InlineCreate = true;
             });
         }

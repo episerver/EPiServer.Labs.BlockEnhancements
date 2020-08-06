@@ -13,7 +13,6 @@ namespace EPiServer.Labs.BlockEnhancements
         public bool InlinePublish { get; set; } = true;
         public bool PublishWithLocalContentItems { get; set; } = true;
         public bool ContentDraftView { get; set; } = true;
-        public bool ContentAreaBrowse { get; set; } = true;
         public bool InlineCreate { get; set; } = true;
         public ContentAreaSettings ContentAreaSettings { get; set; }
     }
@@ -23,6 +22,11 @@ namespace EPiServer.Labs.BlockEnhancements
     /// </summary>
     public class ContentAreaSettings
     {
+        /// <summary>
+        /// Show the custom content item browser from within Content Area editor?
+        /// </summary>
+        public bool ContentAreaBrowse { get; set; } = true;
+
         /// <summary>
         /// EditorDescriptor behavior,
         /// </summary>

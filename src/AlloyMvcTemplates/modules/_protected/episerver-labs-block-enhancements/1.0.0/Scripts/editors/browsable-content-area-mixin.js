@@ -19,7 +19,7 @@ define([
         browseexistingitems: "browseexistingitems",
 
         getTemplateString: function () {
-            if (!this.blockEnhancementsOptions.contentAreaBrowse) {
+            if (!this.blockEnhancementsOptions.contentAreaSettings.contentAreaBrowse) {
                 return this.inherited(arguments);
             }
 

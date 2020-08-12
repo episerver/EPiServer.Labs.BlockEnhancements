@@ -188,7 +188,7 @@ After choosing the content type the editor will see the inline edit form straigh
 
 ## Configuring enabled features
 
-To turn off one or more feature, use the `BlockEnhancementsOptions` options class and then, for example, in the initialization module, set `false` on the feature that should not be available. All features are enabled by default.
+To turn off one or more feature, use the [BlockEnhancementsOptions](#BlockEnhancementsOptions) options class and then, for example, in the initialization module, set `false` on the feature that should not be available. All features are enabled by default.
 
 ```csharp
 [InitializableModule]
@@ -204,7 +204,10 @@ public class CustomBlockEnhancementsModule : IConfigurableModule
             options.ContentDraftView = true;
             options.InlinePublish = false;
             options.StatusIndicator = false;
-            options.ContentAreaBrowse = true;
+            options.ContentAreaSettings = new ContentAreaSettings
+                {
+                    ContentAreaBrowse = true
+                };
             options.InlineCreate = true;
         });
     }
@@ -215,6 +218,26 @@ public class CustomBlockEnhancementsModule : IConfigurableModule
 }
 ```
 
+### BlockEnhancementsOptions
+
+ | Option        | Default           | Description  |
+ | ---- | ---- | ---- |
+ | InlineEditing | true | Show the command to edit content item inline, without switching context |
+ | PublishWithLocalContentItems | true | Show 'Publish page & blocks' command in the top menu |
+ | ContentDraftView | true | Allow editors to preview the page with as if it was published |
+ | InlinePublish | true |  Show the command to publish item directly from Content Area or assets pane |
+ | StatusIndicator | true | Show the content status next to Content Area items |
+ | ContentAreaSettings | [ContentAreaSettings](#ContentAreaSettings) | Settings related to Content Areas |
+ | InlineCreate | false | Create new content items inline, without switching context |
+
+### ContentAreaSettings
+
+ | Option        | Default           | Description  |
+ | ---- | ---- | ---- |
+ | ContentAreaBrowse | true | Allow editors to browse content directly from Content Area |
+ | ContentAreaEditorDescriptorBehavior | EditorDescriptorBehavior.OverrideDefault | Should the custom ContentArea override the default |
+ | UIHint | null | Custom UIHint, only necessary if DescriptorBehavior is not the default one |
+ 
 ## Telemetry opt-in
 
 > NOTE: Telemetry is automatically enabled in DXC environment and can not be opted-out.

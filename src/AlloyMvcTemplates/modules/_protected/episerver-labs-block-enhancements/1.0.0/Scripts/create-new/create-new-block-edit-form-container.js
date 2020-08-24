@@ -59,7 +59,13 @@ define([
             var errorHandle = this.createContentViewModel.on("saveError", function () {
                 saveHandle.remove();
                 errorHandle.remove();
-                deferred.resolve();
+                var errorsMessages = [];
+                this.validator._store.query().forEach(function (error) {
+                    if (error && error.item && error.item.errorMessage) {
+                        errorsMessages.push(error.item.errorMessage);
+                    }
+                })
+                deferred.reject(errorsMessages);
             });
 
             this.createContentViewModel.set("contentName", this.value.name || this.value.icontent_name || getName());

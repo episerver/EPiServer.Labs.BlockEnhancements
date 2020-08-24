@@ -3,6 +3,7 @@ define([
     "dojo/_base/declare",
     "epi/shell/TypeDescriptorManager",
     "epi/shell/widget/dialog/Alert",
+    "epi/shell/DialogService",
     "episerver-labs-block-enhancements/inline-editing/form-dialog",
     "epi-cms/widget/ContentTypeList",
     "epi-cms/widget/ContentType",
@@ -11,12 +12,14 @@ define([
     "episerver-labs-block-enhancements/create-new/get-tooltip",
     "epi/i18n!epi/cms/nls/episerver.cms.components.createblock",
     "epi/i18n!epi/cms/nls/episerver.shared.action",
+    "epi/i18n!epi/cms/nls/episerverlabs.blockenhancements.inlinecommands.inlinepublish",
     "xstyle/css!episerver-labs-block-enhancements/create-new/styles.css"
 ], function (
     on,
     declare,
     TypeDescriptorManager,
     Alert,
+    dialogService,
     FormDialog,
     ContentTypeList,
     ContentType,
@@ -24,7 +27,8 @@ define([
     CreateNewBlockEditFormContainer,
     getTooltip,
     res,
-    shared
+    shared,
+    inlinepublishRes
 ) {
 
     return function() {
@@ -75,7 +79,14 @@ define([
 
                     form.reloadMetadata(content, selectedType.id);
 
-                    _this.own(on(editDialog, "execute", form.saveForm.bind(form)));
+                    _this.own(on(editDialog, "execute", function () {
+                        var deferred = form.saveForm();
+                        deferred.otherwise(function (errorMessages) {
+                            dialogService.alertWithErrors({
+                                title: inlinepublishRes.error
+                            }, errorMessages);
+                        });
+                    }));
                     editDialog.own(form);
                     _this.own(editDialog);
                 }

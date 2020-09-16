@@ -11,7 +11,7 @@ REM Run the setup task.
 CALL yarn gulp setup
 IF %errorlevel% NEQ 0 EXIT /B %errorlevel%
 
-SET AlloyMVC=src\alloy
+SET AlloyMVC=src\AlloyMvcTemplates
 
 IF EXIST %AlloyMVC%\App_Data (
     ECHO Remove all files from the app data folder

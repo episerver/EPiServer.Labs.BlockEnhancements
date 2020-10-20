@@ -440,10 +440,6 @@
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\content-draft-view\page-data-controller-initializer.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\content-draft-view\styles.css" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\content-draft-view\toggle-content-draft-view-command.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\create-new-block-edit-form-container.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\get-tooltip.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\initializer.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\styles.css" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\translate-block-edit-form-container.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\browsable-content-area-mixin.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\content-area-editor.js" />
@@ -453,16 +449,11 @@
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\inline-command-mixin.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\contentarea-inline-publish.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\inline-send-for-review.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\update-commands.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\block-edit-form-container.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\block-menu-inline-edit.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\inline-edit.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\inline-publish.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\create-content-group-container-with-no-header.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\form-dialog.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\initializer.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\inline-edit.css" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\tooltip-patch.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-publish\commands\block-menu-inline-publish.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-publish\commands\block-menu-inline-send-for-review.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-publish\commands\update-commands.js" />

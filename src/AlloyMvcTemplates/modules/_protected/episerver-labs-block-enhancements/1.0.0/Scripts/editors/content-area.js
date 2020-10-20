@@ -4,7 +4,6 @@ define([
     "epi-cms/widget/overlay/Block",
     "epi-cms/contentediting/command/ContentAreaCommands",
     "episerver-labs-block-enhancements/editors/browsable-content-area-mixin",
-    "episerver-labs-block-enhancements/inline-editing/commands/update-commands",
     "episerver-labs-block-enhancements/inline-publish/commands/update-commands"
 ], function (
     declare,
@@ -12,7 +11,6 @@ define([
     Block,
     ContentAreaCommands,
     browsableContentAreaMixin,
-    updateInlineEditCommands,
     updateInlinePublishCommands
 ) {
     var CustomBlockClass = declare([Block], {

@@ -2,13 +2,11 @@ define([
     "dojo/_base/declare",
     "episerver-labs-block-enhancements/editors/browsable-content-area-mixin",
     "epi-cms/contentediting/editors/ContentAreaEditor",
-    "episerver-labs-block-enhancements/inline-editing/commands/update-commands",
     "episerver-labs-block-enhancements/inline-publish/commands/update-commands"
 ], function (
     declare,
     browsableContentAreaMixin,
     ContentAreaEditor,
-    updateInlineEditCommands,
     updateInlinePublishCommands
 ) {
     return declare([ContentAreaEditor, browsableContentAreaMixin], {

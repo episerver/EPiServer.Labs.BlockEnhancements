@@ -18,9 +18,7 @@ define([
         "episerver-labs-block-enhancements/inline-editing/block-edit-form-container",
         "episerver-labs-block-enhancements/create-new/translate-block-edit-form-container",
         "episerver-labs-block-enhancements/inline-editing/commands/inline-publish",
-        "epi/i18n!epi/cms/nls/episerverlabs.blockenhancements.ilineediting",
-
-        "xstyle/css!episerver-labs-block-enhancements/inline-editing/inline-edit.css",
+        "epi/i18n!epi/cms/nls/episerverlabs.blockenhancements.ilineediting"
     ],
 
     function (

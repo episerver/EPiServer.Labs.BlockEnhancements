@@ -4,7 +4,6 @@ define([
     "episerver-labs-block-enhancements/store-initializer",
     "episerver-labs-block-enhancements/status-indicator/initializer",
     "episerver-labs-block-enhancements/publish-with-local-content-items/initializer",
-    "episerver-labs-block-enhancements/inline-editing/initializer",
     "episerver-labs-block-enhancements/inline-publish/initializer",
     "episerver-labs-block-enhancements/content-draft-view/initializer",
     "episerver-labs-block-enhancements/telemetry/initializer"
@@ -14,7 +13,6 @@ define([
     storeInitializer,
     statusIndicatorInitializer,
     publishWithLocalContentItemsInitializer,
-    inlineEditingInitializer,
     inlinePublishInitializer,
     contentDraftViewInitializer,
     telemetryInitializer
@@ -29,9 +27,6 @@ define([
             }
             if (options.publishWithLocalContentItems) {
                 publishWithLocalContentItemsInitializer();
-            }
-            if (options.inlineEditing) {
-                inlineEditingInitializer();
             }
             if (options.inlinePublish) {
                 inlinePublishInitializer();

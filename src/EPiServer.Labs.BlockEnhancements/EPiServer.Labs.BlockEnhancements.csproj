@@ -190,11 +190,8 @@
     <Compile Include="ContentDraftView\ContentDraftViewInitializer.cs" />
     <Compile Include="ContentExtensions.cs" />
     <Compile Include="DependenciesResolver.cs" />
-    <Compile Include="InlineBlocksEditing\BlocksEditingMetadataExtender.cs" />
     <Compile Include="InlineBlocksEditing\ContentAreaDescriptor.cs" />
     <Compile Include="InlineBlocksEditing\ContentAreaInitializableModule.cs" />
-    <Compile Include="InlineBlocksEditing\InlineBlockEditSettingsAttribute.cs" />
-    <Compile Include="InlineBlocksEditing\InlineBlocksInitialization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatusIndicator\EnhancedStructureStoreModelTransform.cs" />
     <Compile Include="StatusIndicator\IsLocalContent.cs" />

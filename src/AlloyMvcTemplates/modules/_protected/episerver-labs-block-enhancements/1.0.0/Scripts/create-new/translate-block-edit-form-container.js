@@ -4,7 +4,7 @@ define([
     "dojo/Deferred",
     "dojo/when",
     "epi/dependency",
-    "episerver-labs-block-enhancements/inline-editing/block-edit-form-container",
+    "epi-cms/contentediting/inline-editing/BlockEditFormContainer",
     "epi-cms/contentediting/viewmodel/CreateLanguageBranchViewModel",
     "dojo/date/locale"
 ], function (

@@ -15,7 +15,7 @@ define([
         "epi/shell/command/_Command",
 
         "episerver-labs-block-enhancements/inline-editing/form-dialog",
-        "episerver-labs-block-enhancements/inline-editing/block-edit-form-container",
+        "epi-cms/contentediting/inline-editing/BlockEditFormContainer",
         "episerver-labs-block-enhancements/create-new/translate-block-edit-form-container",
         "episerver-labs-block-enhancements/inline-editing/commands/inline-publish",
         "epi/i18n!epi/cms/nls/episerverlabs.blockenhancements.ilineediting"

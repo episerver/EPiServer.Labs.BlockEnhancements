@@ -452,7 +452,6 @@
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\block-menu-inline-edit.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\inline-edit.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\inline-publish.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\create-content-group-container-with-no-header.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\form-dialog.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-publish\commands\block-menu-inline-publish.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-publish\commands\block-menu-inline-send-for-review.js" />

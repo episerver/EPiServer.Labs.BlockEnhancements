@@ -26,9 +26,6 @@ define([
             if (this.blockEnhancementsOptions.inlinePublish) {
                 updateInlinePublishCommands(this);
             }
-            if (this.blockEnhancementsOptions.inlineEditing) {
-                updateInlineEditCommands(this, this.blockEnhancementsOptions.inlineCreate);
-            }
         }
     });
 });

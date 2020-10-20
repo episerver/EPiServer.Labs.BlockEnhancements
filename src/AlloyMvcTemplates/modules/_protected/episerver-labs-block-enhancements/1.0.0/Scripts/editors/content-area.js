@@ -23,9 +23,6 @@ define([
             if (this.blockEnhancementsOptions.inlinePublish) {
                 updateInlinePublishCommands(this.commandProvider);
             }
-            if (this.blockEnhancementsOptions.inlineEditing) {
-                updateInlineEditCommands(this.commandProvider, this.blockEnhancementsOptions.inlineCreate);
-            }
             this.inherited(arguments);
         }
     });

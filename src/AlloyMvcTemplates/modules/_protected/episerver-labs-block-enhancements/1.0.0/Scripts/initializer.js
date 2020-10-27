@@ -6,7 +6,9 @@ define([
     "episerver-labs-block-enhancements/publish-with-local-content-items/initializer",
     "episerver-labs-block-enhancements/inline-publish/initializer",
     "episerver-labs-block-enhancements/content-draft-view/initializer",
-    "episerver-labs-block-enhancements/telemetry/initializer"
+    "episerver-labs-block-enhancements/telemetry/initializer",
+    "epi-cms/plugin-area/assets-pane",
+    "episerver-labs-block-enhancements/inline-editing/commands/inline-translate",
 ], function (
     declare,
     _Module,
@@ -15,7 +17,9 @@ define([
     publishWithLocalContentItemsInitializer,
     inlinePublishInitializer,
     contentDraftViewInitializer,
-    telemetryInitializer
+    telemetryInitializer,
+    assetsPanePluginArea,
+    InlineTranslate
 ) {
     return declare([_Module], {
         initialize: function () {
@@ -35,6 +39,10 @@ define([
                 contentDraftViewInitializer();
             }
 
+            if (options.inlineCreate) {
+                assetsPanePluginArea.add(InlineTranslate);
+            }
+            
             telemetryInitializer(options);
         }
     });

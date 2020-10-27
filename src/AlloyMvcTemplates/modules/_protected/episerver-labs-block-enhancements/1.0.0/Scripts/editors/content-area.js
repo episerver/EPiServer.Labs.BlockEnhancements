@@ -4,14 +4,16 @@ define([
     "epi-cms/widget/overlay/Block",
     "epi-cms/contentediting/command/ContentAreaCommands",
     "episerver-labs-block-enhancements/editors/browsable-content-area-mixin",
-    "episerver-labs-block-enhancements/inline-publish/commands/update-commands"
+    "episerver-labs-block-enhancements/inline-publish/commands/update-commands",
+    "episerver-labs-block-enhancements/inline-editing/commands/update-translate-command"
 ], function (
     declare,
     ContentArea,
     Block,
     ContentAreaCommands,
     browsableContentAreaMixin,
-    updateInlinePublishCommands
+    updateInlinePublishCommands,
+    updateInlineTranslateCommands
 ) {
     var CustomBlockClass = declare([Block], {
         blockEnhancementsOptions: {},
@@ -21,6 +23,11 @@ define([
             if (this.blockEnhancementsOptions.inlinePublish) {
                 updateInlinePublishCommands(this.commandProvider);
             }
+
+            if (this.blockEnhancementsOptions.inlineCreate) {
+                updateInlineTranslateCommands(this.commandProvider);
+            }
+            
             this.inherited(arguments);
         }
     });

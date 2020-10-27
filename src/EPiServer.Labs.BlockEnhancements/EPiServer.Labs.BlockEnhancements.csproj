@@ -58,7 +58,7 @@
       <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.20.0\lib\net461\EPiServer.Cms.AspNet.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Cms.Shell.UI, Version=11.30.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.30.1-feature-cms-16631-000489\lib\net461\EPiServer.Cms.Shell.UI.dll</HintPath>
+      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.30.1-feature-cms-16631-000501\lib\net461\EPiServer.Cms.Shell.UI.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Configuration, Version=11.20.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.20.0\lib\net461\EPiServer.Configuration.dll</HintPath>
@@ -91,13 +91,13 @@
       <HintPath>..\..\packages\EPiServer.CMS.Core.11.20.0\lib\net461\EPiServer.LinkAnalyzer.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Shell, Version=11.30.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.30.1-feature-cms-16631-000489\lib\net461\EPiServer.Shell.dll</HintPath>
+      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.30.1-feature-cms-16631-000501\lib\net461\EPiServer.Shell.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Shell.UI, Version=11.30.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.30.1-feature-cms-16631-000489\lib\net461\EPiServer.Shell.UI.dll</HintPath>
+      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.30.1-feature-cms-16631-000501\lib\net461\EPiServer.Shell.UI.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.UI, Version=11.30.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.30.1-feature-cms-16631-000489\lib\net461\EPiServer.UI.dll</HintPath>
+      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.30.1-feature-cms-16631-000501\lib\net461\EPiServer.UI.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Web.WebControls, Version=11.20.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.20.0\lib\net461\EPiServer.Web.WebControls.dll</HintPath>

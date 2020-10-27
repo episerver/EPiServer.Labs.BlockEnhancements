@@ -35,6 +35,10 @@ define([], function () {
         "episerver.cms.components.project.command.publishproject": {
             label: ""
         },
+        "episerver.cms.contentediting.inlineediting.inlinecommands.inlinepublish": {
+            error: "publish failed",
+            success: "publish succeeded"
+        }
     };
 
     return {

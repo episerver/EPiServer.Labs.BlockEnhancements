@@ -4,7 +4,7 @@ define([
     "dojo/Deferred",
     "epi/dependency",
     "epi-cms/contentediting/command/Publish",
-    "episerver-labs-block-enhancements/inline-editing/commands/inline-publish",
+    "epi-cms/contentediting/command/BlockInlinePublish",
     "episerver-labs-block-enhancements/publish-with-local-content-items/command"
 ], (
     stubModule,

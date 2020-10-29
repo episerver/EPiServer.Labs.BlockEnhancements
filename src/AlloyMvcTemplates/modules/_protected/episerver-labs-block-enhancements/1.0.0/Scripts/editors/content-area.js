@@ -24,7 +24,7 @@ define([
                 updateInlinePublishCommands(this.commandProvider);
             }
 
-            if (this.blockEnhancementsOptions.inlineCreate) {
+            if (this.blockEnhancementsOptions.inlineTranslate) {
                 updateInlineTranslateCommands(this.commandProvider);
             }
             

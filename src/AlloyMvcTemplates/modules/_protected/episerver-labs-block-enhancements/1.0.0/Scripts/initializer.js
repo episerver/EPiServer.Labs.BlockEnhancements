@@ -56,7 +56,7 @@ define([
                 contentDraftViewInitializer();
             }
 
-            if (options.inlineCreate) {
+            if (options.inlineTranslate) {
                 assetsPanePluginArea.add(InlineTranslate);
             }
             

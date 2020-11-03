@@ -30,8 +30,6 @@ define([], function () {
             command: { },
 			dialog: {}
         },
-        "episerverlabs.blockenhancements.inlinecommands.inlinepublish": {
-        },
         "episerver.cms.components.project.command.publishproject": {
             label: ""
         },

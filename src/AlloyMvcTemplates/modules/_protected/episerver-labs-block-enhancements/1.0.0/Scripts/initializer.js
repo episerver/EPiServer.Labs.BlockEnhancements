@@ -60,7 +60,10 @@ define([
                 assetsPanePluginArea.add(InlineTranslate);
             }
             
-            telemetryInitializer(options);
+            var trackingOptions = Object.assign({}, options);
+            delete trackingOptions.inlineCreate;
+            delete trackingOptions.inlineEditing;
+            telemetryInitializer(trackingOptions);
         }
     });
 });

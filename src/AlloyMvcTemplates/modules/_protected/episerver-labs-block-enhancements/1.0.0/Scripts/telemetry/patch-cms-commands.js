@@ -3,30 +3,34 @@ define([
     "epi-cms/contentediting/command/Publish",
     "epi-cms/project/command/PublishProject",
     "episerver-labs-block-enhancements/publish-with-local-content-items/command",
-    "episerver-labs-block-enhancements/telemetry/tracker"
+    "episerver-labs-block-enhancements/telemetry/tracker",
+    "episerver-telemetry-ui/track-projects"
 ], function (
     when,
     PublishCommand,
     PublishProjectCommand,
     SmartPublishCommand,
-    tracker) {
+    tracker,
+    trackProjects) {
     return function () {
         PublishCommand.prototype.commandType = "default";
 
         function trackPublishCommand (publishResult, model, commandType, additionalData) {
             var isPage = model.contentData.capabilities.isPage;
             var isBlock = model.contentData.capabilities.isBlock;
-
             // dont track if it's not a block or a page
             if (!isPage && !isBlock) {
                 return;
             }
 
-            tracker.trackEvent("publish", Object.assign({
-                commandType: commandType,
-                contentType: isPage ? "page" : "block",
-                publishResult: publishResult
-            }, additionalData));
+            trackProjects.getProjectState().then(function (isProjectSelected) {
+                tracker.trackEvent("publish", Object.assign({
+                    commandType: commandType,
+                    contentType: isPage ? "page" : "block",
+                    publishResult: publishResult,
+                    isProjectSelected: isProjectSelected
+                }, additionalData));
+            });
         }
 
         var originalExecute = PublishCommand.prototype.execute;

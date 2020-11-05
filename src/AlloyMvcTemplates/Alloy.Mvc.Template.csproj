@@ -166,8 +166,8 @@
     <Reference Include="EPiServer.Shell.UI, Version=11.30.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.30.1-feature-cms-16631-000501\lib\net461\EPiServer.Shell.UI.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Telemetry.UI, Version=1.0.7.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.Telemetry.UI.Core.1.0.7\lib\net45\EPiServer.Telemetry.UI.dll</HintPath>
+    <Reference Include="EPiServer.Telemetry.UI, Version=1.1.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPiServer.Telemetry.UI.Core.1.1.1-developerbuild-000782\lib\net45\EPiServer.Telemetry.UI.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.UI, Version=11.30.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.30.1-feature-cms-16631-000501\lib\net461\EPiServer.UI.dll</HintPath>

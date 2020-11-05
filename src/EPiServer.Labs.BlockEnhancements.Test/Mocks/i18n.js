@@ -24,7 +24,11 @@ define([], function () {
         },
         "episerver.cms.contentediting.toolbar.buttons": {
             publish: { },
-            sendforreview: {}
+            sendforreview: {},
+            createdraft: {
+                label: "",
+                title: ""
+            }
         },
         "episerverlabs.blockenhancements": {
             command: { },
@@ -36,6 +40,23 @@ define([], function () {
         "episerver.cms.contentediting.inlineediting.inlinecommands.inlinepublish": {
             error: "publish failed",
             success: "publish succeeded"
+        },
+        "episerver.cms.components.project.command.newproject": {
+            label: ""
+        },
+        "episerver.cms.components.project.command.renameproject": {
+            label: ""
+        },
+        "episerver.cms.components.project.command.removeproject": {
+            label: ""
+        },
+        "episerver.cms.components.project": {
+            preview: {
+                defaultoption: ""
+            },
+            selector: {
+                title: ""
+            }
         }
     };
 

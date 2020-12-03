@@ -59,7 +59,7 @@ function (
         postscript: function () {
             this.inherited(arguments);
 
-            this._enhancedStore = dependency.resolve("epi.storeregistry").get("episerver.cms.latestcontentversion");
+            this._contentLightStore = dependency.resolve("epi.storeregistry").get("epi.cms.content.light");
         },
 
         _execute: function () {
@@ -120,12 +120,12 @@ function (
 
         _getContentData: function () {
             // summary:
-            //      Get the latest content version
+            //      Get the content data from the light content store
             //
             // tags:
             //      protected
 
-            return this._enhancedStore.query({ id: this.model.contentLink });
+            return this._contentLightStore.query({ id: this.model.contentLink });
         },
 
         _onModelChange: function () {

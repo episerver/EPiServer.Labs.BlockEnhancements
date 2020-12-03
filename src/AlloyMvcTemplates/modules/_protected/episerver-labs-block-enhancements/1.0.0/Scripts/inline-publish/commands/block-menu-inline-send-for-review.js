@@ -1,10 +1,9 @@
 define([
     "dojo/_base/declare",
-    "episerver-labs-block-enhancements/inline-editing/commands/inline-send-for-review"
+    "epi-cms/contentediting/command/BlockInlineReadyToPublish",
 ], function (
     declare,
-    InlineSendForReview,
-    _InlineCommandMixin
+    InlineSendForReview
 ) {
     return declare([InlineSendForReview], {
         _onModelChange: function () {

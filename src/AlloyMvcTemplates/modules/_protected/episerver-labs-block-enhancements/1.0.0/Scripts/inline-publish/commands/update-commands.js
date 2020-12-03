@@ -1,6 +1,6 @@
 define([
     "episerver-labs-block-enhancements/inline-editing/commands/contentarea-inline-publish",
-    "episerver-labs-block-enhancements/inline-editing/commands/inline-send-for-review"
+    "epi-cms/contentediting/command/BlockInlineReadyToPublish"
 ], function (
     ContentAreaInlinePublish,
     InlineSendForReview

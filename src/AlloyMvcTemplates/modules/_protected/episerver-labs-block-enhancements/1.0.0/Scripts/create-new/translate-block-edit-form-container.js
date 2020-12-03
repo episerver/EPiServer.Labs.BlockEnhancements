@@ -16,15 +16,6 @@ define([
     BlockEditFormContainer,
     CreateLanguageBranchViewModel,
     locale) {
-
-    function format(date, fmt) {
-        return locale.format( date, {selector:"date", datePattern:fmt } );
-    };
-
-    function getName() {
-        return "Block" + format(new Date(), "yyyyMMddhhmmss");
-    }
-
     return declare([BlockEditFormContainer], {
         postMixInProperties: function () {
             this.inherited(arguments);
@@ -71,8 +62,13 @@ define([
                 errorHandle.remove();
                 deferred.resolve();
             });
-            var contentName = this.value.name || this.value.icontent_name || this.get("masterContentName") || getName();
-            this.createContentViewModel.set("contentName", contentName);
+            // value can be null when the property Name field is hiden
+            var contentName = this.value && (this.value.name || this.value.icontent_name) || this.get("masterContentName");
+            if (contentName) {
+                this.createContentViewModel.set("contentName", contentName);
+            } else {
+                this.createContentViewModel.set("autoGenerateName", true);
+            }
             this.createContentViewModel.set("properties", this.value);
             this.createContentViewModel.set("languageBranch", this.createContentViewModel.parent.missingLanguageBranch.preferredLanguage);
             this.createContentViewModel.set("masterLanguageVersionId", this.createContentViewModel.parent.contentLink);

@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="EPiServer.CMS.UI.Core">
-      <Version>11.30.1-feature-cms-16631-000489</Version>
+      <Version>11.30.2-feature-cms-16818-000553</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

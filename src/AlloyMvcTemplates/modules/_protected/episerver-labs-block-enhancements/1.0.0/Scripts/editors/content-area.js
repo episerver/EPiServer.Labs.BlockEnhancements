@@ -21,7 +21,7 @@ define([
         postCreate: function () {
             this.commandProvider = new ContentAreaCommands({model: this.viewModel});
             if (this.blockEnhancementsOptions.inlinePublish) {
-                updateInlinePublishCommands(this.commandProvider);
+                updateInlinePublishCommands(this.commandProvider, "content-area");
             }
 
             if (this.blockEnhancementsOptions.inlineTranslate) {

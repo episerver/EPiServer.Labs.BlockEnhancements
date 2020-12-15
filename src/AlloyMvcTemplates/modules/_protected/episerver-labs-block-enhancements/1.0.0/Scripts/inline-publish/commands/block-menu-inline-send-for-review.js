@@ -6,6 +6,8 @@ define([
     InlineSendForReview
 ) {
     return declare([InlineSendForReview], {
+        commandType: "assets-pane",
+        
         _onModelChange: function () {
             if (this.model instanceof Array) {
                 //this command should be available only if one item selected

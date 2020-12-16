@@ -24,7 +24,7 @@ define([
         postMixInProperties: function () {
             this.inherited(arguments);
             if (this.blockEnhancementsOptions.inlinePublish) {
-                updateInlinePublishCommands(this);
+                updateInlinePublishCommands(this, "content-area-editor");
             }
 
             if (this.blockEnhancementsOptions.inlineTranslate) {

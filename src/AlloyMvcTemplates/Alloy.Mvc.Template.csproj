@@ -96,13 +96,13 @@
       <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.20.3-pre-000510\lib\net461\EPiServer.Cms.AspNet.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Cms.Shell.UI, Version=11.32.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.32.0-pre-000557\lib\net461\EPiServer.Cms.Shell.UI.dll</HintPath>
+      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.32.0-pre-000564\lib\net461\EPiServer.Cms.Shell.UI.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Cms.TinyMce, Version=2.6.5.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.TinyMce.2.6.5\lib\net461\EPiServer.Cms.TinyMce.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Cms.UI.AspNetIdentity, Version=11.32.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.AspNetIdentity.11.32.0-pre-000557\lib\net461\EPiServer.Cms.UI.AspNetIdentity.dll</HintPath>
+      <HintPath>..\..\packages\EPiServer.CMS.UI.AspNetIdentity.11.32.0-pre-000564\lib\net461\EPiServer.Cms.UI.AspNetIdentity.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Configuration, Version=11.20.3.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.20.3-pre-000510\lib\net461\EPiServer.Configuration.dll</HintPath>
@@ -161,16 +161,16 @@
       <HintPath>..\..\packages\EPiServer.ServiceLocation.StructureMap.2.0.1\lib\net461\EPiServer.ServiceLocation.StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Shell, Version=11.32.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.32.0-pre-000557\lib\net461\EPiServer.Shell.dll</HintPath>
+      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.32.0-pre-000564\lib\net461\EPiServer.Shell.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Shell.UI, Version=11.32.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.32.0-pre-000557\lib\net461\EPiServer.Shell.UI.dll</HintPath>
+      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.32.0-pre-000564\lib\net461\EPiServer.Shell.UI.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Telemetry.UI, Version=1.3.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.Telemetry.UI.Core.1.3.0-pre-000621\lib\net45\EPiServer.Telemetry.UI.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.UI, Version=11.32.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.32.0-pre-000557\lib\net461\EPiServer.UI.dll</HintPath>
+      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.32.0-pre-000564\lib\net461\EPiServer.UI.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Web.WebControls, Version=11.20.3.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.20.3-pre-000510\lib\net461\EPiServer.Web.WebControls.dll</HintPath>
@@ -544,10 +544,10 @@
     <Content Include="Views\TestPage\Index.cshtml" />
     <Content Include="modules\_protected\episerver-labs-configuration-manager\web.config" />
     <Content Include="modules\_protected\episerver-labs-configuration-manager\episerver-labs-configuration-manager.zip" />
-    <Content Include="modules\_protected\CMS\web.config" />
-    <Content Include="modules\_protected\CMS\CMS.zip" />
     <Content Include="modules\_protected\episerver-telemetry-ui\web.config" />
     <Content Include="modules\_protected\episerver-telemetry-ui\episerver-telemetry-ui.zip" />
+    <Content Include="modules\_protected\CMS\web.config" />
+    <Content Include="modules\_protected\CMS\CMS.zip" />
     <None Include="modules\_protected\EPiServer.Forms.UI\EPiServer.Forms.UI.zip" />
     <None Include="modules\_protected\EPiServer.Forms.UI\module.config" />
     <None Include="modules\_protected\EPiServer.Forms\EPiServer.Forms.zip" />

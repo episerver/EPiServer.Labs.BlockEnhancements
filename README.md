@@ -12,7 +12,7 @@ The list of current features is as following:
 * [Telemetry opt-in](#telemetry-opt-in)
 * [Translate](#translate)
 
-**Note**: The features from Labs are now moved to CMS UI core (Enabled from EPiServer.CMS.UI 11.31.0):
+**Note**: The features from Labs are now moved to CMS UI core (Enabled from EPiServer.CMS.UI 11.32.0):
 * Inline block editing
 * Inline Create
 

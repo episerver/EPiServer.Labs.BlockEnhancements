@@ -4,7 +4,7 @@ define([
     "dojo/Deferred",
     "epi/dependency",
     "epi-cms/contentediting/command/Publish",
-    "episerver-labs-block-enhancements/inline-editing/commands/inline-publish",
+    "epi-cms/contentediting/command/BlockInlinePublish",
     "episerver-labs-block-enhancements/publish-with-local-content-items/command"
 ], (
     stubModule,
@@ -37,6 +37,9 @@ define([
             return stubModule("episerver-labs-block-enhancements/telemetry/patch-cms-commands", {
                 "episerver-labs-block-enhancements/telemetry/tracker": {
                     trackEvent: trackEventFn
+                },
+                "episerver-telemetry-ui/track-projects": {
+                    getProjectState: sinon.stub().returns(new Deferred().resolve(true))
                 }
             }).then(function (module) {
                 module();

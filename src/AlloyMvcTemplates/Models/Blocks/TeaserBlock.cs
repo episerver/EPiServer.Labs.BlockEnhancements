@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using EPiServer.Cms.Shell.UI.ObjectEditing;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
-using EPiServer.Labs.BlockEnhancements.InlineBlocksEditing;
 using EPiServer.Web;
 
 namespace AlloyTemplates.Models.Blocks

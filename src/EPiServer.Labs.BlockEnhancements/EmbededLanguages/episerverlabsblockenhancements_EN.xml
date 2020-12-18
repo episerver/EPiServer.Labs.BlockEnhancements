@@ -22,15 +22,9 @@
             <save>Save</save>
           </dialog>
           <browseexistingitems>browse existing content</browseexistingitems>
-          <doubleclicktoinlineedit>Double click to inline edit</doubleclicktoinlineedit>
-          <inlineblockedit>Inline block edit</inlineblockedit>
           <inlinetranslate>Create {missingLanguage} language version</inlinetranslate>
         </ilineediting>
         <inlinecommands>
-          <inlinepublish>
-            <error>Content publish failed</error>
-            <success>was published successfully</success>
-          </inlinepublish>
           <inlinereadytopublish>
             <error>Could not mark as Ready to Publish</error>
             <success>was marked as Ready to Publish successfully</success>

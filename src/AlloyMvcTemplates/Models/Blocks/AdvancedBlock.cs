@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using EPiServer.Cms.Shell.UI.ObjectEditing;
 using EPiServer.DataAbstraction;
-using EPiServer.Labs.BlockEnhancements.InlineBlocksEditing;
 
 namespace AlloyTemplates.Models.Blocks
 {

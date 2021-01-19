@@ -6,13 +6,15 @@ The page is selected at all times and all actions around local blocks is perform
 
 The list of current features is as following:
 * [Smart publish](#smart-publish)
-* [Inline block editing](#inline-block-editing)
 * [Showing block status on content area](#showing-block-status-on-content-area)
 * [Inline publishing](#inline-publish)
 * [Content Draft View](#content-draft-view)
-* [Inline Create](#inline-create)
 * [Telemetry opt-in](#telemetry-opt-in)
 * [Translate](#translate)
+
+**Note**: The features from Labs are now moved to CMS UI core (Enabled from EPiServer.CMS.UI 11.32.0):
+* Inline block editing
+* Inline Create
 
 All of those features work together, but you can decide which ones are enabled, by [Configuring enabled features](#configuring-enabled-features)
 
@@ -37,93 +39,6 @@ Combining that "Smart" aspect of the new command with an existing "Inline Edit" 
 A more advanced scenario can look something like this:
 
 ![Publish content with local blocks](assets/docsimages/smart_publish_2_bootstrap.gif)
-
-## Inline block editing
-
-This feature allows editors to edit block content directly on the page.
-
-In order for the changes to appear in OPE without refreshing the page, **Content Draft View** must be enabled and draft mode must be active.
-
-Any block that the current editor has rights to can now be double-clicked which will open a dialog box with an editable block form.
-
-![Double click to edit inline](assets/docsimages/double_click_inline_edit.gif)
-
-Alternatively, there is a new **"Inline block edit"** command added to content area items menu.
-
-![Inline block editing command](assets/docsimages/inline_edit.png)
-
-The editor can edit blocks the same way as when switching to blocks editing context.
-
-![Inline block editing default form](assets/docsimages/inline_edit_advanced_block.png)
-
-As you can see, the layout is a bit different than in the Forms view. Tabs are replaced with sections which makes more sense for blocks that usually have only a few properties.
-
-The changes can also be published directly from the dialog box.
-
-Additionally, the command is available from the assets pane.
-
-![Inline block editing from assets](assets/docsimages/inline_edit_from_blocks_component.png)
-
-In many scenarios, blocks are not using `Name` and `Categories` properties during rendering.
-This is the reason why we introduced the `InlineBlockEditSettings` configuration attribute.
-You can apply it to your block content type and hide those properties.
-Additionally, you can also use this attribute to hide specific groups to make the editing form cleaner.
-
-The attribute contains three properties:
-
-Property | Default value | Description
------------- | ------------- | -------------
-ShowNameProperty | false | When `true`, then `Name` property will be displayed
-ShowCategoryProperty | false | When `true`, then `Categories` property will be displayed
-HiddenGroups | Advanced | Comma-separated list of tabs that should be hidden
-
-For example, the only property that is editable for the Editorial block type in the Alloy templates is "Main body".
-There is no need to display other built-in properties or group properties into sections:
-
-![Inline block editing with publish and tinymce](assets/docsimages/inline_edit_Editorial_block.png)
-
-Another example is the Teaser block which has just a few simple properties:
-
-![Inline block editing enhanced form](assets/docsimages/inline_edit_dialog.png)
-
-To turn on `Name` property:
-
-```csharp
-[SiteContentType(GUID = "67F617A4-2175-4360-975E-75EDF2B924A7",
-    GroupName = SystemTabNames.Content)]
-[SiteImageUrl]
-[InlineBlockEditSettings(ShowNameProperty = true)]
-public class EditorialBlock : SiteBlockData
-{
-    [Display(GroupName = SystemTabNames.Content)]
-    [CultureSpecific]
-    public virtual XhtmlString MainBody { get; set; }
-}
-```
-
-And below how to display `Name` and `Categories` properties and `Settings` group.
-
-```csharp
-[SiteContentType(GUID = "9E7F6DF5-A963-40C4-8683-211C4FA48AE1")]
-[SiteImageUrl]
-[InlineBlockEditSettings(ShowNameProperty = true, ShowCategoryProperty = true, HiddenGroups = "")]
-public class AdvancedBlock : SiteBlockData
-{
-    [Display(Order = 1, GroupName = SystemTabNames.Content)]
-    public virtual string Text1 { get; set; }
-
-    [Display(Order = 2, GroupName = SystemTabNames.Content)]
-    public virtual string Text2 { get; set; }
-
-    [Display(Order = 1, GroupName = Global.GroupNames.Products)]
-    public virtual string Text3 { get; set; }
-
-    [Display(Order = 2, GroupName = Global.GroupNames.Products)]
-    public virtual string Text4 { get; set; }
-}
-```
-
-![Inline blocks edit](assets/docsimages/inline_edit_demo.gif)
 
 ## Showing block status on content area
 
@@ -168,24 +83,6 @@ The editor can use the new **"Content Draft View"** button to get an overview of
 
 ![Content draft demo](assets/docsimages/content_draft_view_demo.gif)
 
-## Inline Create
-
-Allow editors to create & publish new blocks inline, without the need to leave the current content context.
-
-This feature also works in nested block scenarios, so let's say an editor can create a Row Block instance and then add child blocks to that Row. All those operations can be done without leaving the parent page context.
-
-All new blocks are published automatically. It works both in On-Page Edit (OPE) and in regular Forms view.
-
-After clicking "Create new block" link the editor will be prompted with a content type list dialog:
-
-![Content type list dialog](assets/docsimages/create_new_block_dialog.png)
-
-After choosing the content type the editor will see the inline edit form straight away. All properties will be included (both required and optional):
-
-![Create new block form](assets/docsimages/create_new_edit_form.png)
-
-![Create new demo](assets/docsimages/create_new_nested_block.gif)
-
 ## Configuring enabled features
 
 To turn off one or more feature, use the [BlockEnhancementsOptions](#BlockEnhancementsOptions) options class and then, for example, in the initialization module, set `false` on the feature that should not be available. All features are enabled by default.
@@ -199,7 +96,6 @@ public class CustomBlockEnhancementsModule : IConfigurableModule
     {
         context.Services.Configure<BlockEnhancementsOptions>(options =>
         {
-            options.InlineEditing = false;
             options.PublishWithLocalContentItems = true;
             options.ContentDraftView = true;
             options.InlinePublish = false;
@@ -208,7 +104,7 @@ public class CustomBlockEnhancementsModule : IConfigurableModule
                 {
                     ContentAreaBrowse = true
                 };
-            options.InlineCreate = true;
+            options.InlineTranslate = true;
         });
     }
 
@@ -222,13 +118,12 @@ public class CustomBlockEnhancementsModule : IConfigurableModule
 
  | Option        | Default           | Description  |
  | ---- | ---- | ---- |
- | InlineEditing | true | Show the command to edit content item inline, without switching context |
  | PublishWithLocalContentItems | true | Show 'Publish page & blocks' command in the top menu |
  | ContentDraftView | true | Allow editors to preview the page with as if it was published |
  | InlinePublish | true |  Show the command to publish item directly from Content Area or assets pane |
  | StatusIndicator | true | Show the content status next to Content Area items |
  | ContentAreaSettings | [ContentAreaSettings](#ContentAreaSettings) | Settings related to Content Areas |
- | InlineCreate | false | Create new content items inline, without switching context |
+ | InlineTranslate | true | Translate content items inline, without switching context |
 
 ### ContentAreaSettings
 
@@ -269,13 +164,11 @@ https://nuget.episerver.com/package/?id=EPiServer.Labs.BlockEnhancements
 
 In case that a content item does not exist in the current edit language a new command will be presented instead of the default 'inline-edit'.
 
-In is the equivalent of navigating to the content item and clicking 'Translate' button in the Publishing Menu.
+It is the equivalent of navigating to the content item and clicking 'Translate' button in the Publishing Menu.
 
 The new command lets the user to stay in the current context at all times:
 
 ![Translate](assets/docsimages/translate.gif)
-
-One the content is translated all other "inline" commands like "inline-edit" and "inline-publish" become available.
 
 ## Telemetry information
 
@@ -304,9 +197,8 @@ Includes keys in `customDimensions` that correspond to a feature, and the value 
 
 * `contentAreaBrowse`: Extra button in the content area that [displays the content selector](assets/docsimages/create_new_nested_block.gif) for [Inline Create](#inline-create).
 * `contentDraftView`: [Content Draft View](#content-draft-view)
-* `inlineCreate`: [Inline Create](#inline-create)
-* `inlineEditing`: [Inline block editing](#inline-block-editing)
 * `inlinePublish`: [Inline publishing](#inline-publish)
+* `inlineTranslate`: [Inline translate](#translate)
 * `publishWithLocalContentItems`: [Smart publish](#smart-publish)
 * `statusIndicator`: [Showing block status on content area](#showing-block-status-on-content-area)
 

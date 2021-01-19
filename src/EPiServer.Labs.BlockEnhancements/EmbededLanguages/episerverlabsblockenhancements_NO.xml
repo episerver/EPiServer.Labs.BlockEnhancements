@@ -22,15 +22,9 @@
             <save>Lagre</save>
           </dialog>
           <browseexistingitems>velg innhold</browseexistingitems>
-          <doubleclicktoinlineedit>Dobbelklikk for å redigere inline</doubleclicktoinlineedit>
-          <inlineblockedit>Rediger inline</inlineblockedit>
           <inlinetranslate>Opprett {missingLanguage} språkversjon</inlinetranslate>
         </ilineediting>
         <inlinecommands>
-          <inlinepublish>
-            <error>Innholdspublisering mislykkes</error>
-            <success>ble publisert</success>
-          </inlinepublish>
           <inlinereadytopublish>
             <error>Det gikk ikke å merke som klar for publisering</error>
             <success>ble merket som klar for publisering</success>

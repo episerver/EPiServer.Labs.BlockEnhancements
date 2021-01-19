@@ -1,14 +1,14 @@
 define([
     "dojo/_base/declare",
-    "episerver-labs-block-enhancements/inline-editing/commands/inline-publish",
+    "epi-cms/contentediting/command/BlockInlinePublish",
     "epi/i18n!epi/cms/nls/episerver.cms.contentediting.toolbar.buttons"
 ], function (
     declare,
-    InlinePublish,
+    BlockInlinePublish,
     resources
 ) {
 
-    return declare([InlinePublish], {
+    return declare([BlockInlinePublish], {
         commandType: "content-area",
 
         _setCommandVisibility: function (visible) {

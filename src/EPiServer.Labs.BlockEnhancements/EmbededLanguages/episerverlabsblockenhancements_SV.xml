@@ -22,15 +22,9 @@
             <save>Spara</save>
           </dialog>
           <browseexistingitems>välj innehåll</browseexistingitems>
-          <doubleclicktoinlineedit>Dubbelklicka för att redigera inline</doubleclicktoinlineedit>
-          <inlineblockedit>Redigera inline</inlineblockedit>
           <inlinetranslate>Skapa {missingLanguage} språkversion</inlinetranslate>
         </ilineediting>
         <inlinecommands>
-          <inlinepublish>
-            <error>Innehållspublicering misslyckades</error>
-            <success>publicerades framgångsrikt</success>
-          </inlinepublish>
           <inlinereadytopublish>
             <error>Det gick inte att markera som redo att publicera</error>
             <success>markerades som redo att publiceras framgångsrikt</success>

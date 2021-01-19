@@ -1,4 +1,4 @@
-using EPiServer.Framework;
+﻿using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
 using EPiServer.Labs.BlockEnhancements;
 using EPiServer.ServiceLocation;
@@ -13,7 +13,6 @@ namespace AlloyTemplates.Business.Initialization
         {
             context.Services.Configure<BlockEnhancementsOptions>(options =>
             {
-                options.InlineEditing = true;
                 options.PublishWithLocalContentItems = true;
                 options.ContentDraftView = true;
                 options.InlinePublish = true;
@@ -22,7 +21,7 @@ namespace AlloyTemplates.Business.Initialization
                 {
                     ContentAreaBrowse = true
                 };
-                options.InlineCreate = true;
+                options.InlineTranslate = true;
             });
         }
 

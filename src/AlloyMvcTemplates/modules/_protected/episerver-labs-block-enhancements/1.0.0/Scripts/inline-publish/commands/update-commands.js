@@ -1,11 +1,11 @@
 define([
     "episerver-labs-block-enhancements/inline-editing/commands/contentarea-inline-publish",
-    "episerver-labs-block-enhancements/inline-editing/commands/inline-send-for-review"
+    "epi-cms/contentediting/command/BlockInlineReadyToPublish"
 ], function (
     ContentAreaInlinePublish,
     InlineSendForReview
 ) {
-    return function updateCommands(commandsOwner) {
+    return function updateCommands(commandsOwner, commandType) {
         var removeCommand = commandsOwner.commands.filter(function (x) {
             return x.name === "remove";
         })[0];
@@ -19,6 +19,7 @@ define([
         commandsOwner.own(inlinePublish);
 
         var inlineSendForReview = new InlineSendForReview();
+        inlineSendForReview.set("commandType", commandType);
         commandsOwner.commands.splice(removeCommandIndex, 0, inlineSendForReview);
         commandsOwner.own(inlineSendForReview);
     }

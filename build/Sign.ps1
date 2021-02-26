@@ -75,7 +75,7 @@ foreach ($assembly in $assemblies)
     }
 }
 
-$url = "http://timestamp.verisign.com/scripts/timstamp.dll"
+$url = "http://timestamp.digicert.com/scripts/timstamp.dll"
 $cert = Get-Cert
 if ($cert -eq $null)
 {

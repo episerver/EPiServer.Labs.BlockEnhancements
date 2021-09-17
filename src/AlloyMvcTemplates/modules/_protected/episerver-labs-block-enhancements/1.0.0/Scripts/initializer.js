@@ -4,8 +4,9 @@ define([
     "epi/_Module",
     "episerver-labs-block-enhancements/store-initializer",
     "episerver-labs-block-enhancements/status-indicator/initializer",
-    "episerver-labs-block-enhancements/publish-with-local-content-items/initializer",
+    "episerver-labs-block-enhancements/publish-page-with-blocks/initializer",
     "episerver-labs-block-enhancements/telemetry/initializer",
+    "episerver-labs-block-enhancements/inline-editing/initializer",
     "epi-cms/plugin-area/assets-pane",
     "episerver-labs-block-enhancements/inline-editing/commands/inline-translate",
     "epi-cms/contentediting/inline-editing/BlockEditFormContainer"
@@ -15,8 +16,9 @@ define([
     _Module,
     storeInitializer,
     statusIndicatorInitializer,
-    publishWithLocalContentItemsInitializer,
+    publishPageWithBlocksInitializer,
     telemetryInitializer,
+    inlineEditingInitializer,
     assetsPanePluginArea,
     InlineTranslate,
     BlockEditFormContainer
@@ -42,8 +44,8 @@ define([
             if (options.statusIndicator) {
                 statusIndicatorInitializer();
             }
-            if (options.publishWithLocalContentItems) {
-                publishWithLocalContentItemsInitializer();
+            if (options.publishPageWithBlocks) {
+                publishPageWithBlocksInitializer();
             }
 
             if (options.inlineTranslate) {
@@ -52,6 +54,8 @@ define([
 
             var trackingOptions = Object.assign({}, options);
             telemetryInitializer(trackingOptions);
+
+            inlineEditingInitializer(options);
         }
     });
 });

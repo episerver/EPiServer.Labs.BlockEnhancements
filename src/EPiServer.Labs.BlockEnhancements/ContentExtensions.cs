@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using EPiServer.Cms.Shell.UI.Rest.Models.Internal;
 using EPiServer.Core;
 
@@ -31,6 +32,15 @@ namespace EPiServer.Labs.BlockEnhancements
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Determines if <see cref="ContentReference"/> is in "For this page" folder
+        /// </summary>
+        public static bool IsLocalContent(this IContentLoader contentLoader, ContentReference contentLink)
+        {
+            return contentLoader.GetAncestors(contentLink).Any(x =>
+                x is ContentAssetFolder folder && folder.ContentOwnerID != Guid.Empty);
         }
     }
 }

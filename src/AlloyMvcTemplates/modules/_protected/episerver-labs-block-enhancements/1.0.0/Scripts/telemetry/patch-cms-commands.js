@@ -2,7 +2,7 @@ define([
     "dojo/when",
     "epi-cms/contentediting/command/Publish",
     "epi-cms/project/command/PublishProject",
-    "episerver-labs-block-enhancements/publish-with-local-content-items/command",
+    "episerver-labs-block-enhancements/publish-page-with-blocks/command",
     "episerver-labs-block-enhancements/telemetry/tracker",
     "episerver-telemetry-ui/track-projects"
 ], function (

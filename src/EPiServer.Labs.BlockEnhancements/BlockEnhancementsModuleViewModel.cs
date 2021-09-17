@@ -1,5 +1,4 @@
-﻿using System;
-using EPiServer.Framework.Web.Resources;
+﻿using EPiServer.Framework.Web.Resources;
 using EPiServer.ServiceLocation;
 using EPiServer.Shell.Modules;
 using EPiServer.Shell.ObjectEditing.EditorDescriptors;
@@ -10,8 +9,10 @@ namespace EPiServer.Labs.BlockEnhancements
     public class BlockEnhancementsOptions
     {
         public bool StatusIndicator { get; set; } = true;
-        public bool PublishWithLocalContentItems { get; set; } = false;
+        public bool PublishPageWithBlocks { get; set; } = true;
         public bool InlineTranslate { get; set; } = true;
+        public bool HideForThisFolder { get; set; } = true;
+        public bool LocalContentFeatureEnabled { get; set; } = true;
         public ContentAreaSettings ContentAreaSettings { get; set; } = new ContentAreaSettings();
     }
 

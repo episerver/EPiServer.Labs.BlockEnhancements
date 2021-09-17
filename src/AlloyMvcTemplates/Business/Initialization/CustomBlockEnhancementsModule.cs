@@ -13,7 +13,7 @@ namespace AlloyTemplates.Business.Initialization
         {
             context.Services.Configure<BlockEnhancementsOptions>(options =>
             {
-                options.PublishWithLocalContentItems = false;
+                options.PublishPageWithBlocks = false;
                 options.StatusIndicator = true;
                 options.ContentAreaSettings = new ContentAreaSettings
                 {

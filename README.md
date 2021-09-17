@@ -5,17 +5,21 @@ The vision is to make it possible to edit and publish blocks directly on the pag
 The page is selected at all times and all actions around local blocks is performed inline.
 
 The list of current features is as following:
-* [Smart publish](#smart-publish)
+* [Local content](#local-content)
+* [Publish Page and Blocks](#smart-publish)
 * [Showing block status on content area](#showing-block-status-on-content-area)
-* [Inline publishing](#inline-publish)
 * [Telemetry opt-in](#telemetry-opt-in)
 * [Translate](#translate)
 
-**Note**: The features from Labs are now moved to CMS UI core (Enabled from EPiServer.CMS.UI 11.32.0):
+**Note**: The features from Labs are now moved to CMS UI core (Enabled from EPiServer.CMS.UI 11.36.0):
 * Inline block editing
 * Inline Create
 
 All of those features work together, but you can decide which ones are enabled, by [Configuring enabled features](#configuring-enabled-features)
+
+## Local content
+
+//TODO: add docs
 
 ## Publish Page and Blocks
 
@@ -50,38 +54,6 @@ Additionally to help distinguish local blocks from shared blocks, there is a new
 
 Thanks to those flags, the editor can easily see if the page is ready to be published or not.
 
-## Inline publish
-
-This feature is just a convenient way to publish Content Area Items directly from the list, without the need of switching context.
-
-There is a new command available in the content area menu.
-
-![Publish content with local blocks](assets/docsimages/inline_publish.png)
-
-And also from the assets pane.
-
-![Publish content with local blocks](assets/docsimages/inline_publish_from_blocks_component.png)
-
-![Publish content with local blocks](assets/docsimages/inline_publish_demo.gif)
-
-## Content Draft View
-
-Allow editors to preview draft versions of content area blocks.
-
-There is now a new button in the top bar.
-
-![Toggle draft view](assets/docsimages/content_draft_view.png)
-
-By default in edit view, the editor sees the published blocks versions when a page is rendered.
-
-![Published content view](assets/docsimages/content_draft_view_published_content.png)
-
-The editor can use the new **"Content Draft View"** button to get an overview of how the page will look after all blocks have been published.
-
-![Unpublished content view](assets/docsimages/content_draft_view_unpublished_content.png)
-
-![Content draft demo](assets/docsimages/content_draft_view_demo.gif)
-
 ## Configuring enabled features
 
 To turn off one or more feature, use the [BlockEnhancementsOptions](#BlockEnhancementsOptions) options class and then, for example, in the initialization module, set `false` on the feature that should not be available. All features are enabled by default.
@@ -95,7 +67,7 @@ public class CustomBlockEnhancementsModule : IConfigurableModule
     {
         context.Services.Configure<BlockEnhancementsOptions>(options =>
         {
-            options.PublishWithLocalContentItems = true;            
+            options.PublishPageWithBlocks = true;            
             options.StatusIndicator = false;
             options.ContentAreaSettings = new ContentAreaSettings
                 {
@@ -115,7 +87,9 @@ public class CustomBlockEnhancementsModule : IConfigurableModule
 
  | Option        | Default           | Description  |
  | ---- | ---- | ---- |
- | PublishWithLocalContentItems | true | Show 'Publish page & blocks' command in the top menu |
+ | LocalContentFeatureEnabled | true | Connect local content items to its parent page | 
+ | HideForThisFolder | true | Do not show `For this page` folder in the Blocks Asset Pane |
+ | PublishPageWithBlocks | true | Show 'Publish page & blocks' command in the top menu |
  | StatusIndicator | true | Show the content status next to Content Area items |
  | ContentAreaSettings | [ContentAreaSettings](#ContentAreaSettings) | Settings related to Content Areas |
  | InlineTranslate | true | Translate content items inline, without switching context |
@@ -191,8 +165,10 @@ Additionally we are tracking:
 Includes keys in `customDimensions` that correspond to a feature, and the value is a `boolean` (where `true` means the feature is enabled):
 
 * `contentAreaBrowse`: Extra button in the content area that [displays the content selector](assets/docsimages/create_new_nested_block.gif) for [Inline Create](#inline-create).
+* `hideForThisFolder`: Do not show `For this page` folder in Blocks Asset Pane
+* `localContentFeatureEnabled`: [Local content](#local-content)
 * `inlineTranslate`: [Inline translate](#translate)
-* `publishWithLocalContentItems`: [Smart publish](#smart-publish)
+* `publishPageWithBlocks`: [Smart publish](#smart-publish)
 * `statusIndicator`: [Showing block status on content area](#showing-block-status-on-content-area)
 
 #### `publish`

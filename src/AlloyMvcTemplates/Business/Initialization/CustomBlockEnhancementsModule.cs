@@ -13,9 +13,7 @@ namespace AlloyTemplates.Business.Initialization
         {
             context.Services.Configure<BlockEnhancementsOptions>(options =>
             {
-                options.PublishWithLocalContentItems = true;
-                options.ContentDraftView = true;
-                options.InlinePublish = true;
+                options.PublishWithLocalContentItems = false;
                 options.StatusIndicator = true;
                 options.ContentAreaSettings = new ContentAreaSettings
                 {

@@ -18,18 +18,9 @@
           <confirmation>Dessa är opublicerade innehåll som används.&lt;br/&gt;Välj de som du vill publicera samtidigt.</confirmation>
         </dialog>
         <ilineediting>
-          <dialog>
-            <save>Spara</save>
-          </dialog>
           <browseexistingitems>välj innehåll</browseexistingitems>
           <inlinetranslate>Skapa {missingLanguage} språkversion</inlinetranslate>
         </ilineediting>
-        <inlinecommands>
-          <inlinereadytopublish>
-            <error>Det gick inte att markera som redo att publicera</error>
-            <success>markerades som redo att publiceras framgångsrikt</success>
-          </inlinereadytopublish>
-        </inlinecommands>
       </blockenhancements>
     </episerverlabs>
   </language>

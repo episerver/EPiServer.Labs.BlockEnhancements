@@ -8,7 +8,6 @@ The list of current features is as following:
 * [Smart publish](#smart-publish)
 * [Showing block status on content area](#showing-block-status-on-content-area)
 * [Inline publishing](#inline-publish)
-* [Content Draft View](#content-draft-view)
 * [Telemetry opt-in](#telemetry-opt-in)
 * [Translate](#translate)
 
@@ -96,9 +95,7 @@ public class CustomBlockEnhancementsModule : IConfigurableModule
     {
         context.Services.Configure<BlockEnhancementsOptions>(options =>
         {
-            options.PublishWithLocalContentItems = true;
-            options.ContentDraftView = true;
-            options.InlinePublish = false;
+            options.PublishWithLocalContentItems = true;            
             options.StatusIndicator = false;
             options.ContentAreaSettings = new ContentAreaSettings
                 {
@@ -119,8 +116,6 @@ public class CustomBlockEnhancementsModule : IConfigurableModule
  | Option        | Default           | Description  |
  | ---- | ---- | ---- |
  | PublishWithLocalContentItems | true | Show 'Publish page & blocks' command in the top menu |
- | ContentDraftView | true | Allow editors to preview the page with as if it was published |
- | InlinePublish | true |  Show the command to publish item directly from Content Area or assets pane |
  | StatusIndicator | true | Show the content status next to Content Area items |
  | ContentAreaSettings | [ContentAreaSettings](#ContentAreaSettings) | Settings related to Content Areas |
  | InlineTranslate | true | Translate content items inline, without switching context |
@@ -196,8 +191,6 @@ Additionally we are tracking:
 Includes keys in `customDimensions` that correspond to a feature, and the value is a `boolean` (where `true` means the feature is enabled):
 
 * `contentAreaBrowse`: Extra button in the content area that [displays the content selector](assets/docsimages/create_new_nested_block.gif) for [Inline Create](#inline-create).
-* `contentDraftView`: [Content Draft View](#content-draft-view)
-* `inlinePublish`: [Inline publishing](#inline-publish)
 * `inlineTranslate`: [Inline translate](#translate)
 * `publishWithLocalContentItems`: [Smart publish](#smart-publish)
 * `statusIndicator`: [Showing block status on content area](#showing-block-status-on-content-area)

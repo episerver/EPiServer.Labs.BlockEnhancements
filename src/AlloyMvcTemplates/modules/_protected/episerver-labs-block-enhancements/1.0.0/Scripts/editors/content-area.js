@@ -4,7 +4,6 @@ define([
     "epi-cms/widget/overlay/Block",
     "epi-cms/contentediting/command/ContentAreaCommands",
     "episerver-labs-block-enhancements/editors/browsable-content-area-mixin",
-    "episerver-labs-block-enhancements/inline-publish/commands/update-commands",
     "episerver-labs-block-enhancements/inline-editing/commands/update-translate-command"
 ], function (
     declare,
@@ -12,7 +11,6 @@ define([
     Block,
     ContentAreaCommands,
     browsableContentAreaMixin,
-    updateInlinePublishCommands,
     updateInlineTranslateCommands
 ) {
     var CustomBlockClass = declare([Block], {
@@ -20,14 +18,11 @@ define([
 
         postCreate: function () {
             this.commandProvider = new ContentAreaCommands({model: this.viewModel});
-            if (this.blockEnhancementsOptions.inlinePublish) {
-                updateInlinePublishCommands(this.commandProvider, "content-area");
-            }
 
             if (this.blockEnhancementsOptions.inlineTranslate) {
                 updateInlineTranslateCommands(this.commandProvider);
             }
-            
+
             this.inherited(arguments);
         }
     });

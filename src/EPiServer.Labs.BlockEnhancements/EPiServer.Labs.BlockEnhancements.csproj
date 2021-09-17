@@ -185,16 +185,12 @@
     <Compile Include="ApprovalResolver.cs" />
     <Compile Include="BlockEnhancementsModuleViewModel.cs" />
     <Compile Include="BlockEnhancementsStore.cs" />
-    <Compile Include="ContentDraftView\ContentDraftView.cs" />
-    <Compile Include="ContentDraftView\CustomContentAreaLoader.cs" />
-    <Compile Include="ContentDraftView\ContentDraftViewInitializer.cs" />
     <Compile Include="ContentExtensions.cs" />
     <Compile Include="DependenciesResolver.cs" />
     <Compile Include="InlineBlocksEditing\ContentAreaDescriptor.cs" />
     <Compile Include="InlineBlocksEditing\ContentAreaInitializableModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatusIndicator\EnhancedStructureStoreModelTransform.cs" />
-    <Compile Include="StatusIndicator\IsLocalContent.cs" />
     <Compile Include="StatusIndicator\LatestContentResolver.cs" />
     <Compile Include="StatusIndicator\ProjectContentResolver.cs" />
     <Compile Include="TimeAgoFormatter.cs" />

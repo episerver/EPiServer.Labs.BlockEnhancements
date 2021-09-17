@@ -16,18 +16,9 @@
           <confirmation>Julkaisematonta sisältöä jota tässä käytetään.&lt;br/&gt;Valitse sisällöt joita haluat julkaista tässä yhteydessä.</confirmation>
         </dialog>
         <ilineediting>
-          <dialog>
-            <save>Tallenna</save>
-          </dialog>
           <browseexistingitems>valitse sisällöt</browseexistingitems>
           <inlinetranslate>Luo {missingLanguage} kieliversio</inlinetranslate>
         </ilineediting>
-        <inlinecommands>
-          <inlinereadytopublish>
-            <error>Ei voitu merkitä valmiiksi julkaistavaksi</error>
-            <success>merkittiin valmiiksi julkaistavaksi onnistuneesti</success>
-          </inlinereadytopublish>
-        </inlinecommands>
       </blockenhancements>
     </episerverlabs>
   </language>

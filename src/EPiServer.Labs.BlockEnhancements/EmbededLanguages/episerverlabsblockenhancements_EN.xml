@@ -18,18 +18,9 @@
           <confirmation>There are unpublished content items used by the current content.&lt;br/&gt; Choose the ones that you would like to publish simultaneously.</confirmation>
         </dialog>
         <ilineediting>
-          <dialog>
-            <save>Save</save>
-          </dialog>
           <browseexistingitems>browse existing content</browseexistingitems>
           <inlinetranslate>Create {missingLanguage} language version</inlinetranslate>
         </ilineediting>
-        <inlinecommands>
-          <inlinereadytopublish>
-            <error>Could not mark as Ready to Publish</error>
-            <success>was marked as Ready to Publish successfully</success>
-          </inlinereadytopublish>
-        </inlinecommands>
       </blockenhancements>
     </episerverlabs>
   </language>

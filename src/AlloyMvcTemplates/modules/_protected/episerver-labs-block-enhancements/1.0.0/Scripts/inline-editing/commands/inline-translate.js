@@ -73,14 +73,14 @@ function (
             });
 
             var _this = this;
-            
+
             var form;
 
             function updateSaveCommandVisibility() {
                 if (!dialog) {
                     return;
                 }
-                
+
                 dialog.toggleDisabledSaveButton(!form.get("isDirty"));
             }
 
@@ -168,7 +168,7 @@ function (
 
             if (contentData.missingLanguageBranch && contentData.missingLanguageBranch.isTranslationNeeded) {
                 this.set("isAvailable", true);
-                
+
                 var hasAccessRights = ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Edit);
                 var hasProviderSupportForEditing = ContentActionSupport.hasProviderCapability(contentData.providerCapabilityMask, ContentActionSupport.providerCapabilities.Edit);
                 var isDeleted = contentData.isDeleted;
@@ -177,7 +177,7 @@ function (
 
                 var label = lang.replace(labsResources.inlinetranslate, {missingLanguage: contentData.missingLanguageBranch.preferredLanguage});
                 this.set("label", label);
-                
+
                 return;
             }
 

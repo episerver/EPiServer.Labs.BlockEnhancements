@@ -19,7 +19,37 @@ All of those features work together, but you can decide which ones are enabled, 
 
 ## Local content
 
-//TODO: add docs
+Editors no longer have to manage Local Blocks and Local Assets independently.
+All local contents (meaning content that resides in `For this page/block` folders) lifecycle will now be 
+synchronized to its parent.
+
+This greatly simplifies the process of creating and editing pages because editor/reviewer
+no longer need to deal with individual blocks or assets but can focus on the big picture.
+
+When publishing a page all local content will be published altogether.
+
+The same with approval workflow, when content is marked as `Ready to review`, `Approved` or `Declined`
+then the editor/reviewer will just receive a single notification about the page.
+There will be no need to review the block individually.
+
+Changing a local block will create a new page version which lets the editors to review and preview
+what actually changed on a given page.
+
+Please see the new feature in action:
+
+![Editing local block](assets/docsimages/local-editing-local-block.gif)
+
+This allows the editor to use the Compare Mode and see what actually changed:
+
+![Compare mode](assets/docsimages/local-compare-mode.gif)
+
+Editor can also mark the page as `Ready to review` without dealing with local blocks one by one
+
+![Ready to review](assets/docsimages/local-ready-to-review.gif)
+
+Approving/declining is just as easy:
+
+![Approve content](assets/docsimages/local-approve-content.gif)
 
 ## Publish Page and Blocks
 

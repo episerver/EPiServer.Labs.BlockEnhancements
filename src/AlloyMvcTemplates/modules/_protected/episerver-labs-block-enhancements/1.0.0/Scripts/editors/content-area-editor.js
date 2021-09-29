@@ -37,7 +37,7 @@ define([
         postMixInProperties: function () {
             this.inherited(arguments);
 
-            if (this.blockEnhancementsOptions.inlineTranslate) {
+            if (this.blockEnhancementsOptions.inlineTranslate || this.blockEnhancementsOptions.localContentFeatureEnabled) {
                 updateInlineTranslateCommands(this);
             }
         },

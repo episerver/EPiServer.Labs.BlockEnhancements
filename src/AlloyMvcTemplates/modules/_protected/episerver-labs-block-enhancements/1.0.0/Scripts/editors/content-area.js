@@ -40,7 +40,7 @@ define([
         postCreate: function () {
             this.commandProvider = new ContentAreaCommands({model: this.viewModel});
 
-            if (this.blockEnhancementsOptions.inlineTranslate) {
+            if (this.blockEnhancementsOptions.inlineTranslate || this.blockEnhancementsOptions.localContentFeatureEnabled) {
                 updateInlineTranslateCommands(this.commandProvider);
             }
 

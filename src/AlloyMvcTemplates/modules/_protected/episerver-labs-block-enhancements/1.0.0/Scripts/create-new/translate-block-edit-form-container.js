@@ -36,6 +36,10 @@ define([
             }.bind(this));
         },
 
+        onFieldCreated: function () {
+            // in translate the model is not yet available because the item is loaded from the master language
+        },
+
         reloadMetadata: function (parent, contentTypeId) {
             this.createContentViewModel.set({
                 parent: parent,

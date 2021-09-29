@@ -14,7 +14,6 @@ define([
     "epi/shell/command/_Command",
 
     "epi-cms/contentediting/inline-editing/InlineEditBlockDialog",
-    "epi-cms/contentediting/command/BlockInlinePublish",
 
     "episerver-labs-block-enhancements/create-new/translate-block-edit-form-container",
 
@@ -37,7 +36,6 @@ function (
     _Command,
 
     InlineEditBlockDialog,
-    InlinePublish,
 
     TranslateFormContainer,
 
@@ -72,8 +70,6 @@ function (
                 title: this.model.name
             });
 
-            var _this = this;
-
             var form;
 
             function updateSaveCommandVisibility() {
@@ -84,8 +80,7 @@ function (
                 dialog.toggleDisabledSaveButton(!form.get("isDirty"));
             }
 
-
-           form = new TranslateFormContainer({}, dialog.content, "last");
+            form = new TranslateFormContainer({}, dialog.content, "last");
             when(this._getContentData()).then(function (contentData) {
                 form.reloadMetadata(contentData, contentData.contentTypeID);
             }.bind(this));
@@ -97,7 +92,6 @@ function (
                 }
 
                 dialog.show();
-                dialog.togglePublishButton(false);
                 updateSaveCommandVisibility();
 
             }.bind(this));
@@ -112,8 +106,6 @@ function (
                 closeHandle.remove();
                 formCreatedHandle.remove();
                 onChangeHandle.remove();
-                isAvailableHandle.remove();
-                canExecuteHandle.remove();
                 this._dialog = null;
             }.bind(this));
         },

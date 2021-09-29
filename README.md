@@ -60,6 +60,8 @@ This is an extra command available in the global menu. It traverses current cont
 After running the command, a dialog box with a list of all draft versions of all dependent content items together with its own dependencies will be presented.
 The default traversal depth is set to 2 and the dependencies are presented as a tree with roots set to first level dependencies and leaves as second level dependencies.
 The editor can decide which blocks will be published using checkboxes next to the block name.
+If [LocalContentFeatureEnabled](#BlockEnhancementsOptions) is true then the dialog will only present Shared dependencies because local items are handled automatically.
+However if [LocalContentFeatureEnabled](#BlockEnhancementsOptions) is false then all dependencies will be presented.
 
 ![Publish content with local blocks](assets/docsimages/smart_publish_dialog.png)
 

@@ -181,10 +181,23 @@ define([
             this.grid.refresh();
         },
 
+        _getInfoText: function (hasItems) {
+            if (hasItems) {
+                return labsResources.chooseitems;
+            }
+
+            if (this.canPublish) {
+                return labsResources.currentcontenttopublish;
+            }
+
+            return labsResources.noitemstopublish;
+        },
+
         _afterStoreQuery: function (results) {
             var hasItems = results.length > 0;
-            this.noDataMessageNode.innerHTML = this.canPublish ? labsResources.currentcontenttopublish: labsResources.noitemstopublish;
-            domClass.toggle(this.noDataNode, "dijitHidden", hasItems);
+            if (this.noDataMessageNode) {
+                this.noDataMessageNode.innerHTML = this._getInfoText(hasItems);
+            }
             domClass.toggle(this.gridNode, "dijitHidden", !hasItems);
         },
 

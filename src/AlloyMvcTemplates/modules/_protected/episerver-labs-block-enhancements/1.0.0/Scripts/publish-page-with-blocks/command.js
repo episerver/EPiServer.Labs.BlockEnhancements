@@ -81,7 +81,6 @@ define([
             });
 
             var confirmation = this._dialogService.confirmation({
-                description: labsResources.dialog.confirmation,
                 dialogClass: "epi-dialog-smartPublish",
                 content: contentItemsList,
                 title: labsResources.dialog.title,

@@ -8,12 +8,12 @@
           <partofapproval>On osa aktiivista hyväksymistyönkulkua eikä voida tällä hetkellä julkaista</partofapproval>
         </command>
         <noitemstopublish>Ei ole julkaistavaa</noitemstopublish>
+        <chooseitems>Julkaisematonta sisältöä jota tässä käytetään.&lt;br/&gt; Valitse sisällöt joita haluat julkaista tässä yhteydessä.</chooseitems>
         <name>Nimi</name>
         <changed>Muutettu</changed>
         <by>muokkaaja</by>
         <dialog>
           <title>Vahvista että haluat julkaista sivun sekä siihen liittyvää sisältöä</title>
-          <confirmation>Julkaisematonta sisältöä jota tässä käytetään.&lt;br/&gt;Valitse sisällöt joita haluat julkaista tässä yhteydessä.</confirmation>
         </dialog>
         <ilineediting>
           <browseexistingitems>valitse sisällöt</browseexistingitems>

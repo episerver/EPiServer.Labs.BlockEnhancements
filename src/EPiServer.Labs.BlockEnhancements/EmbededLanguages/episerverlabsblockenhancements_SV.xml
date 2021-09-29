@@ -9,13 +9,13 @@
         </command>
         <noitemstopublish>Det finns inget att publicera</noitemstopublish>
         <currentcontenttopublish>Det finns inga opublicerade objekt kopplade till detta innehåll. Endast det aktuella objektet kan publiceras.</currentcontenttopublish>
+        <chooseitems>Dessa är opublicerade innehåll som används.&lt;br/&gt; Välj de som du vill publicera samtidigt.</chooseitems>
         <loadingitems>Laddar innehåll...</loadingitems>
         <name>Namn</name>
         <changed>Ändrad</changed>
         <by>Av</by>
         <dialog>
           <title>Bekräfta att du publicerar sidan och relaterat innehåll</title>
-          <confirmation>Dessa är opublicerade innehåll som används.&lt;br/&gt;Välj de som du vill publicera samtidigt.</confirmation>
         </dialog>
         <ilineediting>
           <browseexistingitems>välj innehåll</browseexistingitems>

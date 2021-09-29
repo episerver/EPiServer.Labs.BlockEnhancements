@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
+using EPiServer.Cms.Shell.UI.Rest;
 using EPiServer.Cms.Shell.UI.Rest.Internal;
 using EPiServer.Core;
 using EPiServer.Data.Dynamic;
 using EPiServer.ServiceLocation;
-using EPiServer.Web.Routing;
 
 namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
 {
@@ -56,20 +56,19 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
     internal class DDSContentVersionMapper : IContentVersionMapper
     {
         private readonly IContentLoader _contentLoader;
-        private readonly IContentRouteHelper _contentRouteHelper;
+        private readonly CurrentContentContext _currentContentContext;
         private readonly VersionSpecificRepository _versionSpecificRepository;
 
-
-        public DDSContentVersionMapper(IContentLoader contentLoader, IContentRouteHelper contentRouteHelper, VersionSpecificRepository versionSpecificRepository)
+        public DDSContentVersionMapper(IContentLoader contentLoader, CurrentContentContext currentContentContext, VersionSpecificRepository versionSpecificRepository)
         {
             _contentLoader = contentLoader;
-            _contentRouteHelper = contentRouteHelper;
+            _currentContentContext = currentContentContext;
             _versionSpecificRepository = versionSpecificRepository;
         }
 
         public IContent GetVersionSpecificToCurrentPage(ContentReference publicReference)
         {
-            var node = _contentRouteHelper.ContentLink;
+            var node = _currentContentContext.ContentLink;
 
             if (node == null)
             {

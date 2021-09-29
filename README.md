@@ -99,7 +99,7 @@ public class CustomBlockEnhancementsModule : IConfigurableModule
     {
         context.Services.Configure<BlockEnhancementsOptions>(options =>
         {
-            options.PublishPageWithBlocks = true;            
+            options.LocalContentFeatureEnabled = false;            
             options.StatusIndicator = false;
             options.ContentAreaSettings = new ContentAreaSettings
                 {
@@ -121,10 +121,10 @@ public class CustomBlockEnhancementsModule : IConfigurableModule
  | ---- | ---- | ---- |
  | LocalContentFeatureEnabled | true | Connect local content items to its parent page | 
  | HideForThisFolder | true | Do not show `For this page` folder in the Blocks Asset Pane |
- | PublishPageWithBlocks | true | Show 'Publish page & blocks' command in the top menu |
+ | PublishPageWithBlocks | false | Show 'Publish page & blocks' command in the top menu |
  | StatusIndicator | true | Show the content status next to Content Area items |
  | ContentAreaSettings | [ContentAreaSettings](#ContentAreaSettings) | Settings related to Content Areas |
- | InlineTranslate | true | Translate content items inline, without switching context |
+ | InlineTranslate | false | Translate content items inline, without switching context |
 
 ### ContentAreaSettings
 

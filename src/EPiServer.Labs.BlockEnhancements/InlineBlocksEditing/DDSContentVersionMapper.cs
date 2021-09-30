@@ -58,17 +58,20 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
         private readonly IContentLoader _contentLoader;
         private readonly CurrentContentContext _currentContentContext;
         private readonly VersionSpecificRepository _versionSpecificRepository;
+        private readonly IContentRouteHelper _contentRouteHelper;
 
-        public DDSContentVersionMapper(IContentLoader contentLoader, CurrentContentContext currentContentContext, VersionSpecificRepository versionSpecificRepository)
+        public DDSContentVersionMapper(IContentLoader contentLoader, CurrentContentContext currentContentContext,
+            VersionSpecificRepository versionSpecificRepository, IContentRouteHelper contentRouteHelper)
         {
             _contentLoader = contentLoader;
             _currentContentContext = currentContentContext;
             _versionSpecificRepository = versionSpecificRepository;
+            _contentRouteHelper = contentRouteHelper;
         }
 
         public IContent GetVersionSpecificToCurrentPage(ContentReference publicReference)
         {
-            var node = _currentContentContext.ContentLink;
+            var node = _currentContentContext.ContentLink ?? _contentRouteHelper.ContentLink;;
 
             if (node == null)
             {

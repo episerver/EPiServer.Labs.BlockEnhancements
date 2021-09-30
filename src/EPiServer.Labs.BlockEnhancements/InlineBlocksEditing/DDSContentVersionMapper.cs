@@ -3,14 +3,21 @@ using System.Linq;
 using EPiServer.Cms.Shell.UI.Rest;
 using EPiServer.Cms.Shell.UI.Rest.Internal;
 using EPiServer.Core;
+using EPiServer.Data;
 using EPiServer.Data.Dynamic;
 using EPiServer.ServiceLocation;
+using EPiServer.Web.Routing;
 
 namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
 {
-    public class VersionSpecific
+    [EPiServerDataStore(AutomaticallyCreateStore = true, AutomaticallyRemapStore = true)]
+    public class VersionSpecific : IDynamicData
     {
+        public Identity Id { get; set; }
+
+        [EPiServerDataIndex]
         public string ParentContentLink { get; set; }
+
         public int BlockId { get; set; }
         public int BlockWorkId { get; set; }
     }
@@ -33,20 +40,20 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
 
         public VersionSpecific Load(ContentReference parentContentLink, ContentReference blockContentLink)
         {
-            return GetStore().Items<VersionSpecific>().FirstOrDefault(x =>
-                x.ParentContentLink == parentContentLink.ToString() && x.BlockId == blockContentLink.ID);
+            var contentLink = parentContentLink.ToString();
+            var pageBlocks = GetStore().Items<VersionSpecific>().Where(x => x.ParentContentLink == contentLink).ToList();
+            return pageBlocks.FirstOrDefault(x => x.BlockId == blockContentLink.ID);
         }
 
         public void Save(ContentReference contentLink, ContentReference blockContentLink)
         {
             lock (_lock)
             {
-                var versionSpecific = Load(contentLink, blockContentLink) ?? new VersionSpecific
-                {
-                    ParentContentLink = contentLink.ToString(),
-                    BlockId = blockContentLink.ID,
-                    BlockWorkId = blockContentLink.WorkID
-                };
+                var versionSpecific = Load(contentLink, blockContentLink) ?? new VersionSpecific();
+                versionSpecific.ParentContentLink = contentLink.ToString();
+                versionSpecific.BlockId = blockContentLink.ID;
+                versionSpecific.BlockWorkId = blockContentLink.WorkID;
+
                 GetStore().Save(versionSpecific);
             }
         }

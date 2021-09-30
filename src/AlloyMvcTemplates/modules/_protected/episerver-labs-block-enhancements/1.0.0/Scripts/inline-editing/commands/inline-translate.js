@@ -98,7 +98,11 @@ function (
 
             var onChangeHandle = on(form, "isDirty", updateSaveCommandVisibility.bind(form));
 
-            var executeHandle = on(dialog, "execute", form.saveForm.bind(form));
+            var executeHandle = on(dialog, "execute", function () {
+                form.saveForm().then(function () {
+                    this._onModelChange();
+                }.bind(this));
+            }.bind(this));
 
             var closeHandle = on(dialog, "hide", function () {
                 form.destroy();

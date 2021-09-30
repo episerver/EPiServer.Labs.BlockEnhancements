@@ -109,6 +109,8 @@ define([
                     })
                 });
                 command.execute();
+            } else {
+                this.inherited(arguments);
             }
         }
     });

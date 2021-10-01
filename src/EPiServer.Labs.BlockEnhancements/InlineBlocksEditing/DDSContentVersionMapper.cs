@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
+using System.Web;
 using EPiServer.Cms.Shell.UI.Rest;
 using EPiServer.Cms.Shell.UI.Rest.Internal;
 using EPiServer.Core;
@@ -66,19 +68,25 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
         private readonly CurrentContentContext _currentContentContext;
         private readonly VersionSpecificRepository _versionSpecificRepository;
         private readonly IContentRouteHelper _contentRouteHelper;
+        private readonly ServiceAccessor<HttpContextBase> _httpContextAccessor;
 
         public DDSContentVersionMapper(IContentLoader contentLoader, CurrentContentContext currentContentContext,
-            VersionSpecificRepository versionSpecificRepository, IContentRouteHelper contentRouteHelper)
+            VersionSpecificRepository versionSpecificRepository, IContentRouteHelper contentRouteHelper,
+            ServiceAccessor<HttpContextBase> httpContextAccessor)
         {
             _contentLoader = contentLoader;
             _currentContentContext = currentContentContext;
             _versionSpecificRepository = versionSpecificRepository;
             _contentRouteHelper = contentRouteHelper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IContent GetVersionSpecificToCurrentPage(ContentReference publicReference)
         {
-            var node = _currentContentContext.ContentLink ?? _contentRouteHelper.ContentLink;;
+            var routedNode = _httpContextAccessor().Request.RequestContext.RouteData.DataTokens[RoutingConstants.NodeKey];
+            var node = routedNode != null
+                ? ContentReference.Parse(routedNode.ToString())
+                : _currentContentContext.ContentLink;
 
             if (node == null)
             {
@@ -100,16 +108,15 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
             var _latestContentVersionResolver = ServiceLocator.Current.GetInstance<LatestContentVersionResolver>();
 
             //TODO: instead of just fetching common draft we should find the specific draft for the saved block
-            var draft = _latestContentVersionResolver.GetCommonDraft(blockContentLink,
-                languageBranch);
+            var draft = _latestContentVersionResolver.GetLatestVersion(blockContentLink, new NameValueCollection());
             if (draft == null)
             {
                 return null;
             }
 
-            var item = _contentLoader.Get<IContent>(draft);
+            var item = _contentLoader.Get<IContent>(draft.ContentLink);
 
-            _versionSpecificRepository.Save(parentContentLink, draft);
+            _versionSpecificRepository.Save(parentContentLink, draft.ContentLink);
 
             return item;
         }

@@ -69,8 +69,9 @@ define([
             var hasProviderSupportForEditing = ContentActionSupport.hasProviderCapability(contentData.providerCapabilityMask, ContentActionSupport.providerCapabilities.Edit);
             var isDeleted = contentData.isDeleted;
             var isInUse = contentData.inUseNotifications && contentData.inUseNotifications.length > 0;
+            var isPartOfActiveApproval = contentData.isPartOfActiveApproval;
 
-            var canExecute = (this.ignoredEditStatuses.indexOf(contentData.status) === -1) && hasAccessRights && hasProviderSupportForEditing && !isDeleted && !isInUse;
+            var canExecute = (this.ignoredEditStatuses.indexOf(contentData.status) === -1) && hasAccessRights && hasProviderSupportForEditing && !isDeleted && !isInUse && !isPartOfActiveApproval;
 
             if (contentData.capabilities && !contentData.capabilities.isLocalContent) {
                 this.set("isAvailable", false);

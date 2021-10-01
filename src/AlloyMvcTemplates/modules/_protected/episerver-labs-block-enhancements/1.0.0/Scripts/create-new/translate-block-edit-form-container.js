@@ -5,8 +5,7 @@ define([
     "dojo/when",
     "epi/dependency",
     "epi-cms/contentediting/inline-editing/BlockEditFormContainer",
-    "epi-cms/contentediting/viewmodel/CreateLanguageBranchViewModel",
-    "dojo/date/locale"
+    "epi-cms/contentediting/viewmodel/CreateLanguageBranchViewModel"
 ], function (
     declare,
     topic,
@@ -14,8 +13,7 @@ define([
     when,
     dependency,
     BlockEditFormContainer,
-    CreateLanguageBranchViewModel,
-    locale) {
+    CreateLanguageBranchViewModel) {
     return declare([BlockEditFormContainer], {
         postMixInProperties: function () {
             this.inherited(arguments);
@@ -34,10 +32,6 @@ define([
                 topic.publish("/epi/cms/content/statuschange/", null, {id: result.newContentLink});
                 topic.publish("/refresh/ui");
             }.bind(this));
-        },
-
-        onFieldCreated: function () {
-            // in translate the model is not yet available because the item is loaded from the master language
         },
 
         reloadMetadata: function (parent, contentTypeId) {

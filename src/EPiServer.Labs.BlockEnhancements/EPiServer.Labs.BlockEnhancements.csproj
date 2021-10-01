@@ -58,7 +58,7 @@
       <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.20.4\lib\net461\EPiServer.Cms.AspNet.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Cms.Shell.UI, Version=11.36.3.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.36.3-pre-000665\lib\net461\EPiServer.Cms.Shell.UI.dll</HintPath>
+      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.36.3-pre-000667\lib\net461\EPiServer.Cms.Shell.UI.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Configuration, Version=11.20.4.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.20.4\lib\net461\EPiServer.Configuration.dll</HintPath>
@@ -91,13 +91,13 @@
       <HintPath>..\..\packages\EPiServer.CMS.Core.11.20.4\lib\net461\EPiServer.LinkAnalyzer.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Shell, Version=11.36.3.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.36.3-pre-000665\lib\net461\EPiServer.Shell.dll</HintPath>
+      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.36.3-pre-000667\lib\net461\EPiServer.Shell.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Shell.UI, Version=11.36.3.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.36.3-pre-000665\lib\net461\EPiServer.Shell.UI.dll</HintPath>
+      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.36.3-pre-000667\lib\net461\EPiServer.Shell.UI.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.UI, Version=11.36.3.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.36.3-pre-000665\lib\net461\EPiServer.UI.dll</HintPath>
+      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.36.3-pre-000667\lib\net461\EPiServer.UI.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Web.WebControls, Version=11.20.4.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.20.4\lib\net461\EPiServer.Web.WebControls.dll</HintPath>
@@ -190,12 +190,14 @@
     <Compile Include="DependenciesResolver.cs" />
     <Compile Include="InlineBlocksEditing\ContentAreaDescriptor.cs" />
     <Compile Include="InlineBlocksEditing\ContentAreaInitializableModule.cs" />
-    <Compile Include="InlineBlocksEditing\CustomProjectRepository.cs" />
+    <Compile Include="InlineBlocksEditing\CustomProjectLoaderService.cs" />
+    <Compile Include="InlineBlocksEditing\CustomProjectService.cs" />
     <Compile Include="InlineBlocksEditing\DDSContentVersionMapper.cs" />
     <Compile Include="InlineBlocksEditing\DraftContentAreaLoader.cs" />
     <Compile Include="InlineBlocksEditing\DraftContentAreaPreviewInitializerInitializer.cs" />
     <Compile Include="InlineBlocksEditing\Events.cs" />
     <Compile Include="InlineBlocksEditing\IContentVersionMapper.cs" />
+    <Compile Include="InlineBlocksEditing\LocalBlockResolver.cs" />
     <Compile Include="InlineBlocksEditing\ProjectItemStoreHiderInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatusIndicator\EnhancedStructureStoreModelTransform.cs" />

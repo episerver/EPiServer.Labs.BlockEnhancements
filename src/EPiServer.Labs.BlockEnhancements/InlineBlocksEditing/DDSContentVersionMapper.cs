@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Web;
 using EPiServer.Cms.Shell.UI.Rest;
 using EPiServer.Cms.Shell.UI.Rest.Internal;
 using EPiServer.Core;
@@ -68,25 +67,20 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
         private readonly CurrentContentContext _currentContentContext;
         private readonly VersionSpecificRepository _versionSpecificRepository;
         private readonly IContentRouteHelper _contentRouteHelper;
-        private readonly ServiceAccessor<HttpContextBase> _httpContextAccessor;
 
         public DDSContentVersionMapper(IContentLoader contentLoader, CurrentContentContext currentContentContext,
-            VersionSpecificRepository versionSpecificRepository, IContentRouteHelper contentRouteHelper,
-            ServiceAccessor<HttpContextBase> httpContextAccessor)
+            VersionSpecificRepository versionSpecificRepository, IContentRouteHelper contentRouteHelper)
         {
             _contentLoader = contentLoader;
             _currentContentContext = currentContentContext;
             _versionSpecificRepository = versionSpecificRepository;
             _contentRouteHelper = contentRouteHelper;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         public IContent GetVersionSpecificToCurrentPage(ContentReference publicReference)
         {
-            var routedNode = _httpContextAccessor().Request.RequestContext.RouteData.DataTokens[RoutingConstants.NodeKey];
-            var node = routedNode != null
-                ? ContentReference.Parse(routedNode.ToString())
-                : _currentContentContext.ContentLink;
+            // fallback to route helper if _currentContentContext is empty (it will be empty only outside Forms view)
+            var node = _currentContentContext.ContentLink ?? _contentRouteHelper.ContentLink;
 
             if (node == null)
             {

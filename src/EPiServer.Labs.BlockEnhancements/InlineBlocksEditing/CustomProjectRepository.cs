@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Web;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
+using EPiServer.Framework.Cache;
 
 namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
 {
@@ -11,13 +13,18 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
         private readonly ProjectRepository _defaultProjectRepository;
         private readonly BlockEnhancementsOptions _blockEnhancementsOptions;
         private readonly IContentLoader _contentLoader;
+        private readonly IObjectInstanceCache _cache;
+        internal const string CacheKey = "EPi:Labs:IsLocalBlock";
+        private static readonly object _cacheLock = new object();
 
         public CustomProjectRepository(ProjectRepository defaultProjectRepository,
-            BlockEnhancementsOptions blockEnhancementsOptions, IContentLoader contentLoader)
+            BlockEnhancementsOptions blockEnhancementsOptions, IContentLoader contentLoader,
+            IObjectInstanceCache cache)
         {
             _defaultProjectRepository = defaultProjectRepository;
-            _contentLoader = contentLoader;
             _blockEnhancementsOptions = blockEnhancementsOptions;
+            _contentLoader = contentLoader;
+            _cache = cache;
         }
 
         public override Project Get(int id)
@@ -48,23 +55,51 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
         public override IEnumerable<ProjectItem> ListItems(int id, string category, CultureInfo language,
             int startIndex, int maxRows, out int totalCount)
         {
-            return _defaultProjectRepository.ListItems(id, category, language, startIndex, maxRows, out totalCount);
+            return EnsureLocalOnly(_defaultProjectRepository.ListItems(id, category, language, startIndex, maxRows,
+                out totalCount));
+        }
+
+        private bool IsProjectOverviewCall()
+        {
+            return HttpContext.Current != null && HttpContext.Current.Request.RawUrl.Contains("/project-item/");
+        }
+
+        private IEnumerable<ProjectItem> EnsureLocalOnly(IEnumerable<ProjectItem> projectItems)
+        {
+            return _blockEnhancementsOptions.LocalContentFeatureEnabled && IsProjectOverviewCall()
+                ? projectItems.Where(x => !GetIsLocal(x.ContentLink.ToReferenceWithoutVersion()))
+                : projectItems;
+        }
+
+        private bool GetIsLocal(ContentReference contentLink)
+        {
+            var key = CacheKey + contentLink;
+            var cachedValue = _cache.Get(key);
+            if (cachedValue is null)
+            {
+                lock (_cacheLock)
+                {
+                    cachedValue = _cache.Get(key);
+                    if (cachedValue != null)
+                    {
+                        return (bool)cachedValue;
+                    }
+
+                    cachedValue = _contentLoader.IsLocalContent(contentLink);
+                    _cache.Insert(key, cachedValue, null);
+                }
+            }
+            return (bool)cachedValue;
         }
 
         public override IEnumerable<ProjectItem> GetItems(IEnumerable<ContentReference> contentReferences)
         {
-            return _defaultProjectRepository.GetItems(contentReferences);
+            return EnsureLocalOnly(_defaultProjectRepository.GetItems(contentReferences));
         }
 
-        /// <summary>
-        /// If IsLocalFeatureEnabled is `true` then we won't create a ProjectItem for local content items at all
-        /// </summary>
-        /// <param name="projectItems"></param>
         public override void SaveItems(IEnumerable<ProjectItem> projectItems)
         {
-            _defaultProjectRepository.SaveItems(_blockEnhancementsOptions.LocalContentFeatureEnabled
-                ? projectItems.Where(x => !_contentLoader.IsLocalContent(x.ContentLink.ToReferenceWithoutVersion()))
-                : projectItems);
+            _defaultProjectRepository.SaveItems(projectItems);
         }
 
         public override void DeleteItems(IEnumerable<int> projectItems)

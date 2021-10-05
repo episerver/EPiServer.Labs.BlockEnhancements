@@ -55,7 +55,9 @@ define([
             var trackingOptions = Object.assign({}, options);
             telemetryInitializer(trackingOptions);
 
-            inlineEditingInitializer(options);
+            if (options.localContentFeatureEnabled) {
+                inlineEditingInitializer(options);
+            }
         }
     });
 });

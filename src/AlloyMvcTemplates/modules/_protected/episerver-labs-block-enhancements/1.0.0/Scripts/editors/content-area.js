@@ -125,27 +125,34 @@ define([
                 contentGuid = domAttr.get(node, "data-epi-content-id"),
                 info = json.parse(domAttr.get(node, "data-epi-block-personalization")),
                 contentGroup = info ? info.contentGroup : this.defaultWatchKey,
-                model = this.model,
-                childIdentifier = {};
+                model = this.model;
 
             // Get the view model for the item's group.
             if (contentGroup) {
                 model = model.getChild({name: contentGroup});
             }
 
+            var childPredicate;
             var isLocalBlock = false;
             if (id) {
-                var contentLink = new ContentReference(id).createVersionUnspecificReference().toString();
-                childIdentifier = {contentLink: contentLink};
-                isLocalBlock = this.localBlocks.indexOf(contentLink) !== -1;
+                childPredicate = (child) => {
+                    return ContentReference.compareIgnoreVersion(child.contentLink, id);
+                }
+                isLocalBlock = this.localBlocks.indexOf(new ContentReference(id).createVersionUnspecificReference().toString()) !== -1;
             } else if (contentGuid) {
-                childIdentifier = {contentGuid: contentGuid};
+                childPredicate = (child) => {
+                    return child.contentGuid === contentGuid;
+                }
+            }
+
+            if (!model) {
+                return;
             }
 
             // Get the view model for the item.
-            var indexChild = model && model.getChild(lang.mixin(childIdentifier, info));
+            var childViewModel = model.getChildren().find(childPredicate);
 
-            if (!indexChild) {
+            if (!childViewModel) {
                 // Happens when we're notified about model updates, but the markup hasn't
                 // been refreshed yet so the block info grabbed from dom doesn't match the model.
                 // Should sort itself out once new markup arrives.
@@ -155,22 +162,22 @@ define([
             // TODO: Pass context menu through instead of provider.
             var block = new this.blockClass({
                 disabled: this.disabled,
-                viewModel: indexChild,
+                viewModel: childViewModel,
                 isLocalBlock: isLocalBlock,
                 sourceItemNode: node
             });
 
             this.addChild(block);
 
-            this._watches["block_" + id + "_ensurePersonalization"] = indexChild.watch("ensurePersonalization", lang.hitch(this, function (propertyName, oldValue, newValue) {
+            this._watches["block_" + id + "_ensurePersonalization"] = childViewModel.watch("ensurePersonalization", lang.hitch(this, function (propertyName, oldValue, newValue) {
 
-                var index = array.indexOf(this._pendingPersonalizations, indexChild);
+                var index = array.indexOf(this._pendingPersonalizations, childViewModel);
 
                 if (newValue) {
 
                     // add if it doesn't exist
                     if (index < 0) {
-                        this._pendingPersonalizations.push(indexChild);
+                        this._pendingPersonalizations.push(childViewModel);
                     }
                 } else {
                     // remove if exists
@@ -182,13 +189,13 @@ define([
             }));
 
             // Mark the block's model as visible.
-            indexChild.set("visible", true);
+            childViewModel.set("visible", true);
 
             // Add the block's node to the drag and drop souce.
 
             this._source.setItem(block.domNode.id, {
-                name: indexChild.name,
-                data: indexChild,
+                name: childViewModel.name,
+                data: childViewModel,
                 type: this.allowedDndTypes
             });
         },

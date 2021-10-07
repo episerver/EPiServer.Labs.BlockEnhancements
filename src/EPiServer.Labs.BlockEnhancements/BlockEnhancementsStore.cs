@@ -3,7 +3,6 @@ using System.Web.Mvc;
 using EPiServer.Cms.Shell.UI.Rest.Internal;
 using EPiServer.Cms.Shell.UI.Rest.Models.Internal;
 using EPiServer.Core;
-using EPiServer.Labs.BlockEnhancements.StatusIndicator;
 using EPiServer.Shell.Services.Rest;
 
 namespace EPiServer.Labs.BlockEnhancements

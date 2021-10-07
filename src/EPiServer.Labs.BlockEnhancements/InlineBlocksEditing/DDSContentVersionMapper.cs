@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using EPiServer.Cms.Shell.UI.Rest;
 using EPiServer.Cms.Shell.UI.Rest.Internal;
@@ -102,15 +101,15 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
             var _latestContentVersionResolver = ServiceLocator.Current.GetInstance<LatestContentVersionResolver>();
 
             //TODO: instead of just fetching common draft we should find the specific draft for the saved block
-            var draft = _latestContentVersionResolver.GetLatestVersion(blockContentLink, new NameValueCollection());
+            var draft = _latestContentVersionResolver.GetDraftLink(blockContentLink);
             if (draft == null)
             {
                 return null;
             }
 
-            var item = _contentLoader.Get<IContent>(draft.ContentLink);
+            var item = _contentLoader.Get<IContent>(draft);
 
-            _versionSpecificRepository.Save(parentContentLink, draft.ContentLink);
+            _versionSpecificRepository.Save(parentContentLink, draft);
 
             return item;
         }

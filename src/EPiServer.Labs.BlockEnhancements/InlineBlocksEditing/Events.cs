@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using EPiServer.Cms.Shell;
 using EPiServer.Cms.Shell.UI.Rest.Internal;
@@ -95,14 +94,13 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
                         continue;
                     }
 
-                    var draft = _latestContentVersionResolver.GetLatestVersion(contentAreaItem.ContentLink,
-                        new NameValueCollection());
+                    var draft = _latestContentVersionResolver.GetDraftLink(contentAreaItem.ContentLink);
                     if (draft == null)
                     {
                         continue;
                     }
 
-                    var item = _contentLoader.Get<IContent>(draft.ContentLink);
+                    var item = _contentLoader.Get<IContent>(draft);
                     PublishLocalContentItems(item, contentReferences, true);
 
                     if ((item as IVersionable)?.Status != VersionStatus.CheckedOut)

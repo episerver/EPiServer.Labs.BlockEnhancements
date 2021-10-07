@@ -190,7 +190,7 @@ define([
 
             // if the accessMask is available then display the label accordingly. (i.e either "View" or "Edit")
             when(result, lang.hitch(this, function (content) {
-                if (content && content.capabilities && content.capabilities.isLocalContent && (!content.missingLanguageBranch || !content.missingLanguageBranch.isTranslationNeeded)) {
+                if (content && content.capabilities && content.capabilities.isLocalContent) {
                     this.set("isAvailable", false);
                     return;
                 }

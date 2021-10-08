@@ -32,6 +32,12 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
             _localBlockResolver = localBlockResolver;
         }
 
+        public override ProjectItem GetProjectItem(int projectItemId)
+        {
+            var projectItem = _defaultProjectService.GetProjectItem(projectItemId);
+            return GetLocalOnly(new [] { projectItem }).FirstOrDefault();
+        }
+
         public override RangedItems<ProjectItem> GetItems(int projectId, int? start, int? end)
         {
             var rangedItems = _defaultProjectService.GetItems(projectId, start, end);
@@ -44,18 +50,23 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
             return EnsureLocalOnly(rangedItems);
         }
 
-        private RangedItems<ProjectItem> EnsureLocalOnly(RangedItems<ProjectItem> projectItems)
+        private IEnumerable<ProjectItem> GetLocalOnly(IEnumerable<ProjectItem> projectItems)
         {
             if (!_localBlockResolver.ShouldFilterOutLocalBlocks())
                 return projectItems;
 
-            var filtered = projectItems.Items.Where(x =>
+            return projectItems.Where(x =>
                 !_localBlockResolver.IsLocal(x.ContentLink.ToReferenceWithoutVersion()));
+        }
+
+        private RangedItems<ProjectItem> EnsureLocalOnly(RangedItems<ProjectItem> projectItems)
+        {
+            var filtered = GetLocalOnly(projectItems.Items).ToList();
             return new RangedItems<ProjectItem>(filtered, new ItemRange
             {
-                Total = filtered.Count(),
+                Total = filtered.Count,
                 Start = 0,
-                End = filtered.Count() - 1
+                End = filtered.Count - 1
             });
         }
     }

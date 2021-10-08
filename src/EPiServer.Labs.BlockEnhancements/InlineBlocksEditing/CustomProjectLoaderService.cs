@@ -25,6 +25,21 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
             _localBlockResolver = localBlockResolver;
         }
 
+        public override ProjectItem GetProjectItem(int projectItemId)
+        {
+            var projectItem = _defaultProjectLoaderService.GetProjectItem(projectItemId);
+            return GetLocalOnly(new [] { projectItem }).FirstOrDefault();
+        }
+
+        private IEnumerable<ProjectItem> GetLocalOnly(IEnumerable<ProjectItem> projectItems)
+        {
+            if (!_localBlockResolver.ShouldFilterOutLocalBlocks())
+                return projectItems;
+
+            return projectItems.Where(x =>
+                !_localBlockResolver.IsLocal(x.ContentLink.ToReferenceWithoutVersion()));
+        }
+
         public override RangedItems<ProjectItem> GetItems(int projectId, int? start, int? end)
         {
             var rangedItems = _defaultProjectLoaderService.GetItems(projectId, start, end);

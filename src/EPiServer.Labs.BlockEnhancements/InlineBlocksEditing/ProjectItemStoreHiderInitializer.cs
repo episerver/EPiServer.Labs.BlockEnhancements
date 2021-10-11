@@ -10,6 +10,7 @@ using EPiServer.Framework.Configuration;
 using EPiServer.Framework.Initialization;
 using EPiServer.Framework.Localization;
 using EPiServer.ServiceLocation;
+using EPiServer.Shell.UI.Messaging.Internal;
 
 namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
 {
@@ -40,6 +41,11 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
                     ServiceLocator.Current.GetInstance<ApprovalService>(),
                     ServiceLocator.Current.GetInstance<LocalizationService>(),
                     ServiceLocator.Current.GetInstance<LocalBlockResolver>()));
+
+            context.Services.Intercept<PushMessenger>(
+                (locator, defaultPushMessenger) => new CustomPushMessenger(defaultPushMessenger,
+                    ServiceLocator.Current.GetInstance<LocalBlockResolver>(),
+                    ServiceLocator.Current.GetInstance<ProjectService>()));
         }
 
         public void Initialize(InitializationEngine context)

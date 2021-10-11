@@ -11,19 +11,26 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
         private readonly ProjectService _projectService;
         private readonly PushMessenger _defaultPushMessenger;
         private readonly LocalBlockResolver _localBlockResolver;
+        private readonly BlockEnhancementsOptions _blockEnhancementsOptions;
 
         private const string ProjectItemKey = "/episerver/cms/project-item";
 
         public CustomPushMessenger(PushMessenger defaultPushMessenger, LocalBlockResolver localBlockResolver,
-            ProjectService projectService)
+            ProjectService projectService, BlockEnhancementsOptions blockEnhancementsOptions)
         {
             _defaultPushMessenger = defaultPushMessenger;
             _localBlockResolver = localBlockResolver;
             _projectService = projectService;
+            _blockEnhancementsOptions = blockEnhancementsOptions;
         }
 
         public override Task SendAsync(PushMessage message)
         {
+            if (!_blockEnhancementsOptions.LocalContentFeatureEnabled)
+            {
+                return _defaultPushMessenger.SendAsync(message);
+            }
+
             if (message.Topic != ProjectItemKey ||
                 !(message.Data is ProjectItemEventViewModel[] projectItemEventViewModels))
             {

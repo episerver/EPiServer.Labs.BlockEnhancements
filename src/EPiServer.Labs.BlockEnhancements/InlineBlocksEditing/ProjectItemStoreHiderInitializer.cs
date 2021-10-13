@@ -45,7 +45,8 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
             context.Services.Intercept<PushMessenger>(
                 (locator, defaultPushMessenger) => new CustomPushMessenger(defaultPushMessenger,
                     ServiceLocator.Current.GetInstance<LocalBlockResolver>(),
-                    ServiceLocator.Current.GetInstance<ProjectService>()));
+                    ServiceLocator.Current.GetInstance<ProjectService>(),
+                    ServiceLocator.Current.GetInstance<BlockEnhancementsOptions>()));
         }
 
         public void Initialize(InitializationEngine context)

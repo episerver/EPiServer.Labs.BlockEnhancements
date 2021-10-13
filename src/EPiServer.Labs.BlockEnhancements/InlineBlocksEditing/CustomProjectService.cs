@@ -56,6 +56,7 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
                 return projectItems;
 
             return projectItems.Where(x =>
+                x != null && x.ContentLink != null &&
                 !_localBlockResolver.IsLocal(x.ContentLink.ToReferenceWithoutVersion()));
         }
 

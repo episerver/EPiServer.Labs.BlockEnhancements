@@ -198,6 +198,7 @@
     <Compile Include="InlineBlocksEditing\DraftContentAreaPreviewInitializerInitializer.cs" />
     <Compile Include="InlineBlocksEditing\Events.cs" />
     <Compile Include="InlineBlocksEditing\IContentVersionMapper.cs" />
+    <Compile Include="InlineBlocksEditing\LatestContentVersionResolver.cs" />
     <Compile Include="InlineBlocksEditing\LocalBlockResolver.cs" />
     <Compile Include="InlineBlocksEditing\ProjectItemStoreHiderInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

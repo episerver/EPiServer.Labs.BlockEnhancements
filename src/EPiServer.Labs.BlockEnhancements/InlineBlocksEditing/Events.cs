@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using EPiServer.Cms.Shell;
-using EPiServer.Cms.Shell.UI.Rest.Internal;
 using EPiServer.Core;
 using EPiServer.Data.Entity;
+using EPiServer.DataAbstraction;
 using EPiServer.DataAccess;
 using EPiServer.Security;
 using EPiServer.ServiceLocation;
@@ -20,11 +20,12 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
         private readonly LatestContentVersionResolver _latestContentVersionResolver;
         private readonly BlockEnhancementsOptions _blockEnhancementsOptions;
         private readonly IContentVersionMapper _contentVersionMapper;
+        private readonly ProjectRepository _projectRepository;
 
         public Events(IContentEvents contentEvents, IContentRepository contentLoader,
             ContentAssetHelper contentAssetHelper, LatestContentVersionResolver latestContentVersionResolver,
-            BlockEnhancementsOptions blockEnhancementsOptions, IContentVersionMapper contentVersionMapper
-            )
+            BlockEnhancementsOptions blockEnhancementsOptions, IContentVersionMapper contentVersionMapper,
+            ProjectRepository projectRepository)
         {
             _contentEvents = contentEvents;
             _contentLoader = contentLoader;
@@ -32,6 +33,7 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
             _latestContentVersionResolver = latestContentVersionResolver;
             _blockEnhancementsOptions = blockEnhancementsOptions;
             _contentVersionMapper = contentVersionMapper;
+            _projectRepository = projectRepository;
         }
 
         public void Start()
@@ -49,6 +51,13 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
 
             var items = new List<ContentReference>();
             UpdateOwnerContentLinks(e.ContentLink, e.Content, items, false);
+        }
+
+        private int? GetProjectIdForContentLink(ContentReference contentReference)
+        {
+            var projects = _projectRepository.GetItems(new [] { contentReference });
+            var projectItem = projects.FirstOrDefault();
+            return projectItem?.ProjectID;
         }
 
         private void PublishedContent(object sender, ContentEventArgs e)
@@ -78,6 +87,8 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
 
             contentReferences.Add(content.ContentLink.ToReferenceWithoutVersion());
 
+            var projectId = GetProjectIdForContentLink(content.ContentLink);
+
             foreach (var propertyData in content.Property.Where(x => x.PropertyValueType == typeof(ContentArea)))
             {
                 var contentArea = (ContentArea) propertyData.Value;
@@ -94,7 +105,7 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
                         continue;
                     }
 
-                    var draft = _latestContentVersionResolver.GetDraftLink(contentAreaItem.ContentLink);
+                    var draft = _latestContentVersionResolver.GetDraftLink(contentAreaItem.ContentLink, projectId);
                     if (draft == null)
                     {
                         continue;

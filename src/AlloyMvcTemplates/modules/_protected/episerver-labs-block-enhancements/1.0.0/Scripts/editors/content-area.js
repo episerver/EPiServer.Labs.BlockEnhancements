@@ -7,6 +7,7 @@ define([
     "dojo/dom-attr",
     "dojo/dom-style",
     "dojo/dom-construct",
+    "epi/shell/TypeDescriptorManager",
     "epi-cms/core/ContentReference",
     "epi-cms/widget/overlay/ContentArea",
     "epi-cms/widget/overlay/Block",
@@ -24,6 +25,7 @@ define([
     domAttr,
     domStyle,
     domConstruct,
+    TypeDescriptorManager,
     ContentReference,
     ContentArea,
     Block,
@@ -54,7 +56,52 @@ define([
         buildRendering: function () {
             this.inherited(arguments);
             domStyle.set(this.sharedContentIcon, "display", !this.isLocalBlock ? "" : "none");
-        }
+        },
+
+        _setupIcon: function () {
+            var overlayItemInfo,
+                useIconOnBlock,
+                iconClass,
+                description;
+
+            overlayItemInfo = this.get("overlayItemInfo");
+            var visibleOnSite = this.viewModel.get("isVisibleOnSite") || this.isLocalBlock;
+            overlayItemInfo.set("class", !visibleOnSite ? "epi-overlay-content-invisible" : "");
+
+            // Get typeIdentifier of content first and if null then get of viewmodel.
+            var typeIdentifier = (this.viewModel.content && this.viewModel.content.typeIdentifier) || this.viewModel.typeIdentifier;
+
+            if (visibleOnSite && typeIdentifier) {
+                useIconOnBlock = TypeDescriptorManager.getValue(typeIdentifier, "useIconOnBlock");
+                iconClass = TypeDescriptorManager.getValue(typeIdentifier, "iconClass");
+                description = TypeDescriptorManager.getValue(typeIdentifier, "description");
+
+                if (useIconOnBlock) {
+                    overlayItemInfo.set("class", "epi-overlay-content-info");
+                    this.set("useIconOnBlock", true);
+                    this.set("statusIcon", iconClass);
+                    this.set("statusMessage", description);
+                }
+            }
+        },
+
+        _setStatusMessageAttr: function (/* Object */ message) {
+            // summary:
+            //      Set content status message
+            // message: [Object]
+            //      Content status message object. Can be String data type or Array data type.
+            // tags:
+            //      private
+            var overlayItemInfo = this.get("overlayItemInfo");
+
+            if (!overlayItemInfo) {
+                return;
+            }
+
+            if (!this.isLocalBlock) {
+                overlayItemInfo.set("statusMessage", message);
+            }
+        },
     });
     return declare([ContentArea, browsableContentAreaMixin], {
         blockEnhancementsOptions: {},
@@ -159,6 +206,7 @@ define([
                 return;
             }
 
+            childViewModel.set("isOverlayInitialized", false);
             // TODO: Pass context menu through instead of provider.
             var block = new this.blockClass({
                 disabled: this.disabled,
@@ -166,6 +214,7 @@ define([
                 isLocalBlock: isLocalBlock,
                 sourceItemNode: node
             });
+            childViewModel.set("isOverlayInitialized", true);
 
             this.addChild(block);
 

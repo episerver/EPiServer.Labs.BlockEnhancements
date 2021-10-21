@@ -12,11 +12,14 @@ namespace EPiServer.Labs.BlockEnhancements
     {
         private readonly LatestContentVersionResolver _latestContentVersionResolver;
         private readonly DependenciesResolver _dependenciesResolver;
+        private readonly LocalBlockConverter _localBlockConverter;
 
-        public BlockEnhancementsStore(LatestContentVersionResolver latestContentVersionResolver, DependenciesResolver dependenciesResolver)
+        public BlockEnhancementsStore(LatestContentVersionResolver latestContentVersionResolver,
+            DependenciesResolver dependenciesResolver, LocalBlockConverter localBlockConverter)
         {
             _latestContentVersionResolver = latestContentVersionResolver;
             _dependenciesResolver = dependenciesResolver;
+            _localBlockConverter = localBlockConverter;
         }
 
         [HttpGet]
@@ -35,6 +38,12 @@ namespace EPiServer.Labs.BlockEnhancements
                 items.Add(_latestContentVersionResolver.GetLatestVersion(itemId, queryString));
             }
             return Rest(items);
+        }
+
+        [HttpPost]
+        public ActionResult ConvertToLocalBlock(ContentReference id)
+        {
+            return new EmptyResult();
         }
     }
 }

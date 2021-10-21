@@ -1,0 +1,44 @@
+@using EPiServer.Framework.Web.Resources
+@inherits System.Web.Mvc.WebViewPage<EPiServer.Labs.BlockEnhancements.LocalContentAnalyzerViewModel>
+
+@Html.Raw(ClientResources.RenderResources("Dojo", new[] { ClientResourceType.Style }))
+@Html.Raw(@ClientResources.RenderResources("ShellCore"))
+@Html.Raw(@ClientResources.RenderResources("ShellCoreLightTheme"))
+@Html.Raw(@ClientResources.RenderResources("Navigation"))
+
+<div class="epi-contentContainer epi-padding">
+    <div class="epi-contentArea">
+        <h1 class="EP-prefix">
+            Analyze the usage of blocks
+        </h1><p class="EP-systemInfo">A tool to check how often the same block is shared between multiple content items.</p>
+    </div>
+
+
+    <div class="epi-contentArea epi-formArea">
+        <p>Number of blocks
+            <strong>@Model.BlockInstancesCount</strong>
+        </p>
+        <p>Number of blocks outside `For this page/block` folder
+            <strong>@Model.SharedBlockInstancesCount</strong>
+        </p>
+        <p>Number of blocks inside `For this page/block` folder
+            <strong>@Model.LocalBlockInstancesCount</strong>
+        </p>
+        <p>Local blocks ratio
+            <strong>@Model.LocalBlockRatio</strong>
+        </p>
+        <p>Shared blocks referenced just once (those could be moved to `For this page/block` folders)
+            <strong>@Model.SharedBlocksReferencedJustOnceCount</strong>
+        </p>
+        <p>Unused Shared blocks (could be removed)
+            <strong>@Model.UnusedSharedBlocks</strong>
+        </p>
+        <p>Real Shared Blocks (blocks which are used at least twice on different content items)
+            <strong>@Model.RealSharedBlocks</strong>
+        </p>
+        <div class="epi-buttonDefault" style="display: none;">
+            <span class="epi-cmsButton"><input class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Refresh" type="submit" value="Convert selected to local blocks"></span>
+        </div>
+    </div>
+
+</div>

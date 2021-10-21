@@ -452,6 +452,7 @@
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\telemetry\patch-cms-commands.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\telemetry\tracker.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\module.config" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\Views\LocalContentAnalyzerPlugin\Index.cshtml" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\web.config" />
     <Content Include="Resources\LanguageFiles\PropertyNames_sv.xml">
       <SubType>Designer</SubType>

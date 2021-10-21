@@ -46,13 +46,15 @@ define([
 
                 latestContentResolver([item]).then(function(contentsHashMap) {
                     var draft = contentsHashMap[new ContentReference(item.contentLink).id];
-                    var children = this.model.getChildren();
+                    if (draft) {
+                        var children = this.model.getChildren();
 
-                    children.forEach(function(child) {
-                        if(child.contentLink === item.contentLink) {
-                            child.set("content", draft);
-                        }
-                    });
+                        children.forEach(function (child) {
+                            if (child.contentLink === item.contentLink) {
+                                child.set("content", draft);
+                            }
+                        });
+                    }
                 }.bind(this));
             }.bind(this), true));
 

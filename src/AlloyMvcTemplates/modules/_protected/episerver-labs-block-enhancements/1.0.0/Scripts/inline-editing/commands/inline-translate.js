@@ -16,7 +16,7 @@ define([
     "epi-cms/contentediting/inline-editing/InlineEditBlockDialog",
 
     "episerver-labs-block-enhancements/create-new/translate-block-edit-form-container",
-
+    "episerver-labs-block-enhancements/get-options",
     "epi/i18n!epi/cms/nls/episerverlabs.blockenhancements.ilineediting"
 ],
 
@@ -38,7 +38,7 @@ function (
     InlineEditBlockDialog,
 
     TranslateFormContainer,
-
+    getOptions,
     labsResources
 ) {
 
@@ -162,23 +162,31 @@ function (
             // tags:
             //      protected
 
-            if (contentData.missingLanguageBranch && contentData.missingLanguageBranch.isTranslationNeeded) {
-                this.set("isAvailable", true);
+            when(getOptions()).then(function (options) {
+                if (options.localContentFeatureEnabled && !contentData.capabilities.isLocalContent) {
+                    this.set("isAvailable", false);
+                    this.set("canExecute", false);
+                    return;
+                }
 
-                var hasAccessRights = ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Edit);
-                var hasProviderSupportForEditing = ContentActionSupport.hasProviderCapability(contentData.providerCapabilityMask, ContentActionSupport.providerCapabilities.Edit);
-                var isDeleted = contentData.isDeleted;
-                var canExecute = hasAccessRights && hasProviderSupportForEditing && !isDeleted;
-                this.set("canExecute", canExecute);
+                if (contentData.missingLanguageBranch && contentData.missingLanguageBranch.isTranslationNeeded) {
+                    this.set("isAvailable", true);
 
-                var label = lang.replace(labsResources.inlinetranslate, {missingLanguage: contentData.missingLanguageBranch.preferredLanguage});
-                this.set("label", label);
+                    var hasAccessRights = ContentActionSupport.hasAccess(contentData.accessMask, ContentActionSupport.accessLevel.Edit);
+                    var hasProviderSupportForEditing = ContentActionSupport.hasProviderCapability(contentData.providerCapabilityMask, ContentActionSupport.providerCapabilities.Edit);
+                    var isDeleted = contentData.isDeleted;
+                    var canExecute = hasAccessRights && hasProviderSupportForEditing && !isDeleted;
+                    this.set("canExecute", canExecute);
 
-                return;
-            }
+                    var label = lang.replace(labsResources.inlinetranslate, {missingLanguage: contentData.missingLanguageBranch.preferredLanguage});
+                    this.set("label", label);
 
-            this.set("isAvailable", false);
-            this.set("canExecute", false);
+                    return;
+                }
+
+                this.set("isAvailable", false);
+                this.set("canExecute", false);
+            }.bind(this));
         }
     });
 });

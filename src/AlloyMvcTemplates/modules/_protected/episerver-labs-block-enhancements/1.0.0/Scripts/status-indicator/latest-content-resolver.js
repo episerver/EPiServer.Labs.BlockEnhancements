@@ -24,7 +24,9 @@ define([
 
         return enhancedStore.query({ ids: contentLinks }).then(function(contents) {
             return contents.reduce(function (map, obj) {
-                map[new ContentReference(obj.contentLink).id] = obj;
+                if (obj && obj.contentLink) {
+                    map[new ContentReference(obj.contentLink).id] = obj;
+                }
                 return map;
             }, {});
         }.bind(this));

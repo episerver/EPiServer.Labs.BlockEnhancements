@@ -435,6 +435,7 @@
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\inline-translate.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\initializer.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\SharedBlocks.initializer.js" />
+    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\get-options.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-page-with-blocks\content-dependencies.css" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-page-with-blocks\command-provider.js" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-page-with-blocks\content-dependencies.html" />

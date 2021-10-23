@@ -28,7 +28,20 @@ if (!$version) {
 
 Write-Host "Creating nuget with $fileVersionMatch version and $version client assets version"
 
-Set-Location src\AlloyMvcTemplates\modules\_protected\episerver-labs-block-enhancements
-ZipCurrentModule -moduleName episerver-labs-block-enhancements
+#cleanup all by dtk folder which is used by tests
+Get-ChildItem -Path out\ -Exclude dtk | Remove-Item -Recurse -Force
+
+#copy assets and views
+Copy-Item -Path src\EPiServer.Labs.BlockEnhancements\ClientResources\ -Destination out\$version\ -recurse -Force
+Copy-Item src\EPiServer.Labs.BlockEnhancements\module.config out\
+Copy-Item -Path src\EPiServer.Labs.BlockEnhancements\Views -Destination out\ -recurse -Force
+
+#include version in module.config
+((Get-Content -Path out\module.config -Raw).TrimEnd() -Replace '=""', "=`"$version`"" ) | Set-Content -Path out\module.config
+
+#create zip file
+Set-Location $workingDirectory\out
+Start-Process -NoNewWindow -Wait -FilePath $zip -ArgumentList "a", "episerver-labs-block-enhancements.zip", "$version", "module.config", "Views"
+
 Set-Location $workingDirectory
 Start-Process -NoNewWindow -Wait -FilePath $nuget -ArgumentList "pack", "$workingDirectory\build\packaging\EPiServer.Labs.BlockEnhancements.nuspec", "-Version $assemblyFileVersion", "-Properties configuration=Release", "-BasePath ./", "-Verbosity detailed"

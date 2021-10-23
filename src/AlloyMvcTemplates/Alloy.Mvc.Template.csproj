@@ -140,9 +140,6 @@
     <Reference Include="EPiServer.ImageLibrary, Version=11.20.4.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.20.4\lib\net461\EPiServer.ImageLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Labs.ConfigurationManager, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.Labs.ConfigurationManager.0.1.0\lib\net45\EPiServer.Labs.ConfigurationManager.dll</HintPath>
-    </Reference>
     <Reference Include="EPiServer.Licensing, Version=11.20.4.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.Framework.11.20.4\lib\net461\EPiServer.Licensing.dll</HintPath>
     </Reference>
@@ -426,34 +423,7 @@
     <Content Include="EpiserverLog.config" />
     <Content Include="favicon.ico" />
     <Content Include="libman.json" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\create-new\translate-block-edit-form-container.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\browsable-content-area-mixin.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\content-area-editor.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\editors\content-area.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\initializer.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\Block.html" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\commands\inline-translate.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\initializer.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\inline-editing\SharedBlocks.initializer.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\get-options.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-page-with-blocks\content-dependencies.css" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-page-with-blocks\command-provider.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-page-with-blocks\content-dependencies.html" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-page-with-blocks\content-dependencies.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-page-with-blocks\initializer.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\publish-page-with-blocks\command.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\status-indicator\block-status-indicator.css" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\status-indicator\block-status-indicator.html" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\status-indicator\block-tree-node-with-status.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\status-indicator\initializer.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\status-indicator\latest-content-resolver.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\store-initializer.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\telemetry\initializer.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\telemetry\patch-cms-commands.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\1.0.0\Scripts\telemetry\tracker.js" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\module.config" />
     <Content Include="modules\_protected\episerver-labs-block-enhancements\Views\LocalContentAnalyzerPlugin\Index.cshtml" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\web.config" />
     <Content Include="Resources\LanguageFiles\PropertyNames_sv.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -528,8 +498,6 @@
     <Content Include="modules\_protected\EPiServer.Cms.TinyMce\web.config" />
     <Content Include="modules\_protected\EPiServer.Cms.TinyMce\EPiServer.Cms.TinyMce.zip" />
     <Content Include="Views\TestPage\Index.cshtml" />
-    <Content Include="modules\_protected\episerver-labs-configuration-manager\web.config" />
-    <Content Include="modules\_protected\episerver-labs-configuration-manager\episerver-labs-configuration-manager.zip" />
     <Content Include="modules\_protected\episerver-telemetry-ui\web.config" />
     <Content Include="modules\_protected\episerver-telemetry-ui\episerver-telemetry-ui.zip" />
     <Content Include="modules\_protected\CMS\web.config" />
@@ -546,9 +514,6 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Web.Debug.config">
-      <DependentUpon>web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>

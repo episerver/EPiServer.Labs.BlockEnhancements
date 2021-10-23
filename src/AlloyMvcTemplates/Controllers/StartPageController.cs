@@ -23,6 +23,8 @@ namespace AlloyTemplates.Controllers
                 editHints.AddConnection(m => m.Layout.CustomerZonePages, p => p.CustomerZonePageLinks);
             }
 
+            var url = EPiServer.Shell.Paths.ToResource("episerver-labs-block-enhancements", "LocalContentAnalyzerPlugin");
+
             return View(model);
         }
 

@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using System.Web.Routing;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
-using EPiServer.Framework;
-using EPiServer.Framework.Initialization;
 using EPiServer.PlugIn;
 
 namespace EPiServer.Labs.BlockEnhancements
@@ -22,22 +19,7 @@ namespace EPiServer.Labs.BlockEnhancements
         public int RealSharedBlocks { get ; set ; }
     }
 
-    [InitializableModule]
-    public class LocalContentAnalyzerPluginModule : IInitializableModule
-    {
-        public void Initialize(InitializationEngine context)
-        {
-            RouteTable.Routes.MapRoute(
-                null, "local-content-analyzer-plugin/index", new
-                {
-                    controller = "LocalContentAnalyzerPlugin", action = "Index"
-                });
-        }
-
-        public void Uninitialize(InitializationEngine context) { }
-    }
-
-    [GuiPlugIn(Area = PlugInArea.AdminMenu, Url = "/local-content-analyzer-plugin/index", DisplayName = "Local content analyzer")]
+    [GuiPlugIn(Area = PlugInArea.AdminMenu, UrlFromModuleFolder = "LocalContentAnalyzerPlugin", DisplayName = "Local content analyzer")]
     public class LocalContentAnalyzerPluginController : Controller
     {
         private readonly IContentModelUsage _contentModelUsage;
@@ -55,7 +37,7 @@ namespace EPiServer.Labs.BlockEnhancements
         // GET
         public ActionResult Index()
         {
-            return View("~/modules/_protected/episerver-labs-block-enhancements/Views/LocalContentAnalyzerPlugin/Index.cshtml", CalculateModel());
+            return View("Index", CalculateModel());
         }
 
         private LocalContentAnalyzerViewModel CalculateModel()

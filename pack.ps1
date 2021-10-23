@@ -32,7 +32,7 @@ Write-Host "Creating nuget with $fileVersionMatch version and $version client as
 Get-ChildItem -Path out\ -Exclude dtk | Remove-Item -Recurse -Force
 
 #copy assets and views
-Copy-Item -Path src\EPiServer.Labs.BlockEnhancements\ClientResources\ -Destination out\$version\ -recurse -Force
+Copy-Item -Path src\EPiServer.Labs.BlockEnhancements\ClientResources\ -Destination out\$version\ClientResources -recurse -Force
 Copy-Item src\EPiServer.Labs.BlockEnhancements\module.config out\
 Copy-Item -Path src\EPiServer.Labs.BlockEnhancements\Views -Destination out\ -recurse -Force
 

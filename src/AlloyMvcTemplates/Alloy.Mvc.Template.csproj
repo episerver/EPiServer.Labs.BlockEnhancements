@@ -423,7 +423,6 @@
     <Content Include="EpiserverLog.config" />
     <Content Include="favicon.ico" />
     <Content Include="libman.json" />
-    <Content Include="modules\_protected\episerver-labs-block-enhancements\Views\LocalContentAnalyzerPlugin\Index.cshtml" />
     <Content Include="Resources\LanguageFiles\PropertyNames_sv.xml">
       <SubType>Designer</SubType>
     </Content>

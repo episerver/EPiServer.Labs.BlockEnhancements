@@ -1,10 +1,5 @@
-@using EPiServer.Framework.Web.Resources
+@using EPiServer.Shell
 @inherits System.Web.Mvc.WebViewPage<EPiServer.Labs.BlockEnhancements.LocalContentAnalyzerViewModel>
-
-@Html.Raw(ClientResources.RenderResources("Dojo", new[] { ClientResourceType.Style }))
-@Html.Raw(@ClientResources.RenderResources("ShellCore"))
-@Html.Raw(@ClientResources.RenderResources("ShellCoreLightTheme"))
-@Html.Raw(@ClientResources.RenderResources("Navigation"))
 
 <div class="epi-contentContainer epi-padding">
     <div class="epi-contentArea">
@@ -46,3 +41,9 @@
     </div>
 
 </div>
+<div id="root" data-epi-module-url="@Model.ModuleUrl">
+
+</div>
+
+<script type="text/javascript" src="@Paths.ToClientResource("episerver-labs-block-enhancements", "ClientResources/dist/blockenhancements-labs.bundle.js")"></script>
+<link rel="stylesheet" href="@Paths.ToClientResource("episerver-labs-block-enhancements", "ClientResources/dist/blockenhancements-labs.bundle.css")" />

@@ -1,0 +1,48 @@
+@use "@episerver/ui-framework/dist/main";
+@import "~optimizely-oui/dist/styles.css";
+
+  .control {
+    width: 100%;
+    margin-top: 20px;
+
+    .epi-text-field {
+        width: 100%;
+    }
+
+    .epi-exposed-dropdown-menu {
+        width: 100%;
+    }
+
+    .field-custom {
+        width: 93%;
+    }
+
+    .icon-link {
+        float: right;
+        cursor: pointer;
+    }
+}
+
+.content-area-container {
+    height: calc(100vh - 70px);
+}
+
+// OUI applies a box shadow to certain input elements instead of classes, so we need to remove it
+input {
+    box-shadow: none !important;
+}
+
+.epi-main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+
+    h2 {
+        margin: 0;
+    }
+}
+
+.epi-uif-menu-anchor > button {
+    display: flex;
+}

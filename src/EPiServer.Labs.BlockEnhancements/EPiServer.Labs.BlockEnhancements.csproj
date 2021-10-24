@@ -257,7 +257,27 @@
     <Content Include="ClientResources\telemetry\initializer.js" />
     <Content Include="ClientResources\telemetry\patch-cms-commands.js" />
     <Content Include="ClientResources\telemetry\tracker.js" />
+    <Content Include="React\.editorconfig" />
+    <Content Include="React\.eslintignore" />
+    <Content Include="React\.eslintrc.json" />
+    <Content Include="React\.gitignore" />
+    <Content Include="React\.storybook\addons.js" />
+    <Content Include="React\.storybook\config.js" />
+    <Content Include="React\.storybook\webpack.config.js" />
+    <Content Include="React\babel.config.js" />
+    <Content Include="React\favicon.ico" />
+    <Content Include="React\global.scss" />
+    <Content Include="React\package.json" />
+    <Content Include="React\tsconfig.json" />
+    <Content Include="React\webpack.common.js" />
+    <Content Include="React\webpack.config.js" />
+    <Content Include="React\yarn.lock" />
     <Content Include="Views\LocalContentAnalyzerPlugin\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="React\App.tsx" />
+    <TypeScriptCompile Include="React\index.tsx" />
+    <TypeScriptCompile Include="React\setupTests.tsx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

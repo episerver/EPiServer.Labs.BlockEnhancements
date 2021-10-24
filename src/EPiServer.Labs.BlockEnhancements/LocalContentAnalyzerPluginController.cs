@@ -5,6 +5,8 @@ using System.Web.Mvc;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.PlugIn;
+using EPiServer.Shell;
+using PlugInArea = EPiServer.PlugIn.PlugInArea;
 
 namespace EPiServer.Labs.BlockEnhancements
 {
@@ -17,6 +19,7 @@ namespace EPiServer.Labs.BlockEnhancements
         public string LocalBlockRatio { get ; set ; }
         public int UnusedSharedBlocks { get ; set ; }
         public int RealSharedBlocks { get ; set ; }
+        public string ModuleUrl { get ; set ; }
     }
 
     [GuiPlugIn(Area = PlugInArea.AdminMenu, UrlFromModuleFolder = "LocalContentAnalyzerPlugin", DisplayName = "Local content analyzer")]
@@ -70,6 +73,8 @@ namespace EPiServer.Labs.BlockEnhancements
                 }
             }
 
+            var moduleUrl = Paths.ToClientResource("episerver-labs-block-enhancements", string.Empty);
+
             return new LocalContentAnalyzerViewModel
             {
                 BlockInstancesCount = count,
@@ -78,7 +83,8 @@ namespace EPiServer.Labs.BlockEnhancements
                 SharedBlocksReferencedJustOnceCount = sharedBlocksReferencedJustOnceCount,
                 UnusedSharedBlocks = unusedSharedBlocks,
                 RealSharedBlocks = count - localCount - unusedSharedBlocks - sharedBlocksReferencedJustOnceCount,
-                LocalBlockRatio = Math.Round((decimal)localCount / count * 100) + "%"
+                LocalBlockRatio = Math.Round((decimal)localCount / count * 100) + "%",
+                ModuleUrl = moduleUrl
             };
         }
     }

@@ -202,7 +202,10 @@
     <Compile Include="InlineBlocksEditing\LocalBlockConverter.cs" />
     <Compile Include="InlineBlocksEditing\LocalBlockResolver.cs" />
     <Compile Include="InlineBlocksEditing\ProjectItemStoreHiderInitializer.cs" />
+    <Compile Include="LocalContentAnalyzerController.cs" />
     <Compile Include="LocalContentAnalyzerPluginController.cs" />
+    <Compile Include="LocalContentAnalyzerStatistics.cs" />
+    <Compile Include="LocalContentAnalyzerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatusIndicator\EnhancedStructureStoreModelTransform.cs" />
     <Compile Include="StatusIndicator\ProjectContentResolver.cs" />
@@ -277,7 +280,9 @@
   <ItemGroup>
     <TypeScriptCompile Include="React\App.tsx" />
     <TypeScriptCompile Include="React\index.tsx" />
+    <TypeScriptCompile Include="React\List.tsx" />
     <TypeScriptCompile Include="React\setupTests.tsx" />
+    <TypeScriptCompile Include="React\Statistics.tsx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

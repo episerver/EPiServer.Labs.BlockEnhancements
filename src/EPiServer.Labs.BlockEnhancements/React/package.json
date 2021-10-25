@@ -23,14 +23,6 @@
     "@babel/preset-typescript": "^7.6.0",
     "@babel/runtime": "^7.6.3",
     "@episerver/eslint-config": "^1.1.0",
-    "@popperjs/core": "^2.4.4",
-    "@reduxjs/toolkit": "^1.4.0",
-    "@rmwc/circular-progress": "^6.1.4",
-    "@rmwc/dialog": "^6.1.4",
-    "@rmwc/select": "^6.1.4",
-    "@rmwc/snackbar": "^6.1.4",
-    "@rmwc/theme": "^6.1.4",
-    "@rmwc/tooltip": "^6.1.4",
     "@storybook/addon-actions": "^5.2.4",
     "@storybook/addon-knobs": "^5.2.4",
     "@storybook/addon-links": "^5.2.4",
@@ -38,29 +30,20 @@
     "@storybook/react": "^5.2.4",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
-    "@types/chart.js": "^2.9.23",
     "@types/classnames": "^2.2.10",
     "@types/enzyme": "^3.10.8",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jest": "^26.0.20",
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
-    "@types/react-redux": "^7.1.9",
-    "@types/react-router-dom": "^5.1.5",
-    "@types/react-virtualized": "^9.21.10",
-    "@types/storybook-react-router": "^1.0.1",
     "@types/testing-library__jest-dom": "^5.9.5",
     "@types/testing-library__react": "^10.2.0",
-    "@types/yup": "^0.29.9",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^4.2.0",
-    "axios": "^0.19.2",
     "axios-mock-adapter": "^1.18.2",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.6.3",
     "babel-loader": "^8.0.5",
-    "chart.js": "^2.9.3",
-    "classnames": "^2.2.6",
     "css-loader": "^3.6.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
@@ -68,27 +51,18 @@
     "eslint": "^7.10.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-react": "^7.21.5",
-    "execa": "^4.0.3",
     "fs-extra": "^9.0.1",
+    "husky": "^3.0.9",
     "jest": "^26.6.3",
     "jest-environment-enzyme": "^7.1.2",
     "jest-enzyme": "^7.1.2",
     "jest-teamcity-reporter": "^0.9.0",
-    "license-webpack-plugin": "^2.3.14",
-    "lodash": "^4.17.20",
+    "lint-staged": "^8.1.6",
     "mini-css-extract-plugin": "^0.9.0",
     "minimist": "^1.2.5",
-    "moment": "^2.27.0",
-    "popper.js": "^1.16.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-redux": "^7.2.0",
-    "react-router-dom": "^5.2.0",
-    "react-sortable-hoc": "^1.11.0",
-    "react-virtualized": "^9.21.2",
+    "prettier": "1.18.2",
     "sass": "^1.26.10",
     "sass-loader": "^9.0.2",
-    "storybook-react-router": "^1.0.8",
     "style-loader": "^1.2.1",
     "ts-loader": "^8.0.0",
     "typescript": "^3.9.6",
@@ -98,17 +72,16 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
-    "@episerver/ui-framework": "^0.17.1",
-    "@optimizely/design-tokens": "^0.0.5",
-    "@types/faker": "^5.5.7",
-    "faker": "^5.5.3",
-    "optimizely-oui": "^48.10.0",
-    "react-toastify": "^6.0.8"
+    "axios": "^0.19.2",
+    "classnames": "^2.2.6",
+    "lodash": "^4.17.20",
+    "optimizely-oui": "^49.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "jest": {
     "moduleNameMapper": {
-      "\\.(css|scss|less)$": "babel-jest",
-      "^@epi/(.*)$": "<rootDir>/packages/$1/src"
+      "\\.(css|scss|less)$": "babel-jest"
     },
     "setupFilesAfterEnv": [
       "./setupTests.tsx"
@@ -118,5 +91,16 @@
     ],
     "testEnvironment": "enzyme",
     "testResultsProcessor": "jest-teamcity-reporter"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,scss,json,html,md}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }

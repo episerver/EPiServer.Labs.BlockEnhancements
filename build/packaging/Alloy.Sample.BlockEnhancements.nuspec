@@ -22,9 +22,11 @@
     <file src="src\AlloyMvcTemplates\Resources\**\*.*" target="wwwroot\Resources" />
     <file src="src\AlloyMvcTemplates\Static\**\*.*" target="wwwroot\Static" />
     <file src="src\AlloyMvcTemplates\Views\**\*.*" target="wwwroot\Views" />
-    <file src="src\AlloyMvcTemplates\modules\**\*.*" target="wwwroot\modules" exclude="src\AlloyMvcTemplates\modules\_protected\episerver-labs-block-enhancements\1.0.0\**\*.*;src\AlloyMvcTemplates\modules\_protected\episerver-labs-block-enhancements\module.config" />
+    <file src="src\AlloyMvcTemplates\modules\**\*.*" target="wwwroot\modules" />
     <file src="src\AlloyMvcTemplates\*.config" target="wwwroot" exclude="license.config"/>
     <file src="src\AlloyMvcTemplates\*.asax" target="wwwroot"/>
     <file src="src\AlloyMvcTemplates\*.ico" target="wwwroot"/>
+
+    <file src="out\episerver-labs-block-enhancements.zip" target="wwwroot\modules\_protected\episerver-labs-block-enhancements" />
   </files>
 </package>

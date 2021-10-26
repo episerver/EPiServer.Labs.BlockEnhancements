@@ -9,13 +9,13 @@
         </command>
         <noitemstopublish>There is nothing to be published</noitemstopublish>
         <currentcontenttopublish>There are no unpublished content items related to this content. Only the current content item can be published.</currentcontenttopublish>
+        <chooseitems>There are unpublished content items used by the current content.&lt;br/&gt; Choose the ones that you would like to publish simultaneously.</chooseitems>
         <loadingitems>Loading items...</loadingitems>
         <name>Name</name>
         <changed>Changed</changed>
         <by>By</by>
         <dialog>
           <title>Confirm publishing the page with related content items</title>
-          <confirmation>There are unpublished content items used by the current content.&lt;br/&gt; Choose the ones that you would like to publish simultaneously.</confirmation>
         </dialog>
         <ilineediting>
           <browseexistingitems>browse existing content</browseexistingitems>

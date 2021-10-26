@@ -145,7 +145,7 @@ namespace EPiServer.Labs.BlockEnhancements
                     TreePath = GetTreePath(referenceContent),
                     Uri = referenceContent.GetUri(),
                     IsPartOfActiveApproval = _approvalResolver.IsPartOfActiveApproval(referenceContent),
-                    IsLocal = _contentLoader.IsLocalContent(reference)
+                    IsLocal = _contentLoader.IsLocalContent(referenceContent.ContentLink)
                 };
 
                 if (referenceContent is IChangeTrackable changeTrackable)

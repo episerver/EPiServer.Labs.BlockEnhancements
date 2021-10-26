@@ -30,3 +30,4 @@ node_modules/
 episerver-labs-block-enhancements.zip
 
 out/
+dist/

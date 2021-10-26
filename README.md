@@ -19,7 +19,37 @@ All of those features work together, but you can decide which ones are enabled, 
 
 ## Local content
 
-//TODO: add docs
+Editors no longer have to manage Local Blocks and Local Assets independently.
+All local contents (meaning content that resides in `For this page/block` folders) lifecycle will now be 
+synchronized to its parent.
+
+This greatly simplifies the process of creating and editing pages because editor/reviewer
+no longer need to deal with individual blocks or assets but can focus on the big picture.
+
+When publishing a page all local content will be published altogether.
+
+The same with approval workflow, when content is marked as `Ready to review`, `Approved` or `Declined`
+then the editor/reviewer will just receive a single notification about the page.
+There will be no need to review the block individually.
+
+Changing a local block will create a new page version which lets the editors to review and preview
+what actually changed on a given page.
+
+Please see the new feature in action:
+
+![Editing local block](assets/docsimages/local-editing-local-block.gif)
+
+This allows the editor to use the Compare Mode and see what actually changed:
+
+![Compare mode](assets/docsimages/local-compare-mode.gif)
+
+Editor can also mark the page as `Ready to review` without dealing with local blocks one by one
+
+![Ready to review](assets/docsimages/local-ready-to-review.gif)
+
+Approving/declining is just as easy:
+
+![Approve content](assets/docsimages/local-approve-content.gif)
 
 ## Publish Page and Blocks
 
@@ -30,6 +60,8 @@ This is an extra command available in the global menu. It traverses current cont
 After running the command, a dialog box with a list of all draft versions of all dependent content items together with its own dependencies will be presented.
 The default traversal depth is set to 2 and the dependencies are presented as a tree with roots set to first level dependencies and leaves as second level dependencies.
 The editor can decide which blocks will be published using checkboxes next to the block name.
+If [LocalContentFeatureEnabled](#BlockEnhancementsOptions) is true then the dialog will only present Shared dependencies because local items are handled automatically.
+However if [LocalContentFeatureEnabled](#BlockEnhancementsOptions) is false then all dependencies will be presented.
 
 ![Publish content with local blocks](assets/docsimages/smart_publish_dialog.png)
 
@@ -67,7 +99,7 @@ public class CustomBlockEnhancementsModule : IConfigurableModule
     {
         context.Services.Configure<BlockEnhancementsOptions>(options =>
         {
-            options.PublishPageWithBlocks = true;            
+            options.LocalContentFeatureEnabled = false;            
             options.StatusIndicator = false;
             options.ContentAreaSettings = new ContentAreaSettings
                 {
@@ -89,10 +121,10 @@ public class CustomBlockEnhancementsModule : IConfigurableModule
  | ---- | ---- | ---- |
  | LocalContentFeatureEnabled | true | Connect local content items to its parent page | 
  | HideForThisFolder | true | Do not show `For this page` folder in the Blocks Asset Pane |
- | PublishPageWithBlocks | true | Show 'Publish page & blocks' command in the top menu |
+ | PublishPageWithBlocks | false | Show 'Publish page & blocks' command in the top menu |
  | StatusIndicator | true | Show the content status next to Content Area items |
  | ContentAreaSettings | [ContentAreaSettings](#ContentAreaSettings) | Settings related to Content Areas |
- | InlineTranslate | true | Translate content items inline, without switching context |
+ | InlineTranslate | false | Translate content items inline, without switching context |
 
 ### ContentAreaSettings
 

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using EPiServer.Cms.Shell;
-using EPiServer.Cms.Shell.UI.Rest.Internal;
 using EPiServer.Core;
 using EPiServer.Data.Entity;
+using EPiServer.DataAbstraction;
 using EPiServer.DataAccess;
 using EPiServer.Security;
 using EPiServer.ServiceLocation;
@@ -20,11 +20,12 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
         private readonly LatestContentVersionResolver _latestContentVersionResolver;
         private readonly BlockEnhancementsOptions _blockEnhancementsOptions;
         private readonly IContentVersionMapper _contentVersionMapper;
+        private readonly ProjectRepository _projectRepository;
 
         public Events(IContentEvents contentEvents, IContentRepository contentLoader,
             ContentAssetHelper contentAssetHelper, LatestContentVersionResolver latestContentVersionResolver,
-            BlockEnhancementsOptions blockEnhancementsOptions, IContentVersionMapper contentVersionMapper
-            )
+            BlockEnhancementsOptions blockEnhancementsOptions, IContentVersionMapper contentVersionMapper,
+            ProjectRepository projectRepository)
         {
             _contentEvents = contentEvents;
             _contentLoader = contentLoader;
@@ -32,6 +33,7 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
             _latestContentVersionResolver = latestContentVersionResolver;
             _blockEnhancementsOptions = blockEnhancementsOptions;
             _contentVersionMapper = contentVersionMapper;
+            _projectRepository = projectRepository;
         }
 
         public void Start()
@@ -48,7 +50,14 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
             }
 
             var items = new List<ContentReference>();
-            UpdateOwnerContentLinks(e.ContentLink, e.Content, items);
+            UpdateOwnerContentLinks(e.ContentLink, e.Content, items, false);
+        }
+
+        private int? GetProjectIdForContentLink(ContentReference contentReference)
+        {
+            var projects = _projectRepository.GetItems(new [] { contentReference });
+            var projectItem = projects.FirstOrDefault();
+            return projectItem?.ProjectID;
         }
 
         private void PublishedContent(object sender, ContentEventArgs e)
@@ -59,14 +68,14 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
             }
 
             var publishedItems = new List<ContentReference>();
-            PublishLocalContentItems(e.Content, publishedItems);
+            PublishLocalContentItems(e.Content, publishedItems, false);
         }
 
         // publish all local block items together with the page, can potentially be optimized
-        public void PublishLocalContentItems(IContent content, List<ContentReference> contentReferences)
+        public void PublishLocalContentItems(IContent content, List<ContentReference> contentReferences, bool forceScan)
         {
             var folder = _contentAssetHelper.GetAssetFolder(content.ContentLink);
-            if (folder == null)
+            if (folder == null && !forceScan)
             {
                 return;
             }
@@ -76,9 +85,12 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
                 return;
             }
 
+            contentReferences.Add(content.ContentLink.ToReferenceWithoutVersion());
+
+            var projectId = GetProjectIdForContentLink(content.ContentLink);
+
             foreach (var propertyData in content.Property.Where(x => x.PropertyValueType == typeof(ContentArea)))
             {
-
                 var contentArea = (ContentArea) propertyData.Value;
                 if (contentArea == null)
                 {
@@ -87,22 +99,20 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
 
                 foreach (var contentAreaItem in contentArea.Items)
                 {
-                    contentReferences.Add(contentAreaItem.ContentLink.ToReferenceWithoutVersion());
                     var isLocalAsset = _contentLoader.IsLocalContent(contentAreaItem.ContentLink);
                     if (!isLocalAsset)
                     {
                         continue;
                     }
 
-                    var draft = _latestContentVersionResolver.GetCommonDraft(contentAreaItem.ContentLink,
-                        content.LanguageBranch());
+                    var draft = _latestContentVersionResolver.GetDraftLink(contentAreaItem.ContentLink, projectId);
                     if (draft == null)
                     {
                         continue;
                     }
 
                     var item = _contentLoader.Get<IContent>(draft);
-                    PublishLocalContentItems(item, contentReferences);
+                    PublishLocalContentItems(item, contentReferences, true);
 
                     if ((item as IVersionable)?.Status != VersionStatus.CheckedOut)
                     {
@@ -120,10 +130,10 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
         }
 
         // update all parent content ids in localblocks
-        public void UpdateOwnerContentLinks(ContentReference parentContentLink, IContent content, List<ContentReference> contentReferences)
+        public void UpdateOwnerContentLinks(ContentReference parentContentLink, IContent content, List<ContentReference> contentReferences, bool force)
         {
             var folder = _contentAssetHelper.GetAssetFolder(content.ContentLink);
-            if (folder == null)
+            if (folder == null && !force)
             {
                 return;
             }
@@ -132,6 +142,7 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
             {
                 return;
             }
+            contentReferences.Add(content.ContentLink.ToReferenceWithoutVersion());
 
             foreach (var propertyData in content.Property.Where(x => x.PropertyValueType == typeof(ContentArea)))
             {
@@ -143,7 +154,6 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
 
                 foreach (var contentAreaItem in contentArea.Items)
                 {
-                    contentReferences.Add(contentAreaItem.ContentLink.ToReferenceWithoutVersion());
                     var isLocalAsset = _contentLoader.IsLocalContent(contentAreaItem.ContentLink);
                     if (!isLocalAsset)
                     {
@@ -153,7 +163,7 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
                     var item = _contentVersionMapper.AddVersionSpecificReference(parentContentLink, contentAreaItem.ContentLink, content.LanguageBranch());
                     if (item != null)
                     {
-                        UpdateOwnerContentLinks(parentContentLink, item, contentReferences);
+                        UpdateOwnerContentLinks(parentContentLink, item, contentReferences, true);
                     }
                 }
             }

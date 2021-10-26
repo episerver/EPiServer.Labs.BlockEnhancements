@@ -57,8 +57,8 @@
     <Reference Include="EPiServer.Cms.AspNet, Version=11.20.4.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.20.4\lib\net461\EPiServer.Cms.AspNet.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Cms.Shell.UI, Version=11.36.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.36.0\lib\net461\EPiServer.Cms.Shell.UI.dll</HintPath>
+    <Reference Include="EPiServer.Cms.Shell.UI, Version=11.36.3.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.36.3\lib\net461\EPiServer.Cms.Shell.UI.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Configuration, Version=11.20.4.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.20.4\lib\net461\EPiServer.Configuration.dll</HintPath>
@@ -90,14 +90,14 @@
     <Reference Include="EPiServer.LinkAnalyzer, Version=11.20.4.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.Core.11.20.4\lib\net461\EPiServer.LinkAnalyzer.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Shell, Version=11.36.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.36.0\lib\net461\EPiServer.Shell.dll</HintPath>
+    <Reference Include="EPiServer.Shell, Version=11.36.3.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.36.3\lib\net461\EPiServer.Shell.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Shell.UI, Version=11.36.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.36.0\lib\net461\EPiServer.Shell.UI.dll</HintPath>
+    <Reference Include="EPiServer.Shell.UI, Version=11.36.3.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.36.3\lib\net461\EPiServer.Shell.UI.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.UI, Version=11.36.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.36.0\lib\net461\EPiServer.UI.dll</HintPath>
+    <Reference Include="EPiServer.UI, Version=11.36.3.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPiServer.CMS.UI.Core.11.36.3\lib\net461\EPiServer.UI.dll</HintPath>
     </Reference>
     <Reference Include="EPiServer.Web.WebControls, Version=11.20.4.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.AspNet.11.20.4\lib\net461\EPiServer.Web.WebControls.dll</HintPath>
@@ -188,20 +188,26 @@
     <Compile Include="BlockEnhancementsStore.cs" />
     <Compile Include="ContentExtensions.cs" />
     <Compile Include="DependenciesResolver.cs" />
-    <Compile Include="InlineBlocksEditing\CMS\EnhancedStructureStoreContentDataModel.cs" />
-    <Compile Include="InlineBlocksEditing\CMS\LatestContentVersionResolver.cs" />
     <Compile Include="InlineBlocksEditing\ContentAreaDescriptor.cs" />
     <Compile Include="InlineBlocksEditing\ContentAreaInitializableModule.cs" />
-    <Compile Include="InlineBlocksEditing\CustomProjectRepository.cs" />
+    <Compile Include="InlineBlocksEditing\CustomProjectLoaderService.cs" />
+    <Compile Include="InlineBlocksEditing\CustomProjectService.cs" />
+    <Compile Include="InlineBlocksEditing\CustomPushMessenger.cs" />
     <Compile Include="InlineBlocksEditing\DDSContentVersionMapper.cs" />
     <Compile Include="InlineBlocksEditing\DraftContentAreaLoader.cs" />
     <Compile Include="InlineBlocksEditing\DraftContentAreaPreviewInitializerInitializer.cs" />
     <Compile Include="InlineBlocksEditing\Events.cs" />
     <Compile Include="InlineBlocksEditing\IContentVersionMapper.cs" />
+    <Compile Include="InlineBlocksEditing\LatestContentVersionResolver.cs" />
+    <Compile Include="InlineBlocksEditing\LocalBlockConverter.cs" />
+    <Compile Include="InlineBlocksEditing\LocalBlockResolver.cs" />
     <Compile Include="InlineBlocksEditing\ProjectItemStoreHiderInitializer.cs" />
+    <Compile Include="LocalContentAnalyzerController.cs" />
+    <Compile Include="LocalContentAnalyzerPluginController.cs" />
+    <Compile Include="LocalContentAnalyzerStatistics.cs" />
+    <Compile Include="LocalContentAnalyzerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatusIndicator\EnhancedStructureStoreModelTransform.cs" />
-    <Compile Include="StatusIndicator\LatestContentResolver.cs" />
     <Compile Include="StatusIndicator\ProjectContentResolver.cs" />
     <Compile Include="TimeAgoFormatter.cs" />
   </ItemGroup>
@@ -209,7 +215,7 @@
     <EmbeddedResource Include="EmbededLanguages\episerverlabsblockenhancements_EN.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="module.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -226,6 +232,57 @@
     <EmbeddedResource Include="EmbededLanguages\episerverlabsblockenhancements_NO.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ClientResources\create-new\translate-block-edit-form-container.js" />
+    <Content Include="ClientResources\editors\browsable-content-area-mixin.js" />
+    <Content Include="ClientResources\editors\content-area-editor.js" />
+    <Content Include="ClientResources\editors\content-area.js" />
+    <Content Include="ClientResources\get-options.js" />
+    <Content Include="ClientResources\initializer.js" />
+    <Content Include="ClientResources\inline-editing\Block.html" />
+    <Content Include="ClientResources\inline-editing\commands\inline-translate.js" />
+    <Content Include="ClientResources\inline-editing\commands\update-translate-command.js" />
+    <Content Include="ClientResources\inline-editing\initializer.js" />
+    <Content Include="ClientResources\inline-editing\SharedBlocks.initializer.js" />
+    <Content Include="ClientResources\publish-page-with-blocks\command-provider.js" />
+    <Content Include="ClientResources\publish-page-with-blocks\command.js" />
+    <Content Include="ClientResources\publish-page-with-blocks\content-dependencies.css" />
+    <Content Include="ClientResources\publish-page-with-blocks\content-dependencies.html" />
+    <Content Include="ClientResources\publish-page-with-blocks\content-dependencies.js" />
+    <Content Include="ClientResources\publish-page-with-blocks\initializer.js" />
+    <Content Include="ClientResources\status-indicator\block-status-indicator.css" />
+    <Content Include="ClientResources\status-indicator\block-status-indicator.html" />
+    <Content Include="ClientResources\status-indicator\block-tree-node-with-status.js" />
+    <Content Include="ClientResources\status-indicator\initializer.js" />
+    <Content Include="ClientResources\status-indicator\latest-content-resolver.js" />
+    <Content Include="ClientResources\store-initializer.js" />
+    <Content Include="ClientResources\telemetry\initializer.js" />
+    <Content Include="ClientResources\telemetry\patch-cms-commands.js" />
+    <Content Include="ClientResources\telemetry\tracker.js" />
+    <Content Include="React\.editorconfig" />
+    <Content Include="React\.eslintignore" />
+    <Content Include="React\.eslintrc.json" />
+    <Content Include="React\.gitignore" />
+    <Content Include="React\.storybook\addons.js" />
+    <Content Include="React\.storybook\config.js" />
+    <Content Include="React\.storybook\webpack.config.js" />
+    <Content Include="React\babel.config.js" />
+    <Content Include="React\favicon.ico" />
+    <Content Include="React\global.scss" />
+    <Content Include="React\package.json" />
+    <Content Include="React\tsconfig.json" />
+    <Content Include="React\webpack.common.js" />
+    <Content Include="React\webpack.config.js" />
+    <Content Include="React\yarn.lock" />
+    <Content Include="Views\LocalContentAnalyzerPlugin\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="React\App.tsx" />
+    <TypeScriptCompile Include="React\index.tsx" />
+    <TypeScriptCompile Include="React\List.tsx" />
+    <TypeScriptCompile Include="React\setupTests.tsx" />
+    <TypeScriptCompile Include="React\Statistics.tsx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

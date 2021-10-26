@@ -19,7 +19,7 @@ namespace AlloyTemplates.Business.Initialization
                 {
                     ContentAreaBrowse = true
                 };
-                options.InlineTranslate = true;
+                options.InlineTranslate = false;
             });
         }
 

@@ -9,8 +9,8 @@ namespace EPiServer.Labs.BlockEnhancements
     public class BlockEnhancementsOptions
     {
         public bool StatusIndicator { get; set; } = true;
-        public bool PublishPageWithBlocks { get; set; } = true;
-        public bool InlineTranslate { get; set; } = true;
+        public bool PublishPageWithBlocks { get; set; } = false;
+        public bool InlineTranslate { get; set; } = false;
         public bool HideForThisFolder { get; set; } = true;
         public bool LocalContentFeatureEnabled { get; set; } = true;
         public ContentAreaSettings ContentAreaSettings { get; set; } = new ContentAreaSettings();

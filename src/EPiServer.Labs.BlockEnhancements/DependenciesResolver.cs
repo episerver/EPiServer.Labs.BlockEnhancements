@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
-using EPiServer.Approvals;
-using EPiServer.Approvals.ContentApprovals;
 using EPiServer.Cms.Shell;
 using EPiServer.Cms.Shell.Service.Internal;
 using EPiServer.Cms.Shell.UI.Rest.Models;
@@ -22,7 +20,7 @@ namespace EPiServer.Labs.BlockEnhancements
 {
     public class DependenciesResolver
     {
-        private readonly IContentRepository _contentRepository;
+        private readonly IContentLoader _contentLoader;
         private readonly LanguageResolver _languageResolver;
         private readonly ContentLoaderService _contentLoaderService;
         private readonly ContentSoftLinkIndexer _contentSoftLinkIndexer;
@@ -31,15 +29,17 @@ namespace EPiServer.Labs.BlockEnhancements
         private readonly ServiceAccessor<HttpContextBase> _httpContextAccessor;
         private readonly ApprovalResolver _approvalResolver;
         private readonly LocalizationService _localizationService;
+        private readonly BlockEnhancementsOptions _blockEnhancementsOptions;
 
-        public DependenciesResolver(ContentSoftLinkIndexer contentSoftLinkIndexer, IContentRepository contentRepository,
+        public DependenciesResolver(ContentSoftLinkIndexer contentSoftLinkIndexer, IContentLoader contentLoader,
             LanguageResolver languageResolver, ContentLoaderService contentLoaderService,
             ServiceAccessor<SiteDefinition> currentSiteDefinition, UIDescriptorRegistry uiDescriptorRegistry,
             ServiceAccessor<HttpContextBase> httpContextAccessor,
-            ApprovalResolver approvalResolver, LocalizationService localizationService)
+            ApprovalResolver approvalResolver, LocalizationService localizationService,
+            BlockEnhancementsOptions blockEnhancementsOptions)
         {
             _contentSoftLinkIndexer = contentSoftLinkIndexer;
-            _contentRepository = contentRepository;
+            _contentLoader = contentLoader;
             _languageResolver = languageResolver;
             _contentLoaderService = contentLoaderService;
             _currentSiteDefinition = currentSiteDefinition;
@@ -47,6 +47,7 @@ namespace EPiServer.Labs.BlockEnhancements
             _httpContextAccessor = httpContextAccessor;
             _approvalResolver = approvalResolver;
             _localizationService = localizationService;
+            _blockEnhancementsOptions = blockEnhancementsOptions;
         }
 
         private static bool IsCorrectStatus(ExtendedVersionStatus versionStatus)
@@ -86,7 +87,7 @@ namespace EPiServer.Labs.BlockEnhancements
                 return contentVersion.ContentLink;
             }
 
-            var item = _contentRepository.Get<IContent>(contentVersion.ContentLink);
+            var item = _contentLoader.Get<IContent>(contentVersion.ContentLink);
             if (_approvalResolver.IsPartOfActiveApproval(item))
             {
                 return contentVersion.ContentLink;
@@ -114,7 +115,7 @@ namespace EPiServer.Labs.BlockEnhancements
             }
 
             var masterLanguage = ((ILocalizable) content).MasterLanguage;
-            var masterVersion = _contentRepository.Get<IContent>(content.ContentLink.ToReferenceWithoutVersion(), masterLanguage);
+            var masterVersion = _contentLoader.Get<IContent>(content.ContentLink.ToReferenceWithoutVersion(), masterLanguage);
             var masterVersionDependencies = GetDependencies(masterVersion);
             return currentLanguageDependencies.Union(masterVersionDependencies);
         }
@@ -122,18 +123,18 @@ namespace EPiServer.Labs.BlockEnhancements
         public IEnumerable<Dependency> GetUnpublishedDependencies(ContentReference contentLink)
         {
             var dependencies = new List<Dependency>();
-            var root = _contentRepository.Get<IContent>(contentLink);
+            var root = _contentLoader.Get<IContent>(contentLink);
             var directDependencies = GetLanguageAgnosticDependencies(root).ToList();
             var you = _localizationService.GetStringByCulture("/episerver/shared/text/yousubject",
                 CultureInfo.CurrentCulture);
             var currentUser = _httpContextAccessor()?.User?.Identity?.Name;
             foreach (var directDependency in directDependencies)
             {
-                var content = _contentRepository.Get<IContent>(directDependency);
+                var content = _contentLoader.Get<IContent>(directDependency);
                 if (!(content is BlockData)) continue;
 
                 var reference = GetUnpublishedVersion(content, _languageResolver.GetPreferredCulture());
-                var referenceContent = reference != null ? _contentRepository.Get<IContent>(reference) : content;
+                var referenceContent = reference != null ? _contentLoader.Get<IContent>(reference) : content;
                 var dependency = new Dependency
                 {
                     CanBePublished = reference != null,
@@ -143,7 +144,8 @@ namespace EPiServer.Labs.BlockEnhancements
                     TypeIdentifier = GetTypeIdentifier(referenceContent),
                     TreePath = GetTreePath(referenceContent),
                     Uri = referenceContent.GetUri(),
-                    IsPartOfActiveApproval = _approvalResolver.IsPartOfActiveApproval(referenceContent)
+                    IsPartOfActiveApproval = _approvalResolver.IsPartOfActiveApproval(referenceContent),
+                    IsLocal = _contentLoader.IsLocalContent(referenceContent.ContentLink)
                 };
 
                 if (referenceContent is IChangeTrackable changeTrackable)
@@ -157,7 +159,7 @@ namespace EPiServer.Labs.BlockEnhancements
                 var subDependencies = GetLanguageAgnosticDependencies(referenceContent).ToList();
                 foreach (var subDependency in subDependencies)
                 {
-                    var subContent = _contentRepository.Get<IContent>(subDependency);
+                    var subContent = _contentLoader.Get<IContent>(subDependency);
                     var subReference = GetUnpublishedVersion(subContent, _languageResolver.GetPreferredCulture());
                     if (subReference == null) continue;
 
@@ -166,7 +168,7 @@ namespace EPiServer.Labs.BlockEnhancements
                         continue;
                     }
 
-                    var subContentVersion = _contentRepository.Get<IContent>(subReference);
+                    var subContentVersion = _contentLoader.Get<IContent>(subReference);
                     var richContentReferenceModel = new RichContentReferenceModel
                     {
                         ContentLink = subReference,
@@ -195,7 +197,10 @@ namespace EPiServer.Labs.BlockEnhancements
                 }
             }
 
-            return dependencies;
+            // If the Local block feature is turned on then Smart Publish should not show local content at all
+            return _blockEnhancementsOptions.LocalContentFeatureEnabled
+                ? dependencies.Where(x => !x.IsLocal)
+                : dependencies;
         }
 
         private string GetTypeIdentifier(IContent c)
@@ -229,5 +234,6 @@ namespace EPiServer.Labs.BlockEnhancements
         public string Changed { get; set; }
         public string ChangedBy { get; set; }
         public bool IsPartOfActiveApproval { get; set; }
+        public bool IsLocal { get; set; }
     }
 }

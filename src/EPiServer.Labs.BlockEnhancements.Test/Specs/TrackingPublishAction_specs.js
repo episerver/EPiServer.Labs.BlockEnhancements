@@ -5,7 +5,7 @@ define([
     "epi/dependency",
     "epi-cms/contentediting/command/Publish",
     "epi-cms/contentediting/command/BlockInlinePublish",
-    "episerver-labs-block-enhancements/publish-with-local-content-items/command"
+    "episerver-labs-block-enhancements/publish-page-with-blocks/command"
 ], (
     stubModule,
     Deferred,

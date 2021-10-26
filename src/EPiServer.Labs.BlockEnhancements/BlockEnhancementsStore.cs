@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using EPiServer.Cms.Shell.UI.Rest.Models.Internal;
 using EPiServer.Core;
-using EPiServer.Labs.BlockEnhancements.StatusIndicator;
+using EPiServer.Labs.BlockEnhancements.InlineBlocksEditing;
 using EPiServer.Shell.Services.Rest;
 
 namespace EPiServer.Labs.BlockEnhancements
@@ -9,14 +10,16 @@ namespace EPiServer.Labs.BlockEnhancements
     [RestStore("episerverlabsblockenhancements")]
     public class BlockEnhancementsStore : RestControllerBase
     {
-        private readonly LatestContentResolver _latestContentResolver;
+        private readonly LatestContentVersionResolver _latestContentVersionResolver;
         private readonly DependenciesResolver _dependenciesResolver;
+        private readonly LocalBlockConverter _localBlockConverter;
 
-        public BlockEnhancementsStore(LatestContentResolver latestContentResolver,
-            DependenciesResolver dependenciesResolver)
+        public BlockEnhancementsStore(LatestContentVersionResolver latestContentVersionResolver,
+            DependenciesResolver dependenciesResolver, LocalBlockConverter localBlockConverter)
         {
-            _latestContentResolver = latestContentResolver;
+            _latestContentVersionResolver = latestContentVersionResolver;
             _dependenciesResolver = dependenciesResolver;
+            _localBlockConverter = localBlockConverter;
         }
 
         [HttpGet]
@@ -29,7 +32,18 @@ namespace EPiServer.Labs.BlockEnhancements
             }
 
             var queryString = ControllerContext.HttpContext.Request.QueryString;
-            return Rest(_latestContentResolver.GetLatestVersions(ids, queryString));
+            var items = new List<EnhancedStructureStoreContentDataModel>();
+            foreach (var itemId in ids)
+            {
+                items.Add(_latestContentVersionResolver.GetLatestVersion(itemId, queryString));
+            }
+            return Rest(items);
+        }
+
+        [HttpPost]
+        public ActionResult ConvertToLocalBlock(ContentReference id)
+        {
+            return new EmptyResult();
         }
     }
 }

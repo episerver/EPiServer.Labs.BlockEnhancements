@@ -62,12 +62,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="EPiServer.CMS.UI.Core">
-      <Version>11.32.0</Version>
+      <Version>11.36.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="dojoConfig.js" />
     <Content Include="Specs\TrackingPublishAction_specs.js" />
+    <Content Include="tdd\stub-module.js" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

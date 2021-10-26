@@ -1,5 +1,4 @@
-﻿using System;
-using EPiServer.Framework.Web.Resources;
+﻿using EPiServer.Framework.Web.Resources;
 using EPiServer.ServiceLocation;
 using EPiServer.Shell.Modules;
 using EPiServer.Shell.ObjectEditing.EditorDescriptors;
@@ -9,15 +8,11 @@ namespace EPiServer.Labs.BlockEnhancements
     [Options]
     public class BlockEnhancementsOptions
     {
-        [Obsolete("The inline editing feature is now included in the default UI", true)]
-        public bool InlineEditing { get; set; } = true;
         public bool StatusIndicator { get; set; } = true;
-        public bool InlinePublish { get; set; } = true;
-        public bool PublishWithLocalContentItems { get; set; } = true;
-        public bool ContentDraftView { get; set; } = true;
-        [Obsolete("The inline create feature is now included in the default UI. If you want to enable inline translations, use the InlineTranslate option.", true)]
-        public bool InlineCreate { get; set; } = true;
-        public bool InlineTranslate { get; set; } = true;
+        public bool PublishPageWithBlocks { get; set; } = false;
+        public bool InlineTranslate { get; set; } = false;
+        public bool HideForThisFolder { get; set; } = true;
+        public bool LocalContentFeatureEnabled { get; set; } = true;
         public ContentAreaSettings ContentAreaSettings { get; set; } = new ContentAreaSettings();
     }
 

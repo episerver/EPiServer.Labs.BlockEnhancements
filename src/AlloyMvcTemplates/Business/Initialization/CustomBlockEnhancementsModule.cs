@@ -13,15 +13,13 @@ namespace AlloyTemplates.Business.Initialization
         {
             context.Services.Configure<BlockEnhancementsOptions>(options =>
             {
-                options.PublishWithLocalContentItems = true;
-                options.ContentDraftView = true;
-                options.InlinePublish = true;
+                options.PublishPageWithBlocks = false;
                 options.StatusIndicator = true;
                 options.ContentAreaSettings = new ContentAreaSettings
                 {
                     ContentAreaBrowse = true
                 };
-                options.InlineTranslate = true;
+                options.InlineTranslate = false;
             });
         }
 

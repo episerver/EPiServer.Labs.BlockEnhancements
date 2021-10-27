@@ -6,7 +6,7 @@ The page is selected at all times and all actions around local blocks is perform
 
 The list of current features is as following:
 * [Local content](#local-content)
-* [Publish Page and Shared Blocks](#smart-publish)
+* [Publish Page and Shared Blocks](#publish-page-and-shared-blocks)
 * [Showing block status on content area](#showing-block-status-on-content-area)
 * [Telemetry opt-in](#telemetry-opt-in)
 * [Translate](#translate)
@@ -63,7 +63,7 @@ For performance reasons we only display the N first blocks that match the search
 
 This is an extra command available in the global menu. It traverses current content dependency graph and lists all draft versions of blocks that could be published simultaneously. This command is hidden by default and will most likely be phased out since we want to promote the use of local blocks.
 
-![Smart publish](assets/docsimages/smart_publish.png)
+![Publish Page and Shared Blocks](assets/docsimages/smart_publish.png)
 
 After running the command, a dialog box with a list of all draft versions of all dependent content items together with its own dependencies will be presented.
 The default traversal depth is set to 2 and the dependencies are presented as a tree with roots set to first level dependencies and leaves as second level dependencies.
@@ -208,23 +208,23 @@ Includes keys in `customDimensions` that correspond to a feature, and the value 
 * `hideForThisFolder`: Do not show `For this page` folder in Blocks Asset Pane
 * `localContentFeatureEnabled`: [Local content](#local-content)
 * `inlineTranslate`: [Inline translate](#translate)
-* `publishPageWithBlocks`: [Smart publish](#smart-publish)
+* `publishPageWithBlocks`: [Publish Page and Shared Blocks](#publish-page-and-shared-blocks)
 * `statusIndicator`: [Showing block status on content area](#showing-block-status-on-content-area)
 
 #### `publish`
 
 Includes the following `customDimensions`:
 
-* `publish-result`: Boolean, `true` if the publish was successful. For Smart Publish this is the main content. If the main content is not changed, the result is `true`. It can succeed while the children fail (see `smart-publish.published`).
+* `publish-result`: Boolean, `true` if the publish was successful. For Publish Page and Shared Blocks this is the main content. If the main content is not changed, the result is `true`. It can succeed while the children fail (see `smart-publish.published`).
 * `content-type`: String, `"page" | "block"`, specifies whether it's a page or a block that's being published.
 * `command-type`: String, specifies one of the following features which originated the action:
     * `"default"`: Regular block and page publishes from CMS UI.
     * `"inline-edit-form"`: Publish from the Inline Edit form.
     * `"content-area"`: Publish from the Content Area content context menu.
     * `"assets-pane"`: Publish from the Assets Pane item context menu.
-    * `"smart"`: Publish with the "Smart Publish" button in the Publish Menu, and includes additional `customMeasurements`:
-        * `smart-publish.available`: Number, count of default selected content in the Smart Publish confirmation dialog.
-        * `smart-publish.selected`: Number, count of user selected content in the Smart Publish confirmation dialog.
+    * `"smart"`: Publish with the "Publish Page and Shared Blocks" button in the Publish Menu, and includes additional `customMeasurements`:
+        * `smart-publish.available`: Number, count of default selected content in the Publish Page and Shared Blocks confirmation dialog.
+        * `smart-publish.selected`: Number, count of user selected content in the Publish Page and Shared Blocks confirmation dialog.
         * `smart-publish.published`: Number, count of successfully published content.
 
 ### Please note

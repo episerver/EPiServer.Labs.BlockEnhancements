@@ -6,7 +6,7 @@ The page is selected at all times and all actions around local blocks is perform
 
 The list of current features is as following:
 * [Local content](#local-content)
-* [Publish Page and Blocks](#smart-publish)
+* [Publish Page and Shared Blocks](#smart-publish)
 * [Showing block status on content area](#showing-block-status-on-content-area)
 * [Telemetry opt-in](#telemetry-opt-in)
 * [Translate](#translate)
@@ -61,7 +61,7 @@ For performance reasons we only display the N first blocks that match the search
 
 ## Publish Page and Shared Blocks
 
-This is an extra command available in the global menu. It traverses current content dependency graph and lists all draft versions of shared blocks that could be published simultaneously. This command is hidden by default as it's now possible to use local blocks in much easier way.
+This is an extra command available in the global menu. It traverses current content dependency graph and lists all draft versions of blocks that could be published simultaneously. This command is hidden by default and will most likely be phased out since we want to promote the use of local blocks.
 
 ![Smart publish](assets/docsimages/smart_publish.png)
 

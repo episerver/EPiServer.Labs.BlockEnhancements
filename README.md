@@ -51,9 +51,15 @@ Approving/declining is just as easy:
 
 ![Approve content](assets/docsimages/local-approve-content.gif)
 
-## Publish Page and Blocks
+There is an Admin Mode plugin available that lets you analyze all the block instances and convert them to local blocks if possible.
 
-This is an extra command available in the global menu. It traverses current content dependency graph and lists all draft versions of blocks that could be published simultaneously.
+All the blocks that are not truly Shared (meaning they are only used once) will be moved the the respective `For this page/block` folders. You can move the blocks one by one or move all the visible blocks at once. 
+
+For performance reasons we only display the N first blocks that match the search filter.
+
+## Publish Page and Shared Blocks
+
+This is an extra command available in the global menu. It traverses current content dependency graph and lists all draft versions of shared blocks that could be published simultaneously. This command is hidden by default as it's now possible to use local blocks in much easier way.
 
 ![Smart publish](assets/docsimages/smart_publish.png)
 

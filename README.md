@@ -53,6 +53,8 @@ Approving/declining is just as easy:
 
 There is an Admin Mode plugin available that lets you analyze all the block instances and convert them to local blocks if possible.
 
+![Editing local block](assets/docsimages/local-admin-mode-plugin.png)
+
 All the blocks that are not truly Shared (meaning they are only used once) will be moved the the respective `For this page/block` folders. You can move the blocks one by one or move all the visible blocks at once. 
 
 For performance reasons we only display the N first blocks that match the search filter.

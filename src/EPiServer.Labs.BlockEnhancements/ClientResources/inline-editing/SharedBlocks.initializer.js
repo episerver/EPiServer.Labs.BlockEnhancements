@@ -85,6 +85,10 @@ require([
     var originalUpdateToolbarItemsModel = EditToolbar.prototype._updateToolbarItemsModel;
     EditToolbar.prototype._updateToolbarItemsModel = function () {
         when(getOptions()).then(function(options) {
+            if (!options.localContentFeatureEnabled) {
+                return;
+            }
+
             var isLocalContent = this.contentViewModel && this.contentViewModel.contentData && this.contentViewModel.contentData.capabilities.isLocalContent;
             this._getWidget("editactionpanel").domNode.classList.toggle("dijitHidden", isLocalContent);
         }.bind(this));

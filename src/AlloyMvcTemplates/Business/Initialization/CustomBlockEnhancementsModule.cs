@@ -13,13 +13,7 @@ namespace AlloyTemplates.Business.Initialization
         {
             context.Services.Configure<BlockEnhancementsOptions>(options =>
             {
-                options.PublishPageWithBlocks = false;
-                options.StatusIndicator = true;
-                options.ContentAreaSettings = new ContentAreaSettings
-                {
-                    ContentAreaBrowse = true
-                };
-                options.InlineTranslate = false;
+
             });
         }
 

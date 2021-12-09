@@ -7,8 +7,8 @@ define([
     "dojo/Deferred",
     "dojo/dom-class",
     "dojo/_base/lang",
-    "epi",
     "epi/datetime",
+    "epi/shell/TypeDescriptorManager",
     "epi-cms/core/ContentReference",
     "epi-cms/contentediting/ContentActionSupport",
     "epi-cms/contentediting/ContentViewModel",
@@ -31,8 +31,8 @@ define([
     Deferred,
     domClass,
     lang,
-    epi,
     epiDateTime,
+    TypeDescriptorManager,
     ContentReference,
     ContentActionSupport,
     ContentViewModel,
@@ -48,7 +48,11 @@ define([
     actionStrings
 ) {
     return function (blockEnhancementsOptions) {
-        BlockInlineEdit.prototype.label = epi.resources.action.edit;
+        function isAllowedForQuickEdit(typeIdentifier) {
+            return blockEnhancementsOptions.ignoredBlockTypeIdentifiersOnQuickEdit.every(function (baseTypeToIgnore) {
+                return !TypeDescriptorManager.isBaseTypeIdentifier(typeIdentifier, baseTypeToIgnore);
+            })
+        }
 
         BlockInlineEdit.prototype._refreshContentSettings = function (contentData) {
             // summary:
@@ -73,7 +77,14 @@ define([
 
             var canExecute = (this.ignoredEditStatuses.indexOf(contentData.status) === -1) && hasAccessRights && hasProviderSupportForEditing && !isDeleted && !isInUse && !isPartOfActiveApproval;
 
-            if (contentData.capabilities && !contentData.capabilities.isLocalContent) {
+            if (!blockEnhancementsOptions.allowQuickEditOnSharedBlocks) {
+                if (contentData.capabilities && !contentData.capabilities.isLocalContent) {
+                    this.set("isAvailable", false);
+                    return;
+                }
+            }
+
+            if (!isAllowedForQuickEdit(contentData.typeIdentifier)) {
                 this.set("isAvailable", false);
                 return;
             }
@@ -167,6 +178,10 @@ define([
             }, {});
         }
 
+        function isEditDisabledForContent(content) {
+            return content && content.capabilities && content.capabilities.isLocalContent && isAllowedForQuickEdit(content.typeIdentifier);
+        }
+
         BlockEdit.prototype._onModelValueChange = function () {
             // summary:
             //      Updates canExecute after the model value has changed.
@@ -181,16 +196,17 @@ define([
 
             this.set("isAvailable", true);
 
-            if (item.content && item.content.capabilities && item.content.capabilities.isLocalContent) {
+            if (isEditDisabledForContent(item.content)) {
                 this.set("isAvailable", false);
                 return;
             }
 
             var result = item && this._store.get(item.contentLink);
 
+
             // if the accessMask is available then display the label accordingly. (i.e either "View" or "Edit")
             when(result, lang.hitch(this, function (content) {
-                if (content && content.capabilities && content.capabilities.isLocalContent) {
+                if (isEditDisabledForContent(content)) {
                     this.set("isAvailable", false);
                     return;
                 }

@@ -128,7 +128,10 @@ public class CustomBlockEnhancementsModule : IConfigurableModule
  | Option        | Default           | Description  |
  | ---- | ---- | ---- |
  | LocalContentFeatureEnabled | true | Connect local content items to its parent page | 
+ | AllowQuickEditOnSharedBlocks | false | Enable `Quick Edit` command also on shared blocks. It might be useful to turn this on if there are many shared blocks in the system | 
  | HideForThisFolder | true | Do not show `For this page` folder in the Blocks Asset Pane |
+ | IgnoreQuickEditOnBlockTypes | [] | Favor standard `Edit` command over `Quick Edit` for specific block types. If you provide `typeof(BlockData)` type then Quick Edit will be disabled for all block types. |
+ | IgnoreQuickEditOnBlockTypeIdentifiers | [] | Favor standard `Edit` command over `Quick Edit` for specific block type identifiers (e.g. alloytemplates.models.blocks.buttonblock). If you provide `episrver.core.blockdata` type identifier then Quick Edit will be disabled for all block types. |
  | PublishPageWithBlocks | false | Show 'Publish page & blocks' command in the top menu |
  | StatusIndicator | true | Show the content status next to Content Area items |
  | ContentAreaSettings | [ContentAreaSettings](#ContentAreaSettings) | Settings related to Content Areas |

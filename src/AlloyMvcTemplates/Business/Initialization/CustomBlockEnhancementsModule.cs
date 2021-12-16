@@ -1,4 +1,5 @@
-﻿using EPiServer.Framework;
+﻿using AlloyTemplates.Models.Blocks;
+using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
 using EPiServer.Labs.BlockEnhancements;
 using EPiServer.ServiceLocation;
@@ -13,13 +14,7 @@ namespace AlloyTemplates.Business.Initialization
         {
             context.Services.Configure<BlockEnhancementsOptions>(options =>
             {
-                options.PublishPageWithBlocks = false;
-                options.StatusIndicator = true;
-                options.ContentAreaSettings = new ContentAreaSettings
-                {
-                    ContentAreaBrowse = true
-                };
-                options.InlineTranslate = false;
+                options.IgnoreQuickEditOnBlockTypes = new [] { typeof(TeaserBlock) };
             });
         }
 

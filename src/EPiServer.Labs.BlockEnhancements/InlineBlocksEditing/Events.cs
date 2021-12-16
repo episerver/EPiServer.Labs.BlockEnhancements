@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using EPiServer.Cms.Shell;
+using EPiServer.Cms.Shell.UI.Rest;
 using EPiServer.Core;
 using EPiServer.Data.Entity;
 using EPiServer.DataAbstraction;
@@ -21,11 +23,12 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
         private readonly BlockEnhancementsOptions _blockEnhancementsOptions;
         private readonly IContentVersionMapper _contentVersionMapper;
         private readonly ProjectRepository _projectRepository;
+        private readonly CurrentContentContext _currentContentContext;
 
         public Events(IContentEvents contentEvents, IContentRepository contentLoader,
             ContentAssetHelper contentAssetHelper, LatestContentVersionResolver latestContentVersionResolver,
             BlockEnhancementsOptions blockEnhancementsOptions, IContentVersionMapper contentVersionMapper,
-            ProjectRepository projectRepository)
+            ProjectRepository projectRepository, CurrentContentContext currentContentContext)
         {
             _contentEvents = contentEvents;
             _contentLoader = contentLoader;
@@ -34,12 +37,14 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
             _blockEnhancementsOptions = blockEnhancementsOptions;
             _contentVersionMapper = contentVersionMapper;
             _projectRepository = projectRepository;
+            _currentContentContext = currentContentContext;
         }
 
         public void Start()
         {
             _contentEvents.PublishedContent += PublishedContent;
             _contentEvents.SavedContent += SavedContent;
+            _contentEvents.SavingContent += SavingContent;
         }
 
         private void SavedContent(object sender, ContentEventArgs e)
@@ -51,6 +56,46 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
 
             var items = new List<ContentReference>();
             UpdateOwnerContentLinks(e.ContentLink, e.Content, items, false);
+        }
+
+        private void SavingContent(object sender, ContentEventArgs e)
+        {
+            if (!_blockEnhancementsOptions.LocalContentFeatureEnabled)
+            {
+                return;
+            }
+
+            var currentContentContextId = _currentContentContext.ContentLink;
+            if (currentContentContextId.ToReferenceWithoutVersion() != e.ContentLink.ToReferenceWithoutVersion())
+            {
+                return;
+            }
+
+            var localContentOwner = _contentLoader.GetAncestors(e.ContentLink).FirstOrDefault(x =>
+                x is ContentAssetFolder folder && folder.ContentOwnerID != System.Guid.Empty) as ContentAssetFolder;
+
+            if (localContentOwner == null)
+            {
+                return;
+            }
+
+            if (_contentLoader.TryGet<IContent>(localContentOwner.ContentOwnerID, out var parentOfLocalContent))
+            {
+                var projectId = GetProjectIdForContentLink(parentOfLocalContent.ContentLink);
+                var draft = _latestContentVersionResolver.GetDraftLink(parentOfLocalContent.ContentLink, projectId);
+                var content = _contentLoader.Get<IContent>(draft);
+                var writable = (content as IReadOnly).CreateWritableClone();
+                (writable as IChangeTrackable).Changed = DateTime.Now;
+
+                if ((content as IVersionable).Status == VersionStatus.Published)
+                {
+                    _contentLoader.Save(writable as IContent, SaveAction.Save,  AccessLevel.NoAccess);
+                }
+                else
+                {
+                    _contentLoader.Save(writable as IContent, SaveAction.Save | SaveAction.ForceCurrentVersion, AccessLevel.NoAccess);
+                }
+            }
         }
 
         private int? GetProjectIdForContentLink(ContentReference contentReference)
@@ -173,6 +218,7 @@ namespace EPiServer.Labs.BlockEnhancements.InlineBlocksEditing
         {
             _contentEvents.PublishedContent -= PublishedContent;
             _contentEvents.SavedContent -= SavedContent;
+            _contentEvents.SavingContent += SavingContent;
         }
     }
 }

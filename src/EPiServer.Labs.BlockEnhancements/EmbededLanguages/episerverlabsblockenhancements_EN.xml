@@ -20,6 +20,9 @@
         <ilineediting>
           <browseexistingitems>browse existing content</browseexistingitems>
           <inlinetranslate>Create {missingLanguage} language version</inlinetranslate>
+          <localcontentinfo>This is a local content item which does not have its own publishing lifecycle. </localcontentinfo>
+          <clickhere>Click here</clickhere>
+          <itsparent>to see its parent.</itsparent>
         </ilineediting>
       </blockenhancements>
     </episerverlabs>

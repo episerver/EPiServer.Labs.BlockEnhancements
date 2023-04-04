@@ -1,2 +1,0 @@
-USE [$(DBName)]
-GO

@@ -1,9 +1,0 @@
-node_modules/
-dist/
-.storybook/
-*.stories.*
-babel.config.js
-webpack.common.js
-webpack.widget.config.js
-webpack.config.js
-empty-css.js
